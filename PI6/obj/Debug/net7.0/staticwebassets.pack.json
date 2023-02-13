@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\wwwroot\\css\\custom.css",
+      "PackagePath": "staticwebassets\\css\\custom.css"
+    },
+    {
+      "Id": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.PI6.Server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.PI6.Server.props",
+      "PackagePath": "build\\PI6.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.PI6.Server.props",
+      "PackagePath": "buildMultiTargeting\\PI6.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.PI6.Server.props",
+      "PackagePath": "buildTransitive\\PI6.Server.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

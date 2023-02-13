@@ -1,0 +1,19 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="0" Dense="@true" Fixed="@true">
+        <MudButton OnClick="NavToIndex" Style="background-color: transparent; color: white;">
+            <MudText Typo="Typo.h4">Home</MudText>
+        </MudButton>
+    </MudAppBar>
+    <MudDrawer ClipMode="DrawerClipMode.Always" DisableOverlay="false" @bind-Open="@_drawerOpen">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>

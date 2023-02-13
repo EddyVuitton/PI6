@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\PI6.Server.props" />
+</Project>
