@@ -8,7 +8,7 @@ namespace PI6.Components.Shared;
 public partial class Test
 {
     [Inject] public IApplicationService ApplicationService { get; set; }
-    public IEnumerable<formularz_typ> FormularzeTyp = new List<formularz_typ>();
+    public IEnumerable<formularz_typ> FormularzeTyp { get; set; }
 
     private MudTable<formularz_typ> _table;
     private readonly bool _loading;
@@ -16,7 +16,7 @@ public partial class Test
 
     protected override async Task OnInitializedAsync()
     {
-        FormularzeTyp = await ApplicationService.GetAllFormularzTyp();
+        //FormularzeTyp = await ApplicationService.GetAllFormularzTyp();
     }
 
     //private bool FilterFuncGeneral(CustomerDto customer) => FilterFuncSpecific(customer, searchString);

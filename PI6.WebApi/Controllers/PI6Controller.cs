@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PI6.Shared.Entities;
+using PI6.Shared.Dtos;
 using PI6.WebApi.Data.Interfaces;
 
 namespace PI6.WebApi.Controllers;
@@ -8,19 +8,19 @@ namespace PI6.WebApi.Controllers;
 [Route("api/[controller]")]
 public class PI6Controller : Controller
 {
-    private readonly IFormularzTypRepository _formularzTypRepository;
+    private readonly IApplicationRepository _applicationRepository;
 
     public PI6Controller
     (
-        IFormularzTypRepository formularzTypRepository
+        IApplicationRepository applicationRepository
     )
     {
-        _formularzTypRepository = formularzTypRepository;
+        _applicationRepository = applicationRepository;
     }
 
-    [HttpGet("Test")]
-    public async Task<ActionResult<IEnumerable<formularz_typ>>> Test()
+    [HttpGet("PobierzFormularzeDto")]
+    public async Task<ActionResult<IEnumerable<FormularzDto>>> PobierzFormularzeDto()
     {
-        return Ok(await _formularzTypRepository.GetFormularzTyp());
+        return Ok(await _applicationRepository.PobierzFormularzeDto());
     }
 }

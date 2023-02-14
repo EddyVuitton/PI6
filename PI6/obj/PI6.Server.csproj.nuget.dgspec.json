@@ -1,20 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\PI6.Server.csproj": {}
+    "C:\\VisualProjects\\PI6\\PI6\\PI6.Server.csproj": {}
   },
   "projects": {
-    "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\PI6.Components.csproj": {
+    "C:\\VisualProjects\\PI6\\PI6.Components\\PI6.Components.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\PI6.Components.csproj",
+        "projectUniqueName": "C:\\VisualProjects\\PI6\\PI6.Components\\PI6.Components.csproj",
         "projectName": "PI6.Components",
-        "projectPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\PI6.Components.csproj",
-        "packagesPath": "C:\\Users\\Eddy\\.nuget\\packages\\",
-        "outputPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\obj\\",
+        "projectPath": "C:\\VisualProjects\\PI6\\PI6.Components\\PI6.Components.csproj",
+        "packagesPath": "C:\\Users\\edward.gadawski\\.nuget\\packages\\",
+        "outputPath": "C:\\VisualProjects\\PI6\\PI6.Components\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Eddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\edward.gadawski\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,14 +28,16 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\WebApi\\AASA\\Dm.Aasa.WebApi\\src": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/bakkspzoo/_packaging/Dm.Winforms%40Local/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.WebApi\\PI6.WebApi.csproj": {
-                "projectPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.WebApi\\PI6.WebApi.csproj"
+              "C:\\VisualProjects\\PI6\\PI6.WebApi\\PI6.WebApi.csproj": {
+                "projectPath": "C:\\VisualProjects\\PI6\\PI6.WebApi\\PI6.WebApi.csproj"
               }
             }
           }
@@ -69,21 +77,27 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\PI6.Shared.csproj": {
+    "C:\\VisualProjects\\PI6\\PI6.Shared\\PI6.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\PI6.Shared.csproj",
+        "projectUniqueName": "C:\\VisualProjects\\PI6\\PI6.Shared\\PI6.Shared.csproj",
         "projectName": "PI6.Shared",
-        "projectPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\PI6.Shared.csproj",
-        "packagesPath": "C:\\Users\\Eddy\\.nuget\\packages\\",
-        "outputPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\obj\\",
+        "projectPath": "C:\\VisualProjects\\PI6\\PI6.Shared\\PI6.Shared.csproj",
+        "packagesPath": "C:\\Users\\edward.gadawski\\.nuget\\packages\\",
+        "outputPath": "C:\\VisualProjects\\PI6\\PI6.Shared\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Eddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\edward.gadawski\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,7 +105,9 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\WebApi\\AASA\\Dm.Aasa.WebApi\\src": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/bakkspzoo/_packaging/Dm.Winforms%40Local/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
@@ -134,21 +150,27 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.WebApi\\PI6.WebApi.csproj": {
+    "C:\\VisualProjects\\PI6\\PI6.WebApi\\PI6.WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.WebApi\\PI6.WebApi.csproj",
+        "projectUniqueName": "C:\\VisualProjects\\PI6\\PI6.WebApi\\PI6.WebApi.csproj",
         "projectName": "PI6.WebApi",
-        "projectPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.WebApi\\PI6.WebApi.csproj",
-        "packagesPath": "C:\\Users\\Eddy\\.nuget\\packages\\",
-        "outputPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.WebApi\\obj\\",
+        "projectPath": "C:\\VisualProjects\\PI6\\PI6.WebApi\\PI6.WebApi.csproj",
+        "packagesPath": "C:\\Users\\edward.gadawski\\.nuget\\packages\\",
+        "outputPath": "C:\\VisualProjects\\PI6\\PI6.WebApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Eddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\edward.gadawski\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -156,14 +178,16 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\WebApi\\AASA\\Dm.Aasa.WebApi\\src": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/bakkspzoo/_packaging/Dm.Winforms%40Local/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\PI6.Shared.csproj": {
-                "projectPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\PI6.Shared.csproj"
+              "C:\\VisualProjects\\PI6\\PI6.Shared\\PI6.Shared.csproj": {
+                "projectPath": "C:\\VisualProjects\\PI6\\PI6.Shared\\PI6.Shared.csproj"
               }
             }
           }
@@ -206,21 +230,27 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\PI6.Server.csproj": {
+    "C:\\VisualProjects\\PI6\\PI6\\PI6.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\PI6.Server.csproj",
+        "projectUniqueName": "C:\\VisualProjects\\PI6\\PI6\\PI6.Server.csproj",
         "projectName": "PI6.Server",
-        "projectPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\PI6.Server.csproj",
-        "packagesPath": "C:\\Users\\Eddy\\.nuget\\packages\\",
-        "outputPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\obj\\",
+        "projectPath": "C:\\VisualProjects\\PI6\\PI6\\PI6.Server.csproj",
+        "packagesPath": "C:\\Users\\edward.gadawski\\.nuget\\packages\\",
+        "outputPath": "C:\\VisualProjects\\PI6\\PI6\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Eddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\edward.gadawski\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -228,17 +258,19 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\WebApi\\AASA\\Dm.Aasa.WebApi\\src": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/bakkspzoo/_packaging/Dm.Winforms%40Local/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\PI6.Components.csproj": {
-                "projectPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\PI6.Components.csproj"
+              "C:\\VisualProjects\\PI6\\PI6.Components\\PI6.Components.csproj": {
+                "projectPath": "C:\\VisualProjects\\PI6\\PI6.Components\\PI6.Components.csproj"
               },
-              "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.WebApi\\PI6.WebApi.csproj": {
-                "projectPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.WebApi\\PI6.WebApi.csproj"
+              "C:\\VisualProjects\\PI6\\PI6.WebApi\\PI6.WebApi.csproj": {
+                "projectPath": "C:\\VisualProjects\\PI6\\PI6.WebApi\\PI6.WebApi.csproj"
               }
             }
           }
@@ -277,7 +309,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

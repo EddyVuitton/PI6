@@ -1,4 +1,4 @@
-﻿using PI6.Shared.Entities;
+﻿using PI6.Shared.Dtos;
 
 namespace PI6.WebApi.Services;
 
@@ -11,13 +11,13 @@ public class ApplicationService : IApplicationService
         _httpClient = httpClient;
     }
 
-    public async Task<IEnumerable<formularz_typ>> GetAllFormularzTyp()
+    public async Task<IEnumerable<FormularzDto>> PobierzFormularzeDto()
     {
         try
         {
-            var typyFormularzy = await _httpClient.GetFromJsonAsync<IEnumerable<formularz_typ>>("api/pi6/Test");
+            var formularze = await _httpClient.GetFromJsonAsync<IEnumerable<FormularzDto>>("api/pi6/PobierzFormularzeDto");
 
-            return typyFormularzy;
+            return formularze;
         }
         catch (Exception)
         {
