@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using PI6.Shared.Dtos;
 using PI6.Shared.Entities;
 
-namespace PI6.WebApi.Data;
+namespace PI6.Shared.DataSource;
 
 public partial class DBContext : DbContext
 {

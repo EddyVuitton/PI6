@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PI6.Shared.Dtos;
-using PI6.WebApi.Data.Interfaces;
+using PI6.WebApi.Data;
 
 namespace PI6.WebApi.Controllers;
 

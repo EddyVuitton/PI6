@@ -1,6 +1,6 @@
 ﻿using PI6.Shared.Dtos;
 
-namespace PI6.WebApi.Data.Interfaces;
+namespace PI6.WebApi.Data;
 
 public interface IApplicationRepository
 {

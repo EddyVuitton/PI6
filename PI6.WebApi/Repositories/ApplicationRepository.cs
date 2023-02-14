@@ -1,8 +1,8 @@
-﻿using PI6.Shared.Dtos;
-using PI6.WebApi.Data.Interfaces;
+﻿using PI6.Shared.DataSource;
+using PI6.Shared.Dtos;
 using PI6.WebApi.Extensions;
 
-namespace PI6.WebApi.Data.Implementations;
+namespace PI6.WebApi.Data;
 
 public class ApplicationRepository : IApplicationRepository
 {
@@ -15,6 +15,6 @@ public class ApplicationRepository : IApplicationRepository
 
     public async Task<List<FormularzDto>> PobierzFormularzeDto()
     {
-        return await DbContextExtensions.SqlQueryAsync<FormularzDto>(_context, "exec dbo.p_pobierz_formularze", null, default);
+        return await _context.SqlQueryAsync<FormularzDto>("exec dbo.p_pobierz_formularze", null, default);
     }
 }
