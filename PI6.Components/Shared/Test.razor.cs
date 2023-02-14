@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using PI6.Shared.Entities;
+using PI6.Shared.Data.Entities;
 using PI6.WebApi.Services;
 
 namespace PI6.Components.Shared;

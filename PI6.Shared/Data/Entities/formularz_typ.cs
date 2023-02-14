@@ -1,4 +1,4 @@
-﻿namespace PI6.Shared.Entities;
+﻿namespace PI6.Shared.Data.Entities;
 
 public class formularz_typ
 {

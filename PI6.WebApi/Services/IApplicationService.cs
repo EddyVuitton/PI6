@@ -1,4 +1,4 @@
-﻿using PI6.Shared.Dtos;
+﻿using PI6.Shared.Data.Dtos;
 
 namespace PI6.WebApi.Services;
 

@@ -1,5 +1,5 @@
-﻿using PI6.Shared.DataSource;
-using PI6.Shared.Dtos;
+﻿using PI6.Shared.Data.Dtos;
+using PI6.Shared.DataSource;
 using PI6.WebApi.Extensions;
 
 namespace PI6.WebApi.Data;
