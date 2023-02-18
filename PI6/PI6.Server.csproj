@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="MudBlazor" Version="6.1.8" />
+		<PackageReference Include="MudBlazor" Version="6.1.9" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\PI6.Components\PI6.Components.csproj" />
