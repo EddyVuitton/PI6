@@ -11,13 +11,13 @@ public partial class Test
     public IEnumerable<formularz_typ> FormularzeTyp { get; set; }
 
     private MudTable<formularz_typ> _table;
-    private readonly bool _loading;
-    private string searchString = "";
+    //private readonly bool _loading;
+    //private string searchString = "";
 
-    protected override async Task OnInitializedAsync()
-    {
-        //FormularzeTyp = await ApplicationService.GetAllFormularzTyp();
-    }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    FormularzeTyp = await ApplicationService.GetAllFormularzTyp();
+    //}
 
     //private bool FilterFuncGeneral(CustomerDto customer) => FilterFuncSpecific(customer, searchString);
 

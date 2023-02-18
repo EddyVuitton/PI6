@@ -1,11 +1,45 @@
 ﻿@page "/newquiz"
 
-<MudPaper Elevation="2" Class="d-flex justify-center">
-    <MudPaper Elevation="0" Style="margin: 1%; border: 1px solid; width: 50%;">
+@*<MudPaper Elevation="0" Class="d-flex justify-center">
+    <MudPaper Elevation="0" Style="margin: 1%; border: 0px solid #673AB7; width: 50%;">
         <MudGrid Justify="Justify.FlexStart">
             <MudItem xs="12">
-                <MudPaper Class="d-flex flex-column align-center justify-center mud-width-full py-8" Style=" border: 1px solid red;">
-                    <MudTextField Style="border: 1px solid; width: 600px; height: 50px; font-size: 45px;" T="string" />
+                <MudPaper Class="d-flex flex-column align-center justify-center" >
+                    <MudTextField Style=" width: 600px; height: 50px; font-size: 45px;" T="string" />
+                </MudPaper>
+            </MudItem>
+            @for (int i = 0; i < _questionCount; i++)
+            {
+                int localindex = i;
+                <MudItem xs="12" >
+                    <MudPaper Class="d-flex flex-column align-center justify-center" >
+                        <MudGrid  >
+                            <MudItem xs="12" Style=" " >
+                                <MudButton Variant="Variant.Filled" OnClick="AddNew" Color="Color.Primary" Style="text-transform:none;">Add new</MudButton>
+                            </MudItem>
+                            <MudItem xs="12" Style=" " >
+                                <MudTextField @bind-Value="TextValue2" Label="Pytanie" Variant="Variant.Outlined"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" Style=" " >
+                                <MudButton Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary">Nowa opcja</MudButton>
+                            </MudItem>
+                        </MudGrid>
+                    </MudPaper>
+                </MudItem>
+            }
+            <MudItem xs="12">
+                <MudButton Variant="Variant.Filled" OnClick="AddNew" Color="Color.Primary" Style="text-transform:none; margin: 0%; padding-left: 2%; padding-right: 2%;">Add new</MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+</MudPaper>*@
+
+<MudPaper Elevation="0" Class="d-flex justify-center" Style="margin-top: 1%;">
+    <MudPaper Elevation="0" Width="600px">
+        <MudGrid Justify="Justify.FlexStart">
+            <MudItem xs="12">
+                <MudPaper Class="d-flex flex-column align-center justify-center">
+                    <MudTextField Style="width: 600px; height: 50px; font-size: 45px;" T="string" />
                 </MudPaper>
             </MudItem>
             @for (int i = 0; i < _questionCount; i++)
@@ -13,13 +47,26 @@
                 int localindex = i;
 
                 <MudItem xs="12">
-                    <MudPaper Class="d-flex flex-column align-center justify-center mud-width-full py-8" Style="border: 1px solid blue;">
-                        <MudTextField @bind-Value="TextValue2" Label="Outlined" Variant="Variant.Outlined"></MudTextField>
+                    <MudPaper Elevation="5" Class="d-flex flex-column align-center justify-center">
+                        <MudGrid>
+                            <MudItem xs="12" Style="margin-top: 1%; margin-left: 1%;">
+                                <MudButton OnClick="DeleteQuestion" Variant="Variant.Filled" Color="Color.Error" Style="text-transform:none;">Usuń</MudButton>
+                            </MudItem>
+                            <MudItem xs="12" Style="margin-left: 1%; margin-right: 1%;">
+                                <MudTextField T="string" Style="font-size: 20px;" @bind-Value="TextValue2" Label="Pytanie" Variant="Variant.Outlined"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" Style="margin-left: 1%;">
+                                <MudTextField T="string" Style="font-size: 15px; width: 40%;"  @bind-Value="TextValue2" Label="Opcja" Variant="Variant.Outlined"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" Style="margin-left: 1%; margin-bottom: 1%;">
+                                <MudButton Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary">Nowa opcja</MudButton>
+                            </MudItem>
+                        </MudGrid>
                     </MudPaper>
                 </MudItem>
             }
             <MudItem xs="12">
-                <MudButton OnClick="AddNew" Style="text-transform:none; margin: 1%; padding:2%; background-color: hotpink;">Add new</MudButton>
+                <MudButton Variant="Variant.Filled" OnClick="AddQuestion" Color="Color.Success" Style="text-transform:none; margin: 0%; padding-left: 2%; padding-right: 2%;">Add new</MudButton>
             </MudItem>
         </MudGrid>
     </MudPaper>

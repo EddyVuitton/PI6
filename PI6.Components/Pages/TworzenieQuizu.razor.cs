@@ -9,9 +9,15 @@ public partial class TworzenieQuizu
 
     private int _questionCount = 1;
 
-    private void AddNew()
+    private void AddQuestion()
     {
         _questionCount++;
+        StateHasChanged();
+    }
+
+    private void DeleteQuestion()
+    {
+        _questionCount--;
         StateHasChanged();
     }
 }

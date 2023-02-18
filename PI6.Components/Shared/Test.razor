@@ -5,7 +5,7 @@
 else
 {
     <MudPaper Elevation="0" Class="d-flex justify-center">
-        <MudTable Dense="true" Style="width: 20%;" @ref="@_table" Items="@FormularzeTyp.OrderBy(x => x.fort_id)" Hover="@true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+        <MudTable Dense="true" Style="width: 20%;" @ref="@_table" Items="@FormularzeTyp.OrderBy(x => x.fort_id)" Hover="@true" Breakpoint="Breakpoint.Sm"  LoadingProgressColor="Color.Info">
             <HeaderContent>
                 <MudTh Style="width: 15%;">Customer</MudTh>
                 <MudTh Style="width: 10%;">Company name</MudTh>
