@@ -1,65 +1,44 @@
 ﻿@page "/newquiz"
 
-@*<MudPaper Elevation="0" Class="d-flex justify-center">
-    <MudPaper Elevation="0" Style="margin: 1%; border: 0px solid #673AB7; width: 50%;">
-        <MudGrid Justify="Justify.FlexStart">
-            <MudItem xs="12">
-                <MudPaper Class="d-flex flex-column align-center justify-center" >
-                    <MudTextField Style=" width: 600px; height: 50px; font-size: 45px;" T="string" />
-                </MudPaper>
-            </MudItem>
-            @for (int i = 0; i < _questionCount; i++)
-            {
-                int localindex = i;
-                <MudItem xs="12" >
-                    <MudPaper Class="d-flex flex-column align-center justify-center" >
-                        <MudGrid  >
-                            <MudItem xs="12" Style=" " >
-                                <MudButton Variant="Variant.Filled" OnClick="AddNew" Color="Color.Primary" Style="text-transform:none;">Add new</MudButton>
-                            </MudItem>
-                            <MudItem xs="12" Style=" " >
-                                <MudTextField @bind-Value="TextValue2" Label="Pytanie" Variant="Variant.Outlined"></MudTextField>
-                            </MudItem>
-                            <MudItem xs="12" Style=" " >
-                                <MudButton Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary">Nowa opcja</MudButton>
-                            </MudItem>
-                        </MudGrid>
-                    </MudPaper>
-                </MudItem>
-            }
-            <MudItem xs="12">
-                <MudButton Variant="Variant.Filled" OnClick="AddNew" Color="Color.Primary" Style="text-transform:none; margin: 0%; padding-left: 2%; padding-right: 2%;">Add new</MudButton>
-            </MudItem>
-        </MudGrid>
-    </MudPaper>
-</MudPaper>*@
-
 <MudPaper Elevation="0" Class="d-flex justify-center" Style="margin-top: 1%;">
     <MudPaper Elevation="0" Width="600px">
         <MudGrid Justify="Justify.FlexStart">
             <MudItem xs="12">
                 <MudPaper Class="d-flex flex-column align-center justify-center">
-                    <MudTextField Style="width: 600px; height: 50px; font-size: 45px;" T="string" />
+                    <MudTextField T="string" Label="Tytuł" @bind-Value="_title" Style="width: 600px; height: 50px; font-size: 45px;" />
                 </MudPaper>
             </MudItem>
-            @for (int i = 0; i < _questionCount; i++)
+            @for (int i = 0; i < _questionList.Count; i++)
             {
                 int localindex = i;
+                int localQuestionId = _questionList[localindex];
+
+                var localQuestionOptions = _questionOption.Where(x => x.Key == localQuestionId);
 
                 <MudItem xs="12">
                     <MudPaper Elevation="5" Class="d-flex flex-column align-center justify-center">
                         <MudGrid>
                             <MudItem xs="12" Style="margin-top: 1%; margin-left: 1%;">
-                                <MudButton OnClick="DeleteQuestion" Variant="Variant.Filled" Color="Color.Error" Style="text-transform:none;">Usuń</MudButton>
+                                <MudButton OnClick="@(() => DeleteQuestion(localQuestionId))" Variant="Variant.Filled" Color="Color.Error" Style="text-transform:none;">Usuń</MudButton>
+                            </MudItem>
+                            <MudItem xs="12">
+                                <span>count: @localQuestionOptions.Count()</span>
                             </MudItem>
                             <MudItem xs="12" Style="margin-left: 1%; margin-right: 1%;">
-                                <MudTextField T="string" Style="font-size: 20px;" @bind-Value="TextValue2" Label="Pytanie" Variant="Variant.Outlined"></MudTextField>
+                                @foreach (var i in localQuestionOptions)
+                                {
+                                    var localOption = i;
+
+                                    <MudTextField
+                                        ValueChanged="@((string valueChanged) => AddOption(localOption.Key, valueChanged))"
+                                        T="string"
+                                        Style="font-size: 20px;"
+                                        Label="Pytanie"
+                                        Variant="Variant.Outlined" />
+                                }
                             </MudItem>
-                            <MudItem xs="12" Style="margin-left: 1%;">
-                                <MudTextField T="string" Style="font-size: 15px; width: 40%;"  @bind-Value="TextValue2" Label="Opcja" Variant="Variant.Outlined"></MudTextField>
-                            </MudItem>
-                            <MudItem xs="12" Style="margin-left: 1%; margin-bottom: 1%;">
-                                <MudButton Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary">Nowa opcja</MudButton>
+                            <MudItem xs="12">
+                                <MudButton OnClick="@(() => AddOption(localQuestionId, string.Empty))" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary">Nowa opcja</MudButton>
                             </MudItem>
                         </MudGrid>
                     </MudPaper>

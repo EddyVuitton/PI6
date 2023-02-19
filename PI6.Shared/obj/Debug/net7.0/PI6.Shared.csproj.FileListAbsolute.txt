@@ -1,15 +1,3 @@
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\bin\Debug\net7.0\PI6.Shared.deps.json
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\bin\Debug\net7.0\PI6.Shared.dll
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\bin\Debug\net7.0\PI6.Shared.pdb
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.csproj.AssemblyReference.cache
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.GeneratedMSBuildEditorConfig.editorconfig
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.AssemblyInfoInputs.cache
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.AssemblyInfo.cs
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.csproj.CoreCompileInputs.cache
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.dll
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\refint\PI6.Shared.dll
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.pdb
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\ref\PI6.Shared.dll
 C:\VisualProjects\PI6\PI6.Shared\bin\Debug\net7.0\PI6.Shared.deps.json
 C:\VisualProjects\PI6\PI6.Shared\bin\Debug\net7.0\PI6.Shared.dll
 C:\VisualProjects\PI6\PI6.Shared\bin\Debug\net7.0\PI6.Shared.pdb
@@ -22,3 +10,15 @@ C:\VisualProjects\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.dll
 C:\VisualProjects\PI6\PI6.Shared\obj\Debug\net7.0\refint\PI6.Shared.dll
 C:\VisualProjects\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.pdb
 C:\VisualProjects\PI6\PI6.Shared\obj\Debug\net7.0\ref\PI6.Shared.dll
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\bin\Debug\net7.0\PI6.Shared.deps.json
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\bin\Debug\net7.0\PI6.Shared.dll
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\bin\Debug\net7.0\PI6.Shared.pdb
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.csproj.AssemblyReference.cache
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.AssemblyInfoInputs.cache
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.AssemblyInfo.cs
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.csproj.CoreCompileInputs.cache
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.dll
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\refint\PI6.Shared.dll
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\PI6.Shared.pdb
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Shared\obj\Debug\net7.0\ref\PI6.Shared.dll

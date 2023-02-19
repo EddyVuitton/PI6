@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "aEYAiMZeoqyOEKhGGj5AViQhAbpXMeKJbYS/KneOJDg=",
+  "Hash": "fBVfRKToxB8vJ93ZyXdGWdF5jl7PgX/4jVg/azNgFs0=",
   "Source": "PI6.Server",
   "BasePath": "_content/PI6.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\VisualProjects\\PI6\\PI6.Components\\PI6.Components.csproj",
+      "Identity": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\PI6.Components.csproj",
       "Version": 2,
       "Source": "PI6.Components",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
@@ -18,7 +18,7 @@
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
     },
     {
-      "Identity": "C:\\VisualProjects\\PI6\\PI6.WebApi\\PI6.WebApi.csproj",
+      "Identity": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.WebApi\\PI6.WebApi.csproj",
       "Version": 2,
       "Source": "PI6.WebApi",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
@@ -33,24 +33,24 @@
     {
       "Name": "PI6.Components\\wwwroot",
       "Source": "PI6.Components",
-      "ContentRoot": "C:\\VisualProjects\\PI6\\PI6.Components\\wwwroot\\",
+      "ContentRoot": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\wwwroot\\",
       "BasePath": "_content/PI6.Components",
       "Pattern": "**"
     },
     {
       "Name": "PI6.Server\\wwwroot",
       "Source": "PI6.Server",
-      "ContentRoot": "C:\\VisualProjects\\PI6\\PI6\\wwwroot\\",
+      "ContentRoot": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\wwwroot\\",
       "BasePath": "_content/PI6.Server",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\edward.gadawski\\.nuget\\packages\\mudblazor\\6.1.8\\staticwebassets\\MudBlazor.min.css",
+      "Identity": "C:\\Users\\Eddy\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\MudBlazor.min.css",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\edward.gadawski\\.nuget\\packages\\mudblazor\\6.1.8\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\Eddy\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.css",
       "AssetKind": "All",
@@ -61,13 +61,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\edward.gadawski\\.nuget\\packages\\mudblazor\\6.1.8\\staticwebassets\\MudBlazor.min.css"
+      "OriginalItemSpec": "C:\\Users\\Eddy\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\MudBlazor.min.css"
     },
     {
-      "Identity": "C:\\Users\\edward.gadawski\\.nuget\\packages\\mudblazor\\6.1.8\\staticwebassets\\MudBlazor.min.js",
+      "Identity": "C:\\Users\\Eddy\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\MudBlazor.min.js",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\edward.gadawski\\.nuget\\packages\\mudblazor\\6.1.8\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\Eddy\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.js",
       "AssetKind": "All",
@@ -78,13 +78,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\edward.gadawski\\.nuget\\packages\\mudblazor\\6.1.8\\staticwebassets\\MudBlazor.min.js"
+      "OriginalItemSpec": "C:\\Users\\Eddy\\.nuget\\packages\\mudblazor\\6.1.9\\staticwebassets\\MudBlazor.min.js"
     },
     {
-      "Identity": "C:\\VisualProjects\\PI6\\PI6.Components\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PI6.Components.bundle.scp.css",
+      "Identity": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PI6.Components.bundle.scp.css",
       "SourceId": "PI6.Components",
       "SourceType": "Project",
-      "ContentRoot": "C:\\VisualProjects\\PI6\\PI6.Components\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/PI6.Components",
       "RelativePath": "PI6.Components.bundle.scp.css",
       "AssetKind": "All",
@@ -95,13 +95,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\VisualProjects\\PI6\\PI6.Components\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PI6.Components.bundle.scp.css"
+      "OriginalItemSpec": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PI6.Components.bundle.scp.css"
     },
     {
-      "Identity": "C:\\VisualProjects\\PI6\\PI6.Components\\wwwroot\\background.png",
+      "Identity": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\wwwroot\\background.png",
       "SourceId": "PI6.Components",
       "SourceType": "Project",
-      "ContentRoot": "C:\\VisualProjects\\PI6\\PI6.Components\\wwwroot\\",
+      "ContentRoot": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Components\\wwwroot\\",
       "BasePath": "_content/PI6.Components",
       "RelativePath": "background.png",
       "AssetKind": "All",
@@ -115,10 +115,10 @@
       "OriginalItemSpec": "wwwroot\\background.png"
     },
     {
-      "Identity": "C:\\VisualProjects\\PI6\\PI6\\obj\\Debug\\net7.0\\scopedcss\\bundle\\PI6.Server.styles.css",
+      "Identity": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\obj\\Debug\\net7.0\\scopedcss\\bundle\\PI6.Server.styles.css",
       "SourceId": "PI6.Server",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\VisualProjects\\PI6\\PI6\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/PI6.Server",
       "RelativePath": "PI6.Server.styles.css",
       "AssetKind": "All",
@@ -129,30 +129,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\VisualProjects\\PI6\\PI6\\obj\\Debug\\net7.0\\scopedcss\\bundle\\PI6.Server.styles.css"
+      "OriginalItemSpec": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\obj\\Debug\\net7.0\\scopedcss\\bundle\\PI6.Server.styles.css"
     },
     {
-      "Identity": "C:\\VisualProjects\\PI6\\PI6\\wwwroot\\css\\custom.css",
+      "Identity": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\wwwroot\\favicon.png",
       "SourceId": "PI6.Server",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\VisualProjects\\PI6\\PI6\\wwwroot\\",
-      "BasePath": "_content/PI6.Server",
-      "RelativePath": "css/custom.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\custom.css"
-    },
-    {
-      "Identity": "C:\\VisualProjects\\PI6\\PI6\\wwwroot\\favicon.png",
-      "SourceId": "PI6.Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\VisualProjects\\PI6\\PI6\\wwwroot\\",
+      "ContentRoot": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\wwwroot\\",
       "BasePath": "_content/PI6.Server",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

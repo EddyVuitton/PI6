@@ -11,4 +11,7 @@
 	  <ProjectReference Include="..\PI6.Components\PI6.Components.csproj" />
 	  <ProjectReference Include="..\PI6.WebApi\PI6.WebApi.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="wwwroot\css\" />
+	</ItemGroup>
 </Project>
