@@ -1,52 +1,80 @@
 ﻿@page "/newquiz"
 
-<MudPaper Elevation="0" Class="d-flex justify-center" Style="margin-top: 1%;">
-    <MudPaper Elevation="0" Width="600px">
-        <MudGrid Justify="Justify.FlexStart">
-            <MudItem xs="12">
-                <MudPaper Class="d-flex flex-column align-center justify-center">
-                    <MudTextField T="string" Label="Tytuł" @bind-Value="_title" Style="width: 600px; height: 50px; font-size: 45px;" />
-                </MudPaper>
+<MudPaper Elevation="0" Width="800px" Style="margin-top: 1%; margin-left: 1%; padding: 0px; margin-right: auto; margin-left: auto;">
+    <MudGrid Spacing="3">
+        <MudItem xs="12">
+            <MudTextField Placeholder="Tytuł"
+                          T="string"
+                          @bind-Value="_title"
+                          Style="height: 50px; font-size: 50px" />
+        </MudItem>
+        @foreach (var q in _questions)
+        {
+            var localQuestion = q;
+            int localQuestionId = localQuestion.GetId();
+
+            <MudItem xs="12" Style="padding: 10px; margin: 5px">
+                <MudGrid Justify="Justify.FlexStart" Spacing="1">
+                    <MudItem xs="12">
+                        <MudTextField T="string"
+                                  Style="width: 50%; font-size: 35px; height: 50px;"
+                                  Placeholder="@($"Pytanie {localQuestion.GetLp()}")"
+                                  Variant="Variant.Outlined" />
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudButton Size="Size.Small"
+                               Variant="Variant.Filled"
+                               StartIcon="@Icons.Material.Filled.Delete"
+                               Color="Color.Error"
+                               Style="text-transform:none; font-size: 12px;"
+                               OnClick="@(() => DeleteQuestion(localQuestion))">
+                            Usuń pytanie
+                        </MudButton>
+                        <MudButton Size="Size.Small"
+                               Variant="Variant.Filled"
+                               StartIcon="@Icons.Material.Filled.Add"
+                               Color="Color.Primary"
+                               Style="text-transform:none;font-size: 12px;"
+                               OnClick="@(() => AddOption(localQuestionId, string.Empty))">
+                            Nowa opcja
+                        </MudButton>
+                    </MudItem>
+                    <MudItem xs="12">
+                        @foreach (var qo in _questionOptions.Where(x => x.GetQuestionId() == localQuestionId))
+                        {
+                            var localOption = qo;
+                            int localOptionId = qo.GetId();
+
+                            <MudGrid Spacing="0" Justify="Justify.FlexStart">
+                                <MudItem Class="align-self-center">
+                                    <MudIconButton Size="Size.Medium"
+                                           Style="padding: 0px; margin: 0px;"
+                                           Icon="@Icons.Material.Filled.Delete"
+                                           Color="Color.Dark"
+                                           OnClick="@(() => DeleteOption(localOption))" />
+                                </MudItem>
+                                <MudItem Class="align-self-center" Style="padding: 0px; margin: 0px;">
+                                    <MudTextField ValueChanged="@((string valueChanged) => EditOption(localOption.GetId(), valueChanged))"
+                                          T="string"
+                                          Class="py-0"
+                                          Style="font-size: small; height: 30px; padding: 0px; margin-bottom: 3%;"
+                                          Placeholder="@($"Opcja {localOption.GetLp()}")"
+                                          Variant="Variant.Outlined" />
+                                </MudItem>
+                            </MudGrid>
+                        }
+                    </MudItem>
+                </MudGrid>
             </MudItem>
-            @for (int i = 0; i < _questionList.Count; i++)
-            {
-                int localindex = i;
-                int localQuestionId = _questionList[localindex];
-
-                var localQuestionOptions = _questionOption.Where(x => x.Key == localQuestionId);
-
-                <MudItem xs="12">
-                    <MudPaper Elevation="5" Class="d-flex flex-column align-center justify-center">
-                        <MudGrid>
-                            <MudItem xs="12" Style="margin-top: 1%; margin-left: 1%;">
-                                <MudButton OnClick="@(() => DeleteQuestion(localQuestionId))" Variant="Variant.Filled" Color="Color.Error" Style="text-transform:none;">Usuń</MudButton>
-                            </MudItem>
-                            <MudItem xs="12">
-                                <span>count: @localQuestionOptions.Count()</span>
-                            </MudItem>
-                            <MudItem xs="12" Style="margin-left: 1%; margin-right: 1%;">
-                                @foreach (var i in localQuestionOptions)
-                                {
-                                    var localOption = i;
-
-                                    <MudTextField
-                                        ValueChanged="@((string valueChanged) => AddOption(localOption.Key, valueChanged))"
-                                        T="string"
-                                        Style="font-size: 20px;"
-                                        Label="Pytanie"
-                                        Variant="Variant.Outlined" />
-                                }
-                            </MudItem>
-                            <MudItem xs="12">
-                                <MudButton OnClick="@(() => AddOption(localQuestionId, string.Empty))" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary">Nowa opcja</MudButton>
-                            </MudItem>
-                        </MudGrid>
-                    </MudPaper>
-                </MudItem>
-            }
-            <MudItem xs="12">
-                <MudButton Variant="Variant.Filled" OnClick="AddQuestion" Color="Color.Success" Style="text-transform:none; margin: 0%; padding-left: 2%; padding-right: 2%;">Add new</MudButton>
-            </MudItem>
-        </MudGrid>
-    </MudPaper>
+        }
+        <MudItem xs="12">
+            <MudButton Size="Size.Large"
+                       Variant="Variant.Filled"
+                       OnClick="AddQuestion"
+                       Color="Color.Success"
+                       Style="text-transform:none; padding: 10px 20px 10px 20px;">
+                Dodaj pytanie
+            </MudButton>
+        </MudItem>
+    </MudGrid>
 </MudPaper>
