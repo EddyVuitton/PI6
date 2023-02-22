@@ -70,6 +70,8 @@ public partial class TworzenieQuizu
         StateHasChanged();
     }
 
+    private List<QuestionOption> GetQuestionOptions(int questionId) => _questionOptions.Where(x => x.GetQuestionId() == questionId).ToList();
+
     private void AddOption(int questionId, string optionText)
     {
         int optionId = _questionOptions.Count == 0 ? 1 : _questionOptions.Max(x => x.GetId()) + 1;

@@ -12,13 +12,14 @@
         {
             var localQuestion = q;
             int localQuestionId = localQuestion.GetId();
+            int localQuestionLp = localQuestion.GetLp();
 
             <MudItem xs="12" Style="padding: 10px; margin: 5px">
                 <MudGrid Justify="Justify.FlexStart" Spacing="1">
                     <MudItem xs="12">
                         <MudTextField T="string"
                                   Style="width: 50%; font-size: 35px; height: 50px;"
-                                  Placeholder="@($"Pytanie {localQuestion.GetLp()}")"
+                                  Placeholder="@($"Pytanie {localQuestionLp}")"
                                   Variant="Variant.Outlined" />
                     </MudItem>
                     <MudItem xs="12">
@@ -40,10 +41,11 @@
                         </MudButton>
                     </MudItem>
                     <MudItem xs="12">
-                        @foreach (var qo in _questionOptions.Where(x => x.GetQuestionId() == localQuestionId))
+                    @foreach (var qo in GetQuestionOptions(localQuestionId))
                         {
                             var localOption = qo;
                             int localOptionId = qo.GetId();
+                            int localOptionLp = qo.GetLp();
 
                             <MudGrid Spacing="0" Justify="Justify.FlexStart">
                                 <MudItem Class="align-self-center">
@@ -54,11 +56,11 @@
                                            OnClick="@(() => DeleteOption(localOption))" />
                                 </MudItem>
                                 <MudItem Class="align-self-center" Style="padding: 0px; margin: 0px;">
-                                    <MudTextField ValueChanged="@((string valueChanged) => EditOption(localOption.GetId(), valueChanged))"
+                                    <MudTextField ValueChanged="@((string valueChanged) => EditOption(localOptionId, valueChanged))"
                                           T="string"
                                           Class="py-0"
                                           Style="font-size: small; height: 30px; padding: 0px; margin-bottom: 3%;"
-                                          Placeholder="@($"Opcja {localOption.GetLp()}")"
+                                          Placeholder="@($"Opcja {localOptionLp}")"
                                           Variant="Variant.Outlined" />
                                 </MudItem>
                             </MudGrid>
