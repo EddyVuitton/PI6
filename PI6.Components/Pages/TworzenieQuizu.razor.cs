@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PI6.Components.Shared.Objects;
+using PI6.Shared.Data.Entities;
 
 namespace PI6.Components.Pages;
 
@@ -11,6 +12,9 @@ public partial class TworzenieQuizu
     private string _title = string.Empty;
     private readonly List<Question> _questions = new();
     private readonly List<QuestionOption> _questionOptions = new();
+
+    private readonly List<formularz_pytanie> _pytaniaTest = new();
+    private readonly List<formularz_pytanie_opcja> _opcjeTest = new();
 
     protected override void OnInitialized()
     {
@@ -27,6 +31,18 @@ public partial class TworzenieQuizu
         int questionId = _questions.Count == 0 ? 1 : _questions.Max(x => x.GetId()) + 1;
 
         _questions.Add(new Question(questionId, 1, string.Empty));
+
+        _pytaniaTest.Add(new formularz_pytanie
+        {
+            forp_id = questionId,
+            forp_nazwa = string.Empty,
+            forp_punkty = 1,
+            forp_czy_wiele_odp = false,
+            forp_czy_wymagane = false,
+            forp_for_id = -1,
+            forp_numer_pytania = 1
+        });
+
         AddOption(questionId, string.Empty);
 
         UpdateLPs();
@@ -43,13 +59,29 @@ public partial class TworzenieQuizu
 
             int lpOption = 1;
 
-            foreach (var qo in _questionOptions.Where(x => x.GetQuestionId() == q.GetId()))
+            foreach (var qo in GetQuestionOptions(q.GetId()))
             {
                 qo.SetLp(lpOption);
                 lpOption++;
             }
 
-            lpOption = 1;
+            lpQuestion++;
+        }
+
+        lpQuestion = 1;
+
+        foreach (var q in _pytaniaTest)
+        {
+            q.forp_numer_pytania = lpQuestion;
+
+            int lpOption = 1;
+
+            foreach (var qo in GetQuestionOptionsTest(q.forp_id))
+            {
+                qo.forp_numer_opcji = lpOption;
+                lpOption++;
+            }
+
             lpQuestion++;
         }
 
@@ -71,11 +103,21 @@ public partial class TworzenieQuizu
     }
 
     private List<QuestionOption> GetQuestionOptions(int questionId) => _questionOptions.Where(x => x.GetQuestionId() == questionId).ToList();
+    private List<formularz_pytanie_opcja> GetQuestionOptionsTest(int questionId) => _opcjeTest.Where(x => x.fpop_forp_id == questionId).ToList();
 
     private void AddOption(int questionId, string optionText)
     {
         int optionId = _questionOptions.Count == 0 ? 1 : _questionOptions.Max(x => x.GetId()) + 1;
         _questionOptions.Add(new QuestionOption(optionId, optionId, questionId, optionText));
+
+        _opcjeTest.Add(new formularz_pytanie_opcja
+        {
+            fpop_id = optionId,
+            fpop_forp_id = questionId,
+            fpop_nazwa = optionText,
+            fpop_czy_poprawna = false,
+            forp_numer_opcji = optionId
+        });
 
         UpdateLPs();
         StateHasChanged();
