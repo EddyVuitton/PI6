@@ -6,10 +6,7 @@ public static class DbContextExtensions
 {
     public static async Task<List<T>> SqlQueryAsync<T>(this DbContext db, string sql, object[] parameters = null, CancellationToken cancellationToken = default) where T : class
     {
-        if (parameters is null)
-        {
-            parameters = Array.Empty<object>();
-        }
+        parameters ??= Array.Empty<object>();
 
         if (typeof(T).GetProperties().Any())
         {
@@ -20,6 +17,13 @@ public static class DbContextExtensions
             await db.Database.ExecuteSqlRawAsync(sql, parameters, cancellationToken);
             return default;
         }
+    }
+
+    public static async Task SqlQueryAsync(this DbContext db, string sql, object[] parameters = null, CancellationToken cancellationToken = default)
+    {
+        parameters ??= Array.Empty<object>();
+
+        await db.Database.ExecuteSqlRawAsync(sql, parameters, cancellationToken);
     }
 }
 

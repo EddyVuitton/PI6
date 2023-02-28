@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "M7QpbEshmbhHNW/M/0EvCSX8eSoPaB1Fiq93+d1aH3jQM0x7q2NvhQpU/2AP7TkOJiShHxc9X1sAxT3EYEeehQ==",
+  "dgSpecHash": "dCz+L6njgnWGtz4m+HnXqt2PL8Ath6SiRMqJWzNxGb0dj3I+gLSWB4NPSEyoblo1Us6hrmVH7n53pTJXemANww==",
   "success": true,
   "projectFilePath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6\\PI6.Server.csproj",
   "expectedPackageFiles": [
@@ -48,6 +48,7 @@
     "C:\\Users\\Eddy\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\Eddy\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\Eddy\\.nuget\\packages\\mudblazor\\6.1.9\\mudblazor.6.1.9.nupkg.sha512",
+    "C:\\Users\\Eddy\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\Eddy\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\Eddy\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\Eddy\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",

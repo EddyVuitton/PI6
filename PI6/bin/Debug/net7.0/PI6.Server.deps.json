@@ -444,6 +444,14 @@
           }
         }
       },
+      "Newtonsoft.Json/13.0.2": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.2.27524"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.4.0": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
@@ -718,6 +726,7 @@
       "PI6.WebApi/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": "7.0.0",
+          "Newtonsoft.Json": "13.0.2",
           "PI6.Shared": "1.0.0",
           "Swashbuckle.AspNetCore": "6.4.0"
         },
@@ -1040,6 +1049,13 @@
       "sha512": "sha512-Vvdqrow3NX+yxl3gJYaKxsQXohA2N7t9a9NVzctnWy2oghU610bYcOXfP80exw/ygfGXovh9GHcQD/0VV6ohPw==",
       "path": "mudblazor/6.1.9",
       "hashPath": "mudblazor.6.1.9.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg==",
+      "path": "newtonsoft.json/13.0.2",
+      "hashPath": "newtonsoft.json.13.0.2.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.4.0": {
       "type": "package",

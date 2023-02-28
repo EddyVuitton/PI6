@@ -1,17 +1,22 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using PI6.Shared.Data.Entities;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using PI6.Shared.Data.Entities;
+using MudBlazor;
+using PI6.WebApi.Services;
+using PI6.WebApi.Helpers;
+using PI6.Shared.Data.Temp;
 
 namespace PI6.Components.Pages;
 
 public partial class TworzenieQuizu
 {
     [Inject] public IJSRuntime JSRuntime { get; set; }
+    [Inject] public IApplicationService ApplicationService { get; set; }
 
     private string _title = string.Empty;
-    private int _totalPoints = 0;
     private readonly List<formularz_pytanie> _questions = new();
     private readonly List<formularz_pytanie_opcja> _options = new();
+    private readonly IMask _pointsPatternMask = new PatternMask("00");
 
     protected override void OnInitialized()
     {
@@ -25,20 +30,12 @@ public partial class TworzenieQuizu
 
     private List<formularz_pytanie_opcja> GetQuestionOptions(int questionId) => _options.Where(x => x.fpop_forp_id == questionId).ToList();
 
-    private void UpdateTotalPoints()
-    {
-        _totalPoints = 0;
-
-        foreach (var q in _questions)
-            _totalPoints += q.forp_punkty;
-
-        StateHasChanged();
-    }
+    private int GetTotalPoints() => _questions.Sum(x => x.forp_punkty);
 
     private void AddQuestion()
     {
-        bool isFirst = _questions.Any();
-        int questionId = !isFirst ? 1 : _questions.Max(x => x.forp_id) + 1;
+        bool isFirst = !_questions.Any();
+        int questionId = isFirst ? 1 : _questions.Max(x => x.forp_id) + 1;
 
         _questions.Add(new formularz_pytanie
         {
@@ -93,27 +90,19 @@ public partial class TworzenieQuizu
 
     private void AddOption(int questionId, string optionText)
     {
-        bool isFirst = _options.Any(x => x.fpop_forp_id == questionId);
-        int optionId = !isFirst ? 1 : _options.Max(x => x.fpop_id) + 1;
+        bool isFirst = !_options.Any(x => x.fpop_forp_id == questionId);
+        int optionId = isFirst ? 1 : _options.Max(x => x.fpop_id) + 1;
 
         _options.Add(new formularz_pytanie_opcja
         {
             fpop_id = optionId,
             fpop_forp_id = questionId,
             fpop_nazwa = optionText,
-            fpop_czy_poprawna = !isFirst,
+            fpop_czy_poprawna = isFirst,
             forp_numer_opcji = optionId
         });
 
         UpdateLPs();
-        StateHasChanged();
-    }
-
-    private void EditOption(int optionId, string optionText)
-    {
-        var questionOption = _options.FirstOrDefault(x => x.fpop_id == optionId);
-        questionOption.fpop_nazwa = optionText;
-
         StateHasChanged();
     }
 
@@ -125,5 +114,16 @@ public partial class TworzenieQuizu
 
         UpdateLPs();
         StateHasChanged();
+    }
+
+    private void CreateForm()
+    {
+        Model1 model = new()
+        {
+            questions = _questions,
+            options = _options
+        };
+
+        ApplicationService.ZapiszFormularz(model);
     }
 }

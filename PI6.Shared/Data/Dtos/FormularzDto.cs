@@ -12,4 +12,6 @@ public class FormularzDto
     public int for_prog_zal { get; set; }
     public int fort_id { get; set; }
     public string fort_nazwa { get; set; }
+
+
 }

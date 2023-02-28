@@ -181,3 +181,4 @@ D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6\obj\Debug\net7.0\refi
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6\obj\Debug\net7.0\PI6.Server.pdb
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6\obj\Debug\net7.0\PI6.Server.genruntimeconfig.cache
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6\obj\Debug\net7.0\ref\PI6.Server.dll
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6\bin\Debug\net7.0\Newtonsoft.Json.dll
