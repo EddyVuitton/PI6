@@ -1,4 +1,4 @@
-﻿namespace PI6.Shared.Data.Dtos.Xmls;
+﻿namespace PI6.Shared.Data.Dtos;
 
 public class OpcjaDto
 {

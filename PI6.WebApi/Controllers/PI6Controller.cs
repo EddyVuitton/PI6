@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PI6.Shared.Data.Dtos;
-using PI6.Shared.Data.Temp;
-using PI6.WebApi.Data;
+using PI6.WebApi.Repositories;
 
 namespace PI6.WebApi.Controllers;
 
@@ -23,8 +22,8 @@ public class PI6Controller : Controller
     }
 
     [HttpPost("ZapiszFormularz")]
-    public async Task ZapiszFormularz(Model1 content)
+    public async Task ZapiszFormularz(FormularzDto form)
     {
-        await _applicationRepository.ZapiszFormularz(content);
+        await _applicationRepository.ZapiszFormularz(form);
     }
 }

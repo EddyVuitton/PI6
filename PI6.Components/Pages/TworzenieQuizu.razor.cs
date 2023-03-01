@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
 using PI6.WebApi.Services;
-using PI6.WebApi.Helpers;
 using PI6.Shared.Data.Temp;
+using PI6.Shared.Data.Dtos;
 
 namespace PI6.Components.Pages;
 
@@ -118,12 +118,43 @@ public partial class TworzenieQuizu
 
     private void CreateForm()
     {
+        List<OpcjaDto> options = (
+            from o in _options
+            select new OpcjaDto
+            {
+                PytanieId = o.fpop_forp_id,
+                OpcjaId = o.fpop_id,
+                OpcjaNazwa = o.fpop_nazwa,
+                OpcjaCzyPoprawna = o.fpop_czy_poprawna,
+                OpcjaNumerOpc = (int)o.forp_numer_opcji
+            }).ToList();
+
+        List<PytanieDto> questions = (
+            from q in _questions
+            select new PytanieDto
+            {
+                PytanieId = q.forp_id,
+                PytanieNazwa = q.forp_nazwa,
+                PytaniePunkty = q.forp_punkty,
+                PytanieCzyWieleOdp = q.forp_czy_wiele_odp,
+                PytanieCzyWymagane = q.forp_czy_wymagane,
+                PytanieForId = q.forp_for_id,
+                PytanieNumerPyt = (int)q.forp_numer_pytania,
+                Opcje = null
+            }).ToList();
+
+        FormularzDto newForm = new()
+        {
+            Pytania = questions,
+            Opcje = options
+        };
+
         Model1 model = new()
         {
             questions = _questions,
             options = _options
         };
 
-        ApplicationService.ZapiszFormularz(model);
+        ApplicationService.ZapiszFormularz(newForm);
     }
 }

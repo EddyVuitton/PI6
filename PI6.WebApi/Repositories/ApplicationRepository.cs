@@ -1,13 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using PI6.Shared.Data.Dtos;
-using PI6.Shared.Data.Temp;
+﻿using PI6.Shared.Data.Dtos;
 using PI6.Shared.DataSource;
 using PI6.WebApi.Extensions;
-using PI6.WebApi.Helpers;
-using System.Data;
 
-namespace PI6.WebApi.Data;
+namespace PI6.WebApi.Repositories;
 
 public class ApplicationRepository : IApplicationRepository
 {
@@ -23,21 +18,21 @@ public class ApplicationRepository : IApplicationRepository
         return await _context.SqlQueryAsync<FormularzDto>("exec dbo.p_pobierz_formularze", null, default);
     }
 
-    public async Task ZapiszFormularz(Model1 model1)
+    public async Task ZapiszFormularz(FormularzDto form)
     {
-        var xml = Formularz.GenerateXml(model1.questions, model1.options);
+        //var xml = Formularz.GenerateXml(form.Pytania, form.Opcje);
 
-        SqlParameter param = new()
-        {
-            ParameterName = "xml",
-            Value = xml
-        };
+        //var param = new object[]
+        //{
+        //    new SqlParameter()
+        //    {
+        //        ParameterName = "xml",
+        //        Value = xml
+        //    }
+        //};
 
-        object[] paramArray = { param };
+        //await _context.SqlQueryAsync("exec dbo.p_zapisz_formularz @xml", param, default);
 
-        //await _context.SqlQueryAsync("exec dbo.p_zapisz_formularz", paramArray, default);
-        var x = await _context.Database.ExecuteSqlAsync($"exec dbo.p_zapisz_formularz @xml = {xml}");
-
-        var y = 5;
+        //await _context.Database.ExecuteSqlAsync($"exec dbo.p_zapisz_formularz @xml = {xml}");
     }
 }

@@ -2,16 +2,17 @@
 
 public class FormularzDto
 {
-    public int for_id { get; set; }
-    public string for_nazwa { get; set; }
-    public DateTime for_data_stworzenia { get; set; }
-    public DateTime for_data_otwarcia { get; set; }
-    public DateTime for_data_zamkniecia { get; set; }
-    public int for_dozwolone_podejscia { get; set; }
-    public int for_limit_czasu { get; set; }
-    public int for_prog_zal { get; set; }
-    public int fort_id { get; set; }
-    public string fort_nazwa { get; set; }
+    public int ForId { get; set; }
+    public string Nazwa { get; set; }
+    public DateTime DataStworzenia { get; set; }
+    public DateTime DataOtwarcia { get; set; }
+    public DateTime DataZamkniecia { get; set; }
+    public int DozwolonePodejscia { get; set; }
+    public int LimitCzasu { get; set; }
+    public int ProgZal { get; set; }
+    public int FortId { get; set; }
+    public string FortNazwa { get; set; }
 
-
+    public List<PytanieDto> Pytania { get; set; }
+    public List<OpcjaDto> Opcje { get; set; }
 }

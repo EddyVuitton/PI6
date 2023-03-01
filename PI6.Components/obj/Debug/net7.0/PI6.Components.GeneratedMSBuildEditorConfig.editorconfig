@@ -9,45 +9,45 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows,browser
 build_property.RootNamespace = PI6.Components
 build_property.RootNamespace = PI6.Components
-build_property.ProjectDir = D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Components\
+build_property.ProjectDir = C:\VisualProjects\PI6\PI6.Components\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.Components
+build_property.MSBuildProjectDirectory = C:\VisualProjects\PI6\PI6.Components
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Layout/SurveyPrompt.razor]
+[C:/VisualProjects/PI6/PI6.Components/Layout/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Pages/FormularzIndex.razor]
+[C:/VisualProjects/PI6/PI6.Components/Pages/FormularzIndex.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9ybXVsYXJ6SW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Pages/Index.razor]
+[C:/VisualProjects/PI6/PI6.Components/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Pages/TworzenieQuizu.razor]
+[C:/VisualProjects/PI6/PI6.Components/Pages/TworzenieQuizu.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHdvcnplbmllUXVpenUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Shared/AdvCarousel.razor]
+[C:/VisualProjects/PI6/PI6.Components/Shared/AdvCarousel.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFkdkNhcm91c2VsLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Shared/Test.razor]
+[C:/VisualProjects/PI6/PI6.Components/Shared/Test.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFRlc3QucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/_Imports.razor]
+[C:/VisualProjects/PI6/PI6.Components/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Layout/MainLayout.razor]
+[C:/VisualProjects/PI6/PI6.Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-jcgqfbjf8r
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Layout/NavMenu.razor]
+[C:/VisualProjects/PI6/PI6.Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-a6kvycnk4s

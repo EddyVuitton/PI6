@@ -145,3 +145,4 @@ D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\obj\Debug\net7
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\obj\Debug\net7.0\PI6.WebApi.genruntimeconfig.cache
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\obj\Debug\net7.0\ref\PI6.WebApi.dll
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\VisualProjects\PI6\PI6.WebApi\bin\Debug\net7.0\Newtonsoft.Json.dll
