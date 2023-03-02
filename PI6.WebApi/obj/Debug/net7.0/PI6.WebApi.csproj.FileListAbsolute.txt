@@ -71,6 +71,7 @@ C:\VisualProjects\PI6\PI6.WebApi\obj\Debug\net7.0\refint\PI6.WebApi.dll
 C:\VisualProjects\PI6\PI6.WebApi\obj\Debug\net7.0\PI6.WebApi.pdb
 C:\VisualProjects\PI6\PI6.WebApi\obj\Debug\net7.0\PI6.WebApi.genruntimeconfig.cache
 C:\VisualProjects\PI6\PI6.WebApi\obj\Debug\net7.0\ref\PI6.WebApi.dll
+C:\VisualProjects\PI6\PI6.WebApi\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\appsettings.Development.json
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\appsettings.json
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\PI6.WebApi.exe
@@ -98,6 +99,7 @@ D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\Microsoft.OpenApi.dll
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -144,5 +146,3 @@ D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\obj\Debug\net7
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\obj\Debug\net7.0\PI6.WebApi.pdb
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\obj\Debug\net7.0\PI6.WebApi.genruntimeconfig.cache
 D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\obj\Debug\net7.0\ref\PI6.WebApi.dll
-D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\PI6.WebApi\bin\Debug\net7.0\Newtonsoft.Json.dll
-C:\VisualProjects\PI6\PI6.WebApi\bin\Debug\net7.0\Newtonsoft.Json.dll

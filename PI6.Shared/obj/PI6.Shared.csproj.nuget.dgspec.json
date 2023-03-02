@@ -1,37 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\VisualProjects\\PI6\\PI6.Shared\\PI6.Shared.csproj": {}
+    "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\PI6.Shared.csproj": {}
   },
   "projects": {
-    "C:\\VisualProjects\\PI6\\PI6.Shared\\PI6.Shared.csproj": {
+    "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\PI6.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\VisualProjects\\PI6\\PI6.Shared\\PI6.Shared.csproj",
+        "projectUniqueName": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\PI6.Shared.csproj",
         "projectName": "PI6.Shared",
-        "projectPath": "C:\\VisualProjects\\PI6\\PI6.Shared\\PI6.Shared.csproj",
-        "packagesPath": "C:\\Users\\edward.gadawski\\.nuget\\packages\\",
-        "outputPath": "C:\\VisualProjects\\PI6\\PI6.Shared\\obj\\",
+        "projectPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\PI6.Shared.csproj",
+        "packagesPath": "C:\\Users\\Eddy\\.nuget\\packages\\",
+        "outputPath": "D:\\Programowanie\\visual\\csharp\\web\\Projekty Blazor\\PI6\\PI6.Shared\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\edward.gadawski\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Users\\Eddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\WebApi\\AASA\\Dm.Aasa.WebApi\\src": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/bakkspzoo/_packaging/Dm.Winforms%40Local/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
@@ -74,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

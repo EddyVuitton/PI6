@@ -5,13 +5,13 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="MudBlazor" Version="6.1.9" />
+		<PackageReference Include="MudBlazor" Version="6.1.9"/>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\PI6.Components\PI6.Components.csproj" />
-	  <ProjectReference Include="..\PI6.WebApi\PI6.WebApi.csproj" />
+		<ProjectReference Include="..\PI6.Components\PI6.Components.csproj"/>
+		<ProjectReference Include="..\PI6.WebApi\PI6.WebApi.csproj"/>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="wwwroot\css\" />
+		<Folder Include="wwwroot\css\"/>
 	</ItemGroup>
 </Project>

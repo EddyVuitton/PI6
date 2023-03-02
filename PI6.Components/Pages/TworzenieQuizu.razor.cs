@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
 using PI6.WebApi.Services;
-using PI6.Shared.Data.Temp;
 using PI6.Shared.Data.Dtos;
 
 namespace PI6.Components.Pages;
@@ -140,19 +139,21 @@ public partial class TworzenieQuizu
                 PytanieCzyWymagane = q.forp_czy_wymagane,
                 PytanieForId = q.forp_for_id,
                 PytanieNumerPyt = (int)q.forp_numer_pytania,
-                Opcje = null
+                Opcje = options.Where(x => x.PytanieId == q.forp_id).ToList()
             }).ToList();
 
         FormularzDto newForm = new()
         {
-            Pytania = questions,
-            Opcje = options
-        };
-
-        Model1 model = new()
-        {
-            questions = _questions,
-            options = _options
+            ForId = -1,
+            Nazwa = _title,
+            DataStworzenia = DateTime.Now,
+            DataOtwarcia = DateTime.Now,
+            DataZamkniecia = new DateTime(2100, 1, 1),
+            DozwolonePodejscia = 1,
+            LimitCzasu = 1,
+            ProgZal = 1,
+            FortId = 1,
+            Pytania = questions
         };
 
         ApplicationService.ZapiszFormularz(newForm);

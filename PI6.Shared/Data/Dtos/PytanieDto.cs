@@ -4,7 +4,7 @@ namespace PI6.Shared.Data.Dtos;
 
 public class PytanieDto
 {
-    [XmlAttribute(AttributeName = "PytanieId")]
+    [XmlAttribute(AttributeName = "Id")]
     public int PytanieId { get; set; }
 
     [XmlAttribute(AttributeName = "Nazwa")]
@@ -17,9 +17,8 @@ public class PytanieDto
     public bool PytanieCzyWymagane { get; set; }
     [XmlAttribute(AttributeName = "ForId")]
     public int PytanieForId { get; set; }
-    [XmlAttribute(AttributeName = "NumerPyt")]
+    [XmlAttribute(AttributeName = "Numer")]
     public int PytanieNumerPyt { get; set; }
 
-    [XmlElement(ElementName = "OpcjaDto")]
     public List<OpcjaDto> Opcje { get; set; }
 }

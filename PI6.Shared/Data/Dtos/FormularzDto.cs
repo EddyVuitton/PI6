@@ -14,5 +14,4 @@ public class FormularzDto
     public string FortNazwa { get; set; }
 
     public List<PytanieDto> Pytania { get; set; }
-    public List<OpcjaDto> Opcje { get; set; }
 }

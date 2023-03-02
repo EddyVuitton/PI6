@@ -1,6 +1,8 @@
-﻿using PI6.Shared.Data.Dtos;
+﻿using Microsoft.Data.SqlClient;
+using PI6.Shared.Data.Dtos;
 using PI6.Shared.DataSource;
 using PI6.WebApi.Extensions;
+using PI6.WebApi.Helpers;
 
 namespace PI6.WebApi.Repositories;
 
@@ -20,19 +22,18 @@ public class ApplicationRepository : IApplicationRepository
 
     public async Task ZapiszFormularz(FormularzDto form)
     {
-        //var xml = Formularz.GenerateXml(form.Pytania, form.Opcje);
+        var xml = Formularz.GenerateXml(form);
 
-        //var param = new object[]
-        //{
-        //    new SqlParameter()
-        //    {
-        //        ParameterName = "xml",
-        //        Value = xml
-        //    }
-        //};
+        var param = new object[]
+        {
+            new SqlParameter()
+            {
+                ParameterName = "xml",
+                Value = xml,
+                SqlDbType = System.Data.SqlDbType.Xml
+            }
+        };
 
-        //await _context.SqlQueryAsync("exec dbo.p_zapisz_formularz @xml", param, default);
-
-        //await _context.Database.ExecuteSqlAsync($"exec dbo.p_zapisz_formularz @xml = {xml}");
+        await _context.SqlQueryAsync("exec dbo.p_zapisz_formularz @xml", param, default);
     }
 }

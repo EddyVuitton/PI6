@@ -1,0 +1,15 @@
+backup database pi6_data
+to disk = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy\pi6_data.bak'
+	with format
+	, medianame = 'SQLServerBackups';
+
+backup database pi6_logic
+to disk = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy\pi6_logic.bak'
+	with format
+	, medianame = 'SQLServerBackups';
+
+restore database pi6_data
+from disk = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy\pi6_data.bak';
+
+restore database pi6_logic
+from disk = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy\pi6_logic.bak';

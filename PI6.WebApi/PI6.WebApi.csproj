@@ -5,11 +5,11 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0"/>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2"/>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\PI6.Shared\PI6.Shared.csproj" />
+		<ProjectReference Include="..\PI6.Shared\PI6.Shared.csproj"/>
 	</ItemGroup>
 </Project>
