@@ -115,6 +115,44 @@ public partial class TworzenieQuizu
         StateHasChanged();
     }
 
+    private void UpdateCorrectsOnChange(int questionId, ChangeEventArgs e)
+    {
+        if (e.Value.Equals(true))
+            return;
+
+        var options = GetQuestionOptions(questionId);
+        var firstCorrectAnswert = options.FirstOrDefault(x => x.fpop_czy_poprawna == true);
+
+        if (firstCorrectAnswert == null)
+            return;
+
+        foreach (var op in options)
+        {
+            if (op.forp_numer_opcji != firstCorrectAnswert.forp_numer_opcji)
+                op.fpop_czy_poprawna = false;
+        }
+
+        StateHasChanged();
+    }
+
+    private void UpdateOtherOptionsOnChange(formularz_pytanie_opcja option, bool isMultiAvailable)
+    {
+        if (isMultiAvailable)
+            return;
+
+        var options = GetQuestionOptions(option.fpop_forp_id);
+
+        foreach (var op in options)
+        {
+            if (op.forp_numer_opcji == option.forp_numer_opcji)
+                op.fpop_czy_poprawna = true;
+            else
+                op.fpop_czy_poprawna = false;
+        }
+
+        StateHasChanged();
+    }
+
     private void CreateForm()
     {
         List<OpcjaDto> options = (

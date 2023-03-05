@@ -1,0 +1,24 @@
+﻿<MudPaper Elevation="0" Class="d-flex flex-row" Width="50%" Style="background-color: inherit; margin: 1%;">
+    <MudPaper Elevation="0" Class="align-self-end" Style="background-color: inherit;">
+        <MudCheckBox @bind-Checked="_isCorrect"
+                     Style="padding: 0px; margin: 0px;"
+                     Size="Size.Medium"
+                     Color="Color.Primary"
+                     Dense="true"
+                     CheckedIcon="@Icons.Material.Filled.CheckBox"
+                     UncheckedIcon="@Icons.Material.Filled.CheckBoxOutlineBlank" />
+    </MudPaper>
+    <MudPaper Elevation="0" Class="" Style="background-color: inherit; ">
+        <MudTextField T="string"
+                      @bind-Value="_text"
+                      Style="font-size: medium; height: 25px; padding: 0px; margin: 0px;"
+                      Placeholder="@($"Opcja {_lp}")" />
+    </MudPaper>
+    <MudPaper Elevation="0" Class="align-self-center" Style="background-color: inherit; ">
+        <MudIconButton Size="Size.Medium"
+                       Icon="@Icons.Material.Filled.Delete"
+                       Color="Color.Dark"
+                       Style="padding: 0px; margin: 0px;"
+                       OnClick="@Delete" />
+    </MudPaper>
+</MudPaper>

@@ -1,15 +1,26 @@
-backup database pi6_data
-to disk = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy\pi6_data.bak'
-	with format
-	, medianame = 'SQLServerBackups';
+declare @path nvarchar(max) = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy';
+declare @file_name_1 nvarchar(max) = 'pi6_data';
+declare @file_name_2 nvarchar(max) = 'pi6_logic';
 
-backup database pi6_logic
-to disk = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy\pi6_logic.bak'
-	with format
-	, medianame = 'SQLServerBackups';
+declare @delete_cmd_1 nvarchar(max) = 'xp_cmdshell ''del "' + @path + '\' + @file_name_1 + '.bak"''';
+declare @delete_cmd_2 nvarchar(max) = 'xp_cmdshell ''del "' + @path + '\' + @file_name_2 + '.bak"''';
 
-restore database pi6_data
-from disk = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy\pi6_data.bak';
+declare @backup_cmd_1 nvarchar(max) = 'backup database ' + @file_name_1 + ' to disk = ''' + @path + '\' + @file_name_1 + '.bak'' with format, medianame = ''SQLServerBackups'';';
+declare @backup_cmd_2 nvarchar(max) = 'backup database ' + @file_name_2 + ' to disk = ''' + @path + '\' + @file_name_2 + '.bak'' with format, medianame = ''SQLServerBackups'';';
 
-restore database pi6_logic
-from disk = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy\pi6_logic.bak';
+declare @restore_cmd_1 nvarchar(max) = 'restore database ' + @file_name_1 + ' from disk = ''' + @path + '\' + @file_name_1 + '.bak'';';
+declare @restore_cmd_2 nvarchar(max) = 'restore database ' + @file_name_2 + ' from disk = ''' + @path + '\' + @file_name_1 + '.bak'';';
+
+
+/*
+
+DELETE
+exec (@delete_cmd_1); exec (@delete_cmd_2);
+
+BACKUP
+exec (@backup_cmd_1); exec (@backup_cmd_2);
+
+RESTORE
+exec (@restore_cmd_1); exec (@restore_cmd_2);
+
+*/

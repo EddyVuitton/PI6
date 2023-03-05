@@ -1,4 +1,5 @@
 ﻿@page "/newquiz"
+@using PI6.Shared.Data.Entities;
 
 <MudPaper Elevation="0" Class="d-flex flex-column" Width="800px" Style="margin-top: 1%; margin-left: 1%; padding: 0px; margin-right: auto; margin-left: auto;">
     <MudPaper Elevation="0" Class="d-flex flex-column justify-space-between" Style="background-color: inherit;">
@@ -9,13 +10,13 @@
                       T="string"
                       @bind-Value="_title"
                       Style="height: 50px; font-size: 70px" />
-        </MudPaper>
-        <MudPaper Elevation="0" Style="margin-top: 1%;">
-            @foreach (var q in _questions)
+            <MudPaper Elevation="0" Style="margin-top: 1%;">
+                @foreach (var q in _questions)
             {
                 var localQuestion = q;
-                int localQuestionId = localQuestion.forp_id;
+                var localQuestionId = localQuestion.forp_id;
                 int? localQuestionLp = localQuestion.forp_numer_pytania;
+                var localIsMultipleOptions = localQuestion.forp_czy_wiele_odp;
 
                 <MudPaper Elevation="0" Class="d-flex flex-column" Style="background-color: #f8f4f4; margin-top: 1%; padding: 1%;">
                     <MudPaper Elevation="0" Class="d-flex justify-space-between" Style="background-color: inherit;">
@@ -23,12 +24,24 @@
                         <MudTextField T="int"
                                   @bind-Value="localQuestion.forp_punkty"
                                   Mask="_pointsPatternMask"
+                                  Class="align-self-center"
                                   Style="font-size: 25px; width: 60px; height: 30px;"
                                   Placeholder="0"
                                   Variant="Variant.Outlined" />
-                        <MudIconButton Size="Size.Medium"
+                        <MudCheckBox @bind-Checked="localQuestion.forp_czy_wiele_odp"
+                                 @oninput="((e) => UpdateCorrectsOnChange(localQuestionId, e))"
+                                 Style="align-self:center;"
+                                 Label="Wiele odpowiedzi"
+                                 Dense="true"
+                                 Color="Color.Primary"></MudCheckBox>
+                        <MudCheckBox @bind-Checked="localQuestion.forp_czy_wymagane"
+                                 Style="align-self:center;"
+                                 Label="Wymagane"
+                                 Dense="true"
+                                 Color="Color.Primary"></MudCheckBox>
+                        <MudIconButton Size="Size.Large"
                                    Icon="@Icons.Material.Filled.Delete"
-                                   Color="Color.Dark"
+                                   Color="Color.Error"
                                    Style="padding: 1%; margin: 0px;"
                                    OnClick="@(() => DeleteQuestion(localQuestion))" />
                     </MudPaper>
@@ -45,12 +58,13 @@
                             @foreach (var qo in GetQuestionOptions(localQuestionId))
                             {
                                 var localOption = qo;
-                                int localOptionId = localOption.fpop_id;
+                                var localOptionId = localOption.fpop_id;
                                 int? localOptionLp = localOption.forp_numer_opcji;
 
                                 <MudPaper Elevation="0" Class="d-flex flex-row" Width="50%" Style="background-color: inherit; margin: 1%;">
                                     <MudPaper Elevation="0" Class="align-self-end" Style="background-color: inherit;">
                                         <MudCheckBox @bind-Checked="localOption.fpop_czy_poprawna"
+                                             @oninput="(() => UpdateOtherOptionsOnChange(localOption, localIsMultipleOptions))"
                                              Style="padding: 0px; margin: 0px;"
                                              Size="Size.Medium"
                                              Color="Color.Primary"
@@ -86,22 +100,24 @@
                     </MudPaper>
                 </MudPaper>
             }
-    </MudPaper>
-    <MudPaper Elevation="0" Style="background-color: inherit; margin-top: 1%; margin-bottom: 1%;">
-        <MudButton Size="Size.Large"
+        </MudPaper>
+        <MudPaper Elevation="0" Style="background-color: inherit; margin-top: 1%; margin-bottom: 1%;">
+            <MudButton Size="Size.Large"
+                       Variant="Variant.Filled"
+                       OnClick="AddQuestion"
+                       Color="Color.Success"
+                       Style="text-transform:none; padding: 10px 20px 10px 20px; font-size: 22px;">
+                Dodaj pytanie
+            </MudButton>
+        </MudPaper>
+        <MudButton OnClick="CreateForm"
                    Variant="Variant.Filled"
-                   OnClick="AddQuestion"
-                   Color="Color.Success"
-                   Style="text-transform:none; padding: 10px 20px 10px 20px; font-size: 22px;">
-            Dodaj pytanie
+                   Color="Color.Primary"
+                   Style="bottom:20px;left:20px; position: fixed; border-radius: 30px; padding: 1%;">
+            Stwórz formularz
         </MudButton>
+        <MudScrollToTop Visible="true">
+            <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.ArrowCircleUp" />
+        </MudScrollToTop>
     </MudPaper>
-
-    <MudButton OnClick="CreateForm" Variant="Variant.Filled" Color="Color.Primary" Style="bottom:20px;left:20px; position: fixed; border-radius: 30px; padding: 1%;">
-        Stwórz formularz
-    </MudButton>
-
-    <MudScrollToTop Visible="true">
-        <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.ArrowCircleUp" />
-    </MudScrollToTop>
 </MudPaper>
