@@ -12,10 +12,22 @@ public partial class TworzenieQuizu
     [Inject] public IJSRuntime JSRuntime { get; set; }
     [Inject] public IApplicationService ApplicationService { get; set; }
 
-    private string _title = string.Empty;
+    private readonly FormularzDto newForm = new();
     private readonly List<formularz_pytanie> _questions = new();
     private readonly List<formularz_pytanie_opcja> _options = new();
     private readonly IMask _pointsPatternMask = new PatternMask("00");
+    private IMask _regHours = new RegexMask(@"^([1-9][0-9]|[0-9])$", "00");
+    private IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$", "00");
+    private IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$", "00");
+    private string? _title = string.Empty;
+    private DateTime _createDateTime = DateTime.Now;
+    private DateTime _dateFrom = DateTime.Now;
+    private DateTime? _dateTo;
+    private int? _allowedNumberAppr;
+    private int? _requiredSeconds;
+    private int? _requiredMinutes;
+    private int? _requiredHours;
+    private int? _passingThreshold;
 
     protected override void OnInitialized()
     {
@@ -180,19 +192,16 @@ public partial class TworzenieQuizu
                 Opcje = options.Where(x => x.PytanieId == q.forp_id).ToList()
             }).ToList();
 
-        FormularzDto newForm = new()
-        {
-            ForId = -1,
-            Nazwa = _title,
-            DataStworzenia = DateTime.Now,
-            DataOtwarcia = DateTime.Now,
-            DataZamkniecia = new DateTime(2100, 1, 1),
-            DozwolonePodejscia = 1,
-            LimitCzasu = 1,
-            ProgZal = 1,
-            FortId = 1,
-            Pytania = questions
-        };
+        newForm.Pytania = questions;
+        newForm.ForId = -1;
+        newForm.Nazwa = _title;
+        newForm.DataStworzenia = _createDateTime;
+        newForm.DataOtwarcia = _dateFrom;
+        newForm.DataZamkniecia = _dateTo ?? new DateTime(2100, 1, 1);
+        newForm.DozwolonePodejscia = _allowedNumberAppr ?? 999;
+        newForm.LimitCzasu = (_requiredHours ?? 0 * 60 * 60) + (_requiredMinutes ?? 0 * 60) + (_requiredSeconds ?? 0 * 60);
+        newForm.ProgZal = _passingThreshold ?? 0;
+        newForm.FortId = 1;
 
         ApplicationService.ZapiszFormularz(newForm);
     }

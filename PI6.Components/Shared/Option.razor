@@ -1,6 +1,7 @@
 ﻿<MudPaper Elevation="0" Class="d-flex flex-row" Width="50%" Style="background-color: inherit; margin: 1%;">
     <MudPaper Elevation="0" Class="align-self-end" Style="background-color: inherit;">
         <MudCheckBox @bind-Checked="_isCorrect"
+                     @oninput="UpdateOtherOptionsOnChange"
                      Style="padding: 0px; margin: 0px;"
                      Size="Size.Medium"
                      Color="Color.Primary"
