@@ -9,7 +9,7 @@ declare @backup_cmd_1 nvarchar(max) = 'backup database ' + @file_name_1 + ' to d
 declare @backup_cmd_2 nvarchar(max) = 'backup database ' + @file_name_2 + ' to disk = ''' + @path + '\' + @file_name_2 + '.bak'' with format, medianame = ''SQLServerBackups'';';
 
 declare @restore_cmd_1 nvarchar(max) = 'restore database ' + @file_name_1 + ' from disk = ''' + @path + '\' + @file_name_1 + '.bak'';';
-declare @restore_cmd_2 nvarchar(max) = 'restore database ' + @file_name_2 + ' from disk = ''' + @path + '\' + @file_name_1 + '.bak'';';
+declare @restore_cmd_2 nvarchar(max) = 'restore database ' + @file_name_2 + ' from disk = ''' + @path + '\' + @file_name_2 + '.bak'';';
 
 
 /*
