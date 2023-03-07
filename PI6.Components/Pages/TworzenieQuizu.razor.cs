@@ -20,9 +20,8 @@ public partial class TworzenieQuizu
     private readonly IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$", "00");
     private readonly IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$", "00");
     private string _title = string.Empty;
-    private DateTime _createDateTime = DateTime.Now;
-    private DateTime _dateFrom = DateTime.Now;
-    private DateTime? _dateTo;
+    private DateTime _dateOpen = DateTime.Now;
+    private DateTime? _dateClose;
     private int? _allowedNumberAppr;
     private int? _requiredSeconds;
     private int? _requiredMinutes;
@@ -195,11 +194,11 @@ public partial class TworzenieQuizu
         newForm.Pytania = questions;
         newForm.ForId = -1;
         newForm.Nazwa = _title;
-        newForm.DataStworzenia = _createDateTime;
-        newForm.DataOtwarcia = _dateFrom;
-        newForm.DataZamkniecia = _dateTo ?? new DateTime(2100, 1, 1);
+        newForm.DataStworzenia = DateTime.Now;
+        newForm.DataOtwarcia = _dateOpen;
+        newForm.DataZamkniecia = _dateClose ?? new DateTime(2100, 1, 1);
         newForm.DozwolonePodejscia = _allowedNumberAppr ?? 999;
-        newForm.LimitCzasu = (_requiredHours ?? 0 * 60 * 60) + (_requiredMinutes ?? 0 * 60) + (_requiredSeconds ?? 0 * 60);
+        newForm.LimitCzasu = ((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + ((_requiredSeconds ?? 0));
         newForm.ProgZal = _passingThreshold ?? 0;
         newForm.FortId = 1;
 
