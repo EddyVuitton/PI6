@@ -16,10 +16,10 @@ public partial class TworzenieQuizu
     private readonly List<formularz_pytanie> _questions = new();
     private readonly List<formularz_pytanie_opcja> _options = new();
     private readonly IMask _pointsPatternMask = new PatternMask("00");
-    private IMask _regHours = new RegexMask(@"^([1-9][0-9]|[0-9])$", "00");
-    private IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$", "00");
-    private IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$", "00");
-    private string? _title = string.Empty;
+    private readonly IMask _regHours = new RegexMask(@"^([1-9][0-9]|[0-9])$", "00");
+    private readonly IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$", "00");
+    private readonly IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$", "00");
+    private string _title = string.Empty;
     private DateTime _createDateTime = DateTime.Now;
     private DateTime _dateFrom = DateTime.Now;
     private DateTime? _dateTo;
