@@ -1,29 +1,34 @@
 ﻿@page "/"
 
-<MudPaper Elevation="2" Style="margin: 1%; margin-right: auto; margin-left: auto;" Width="400px">
-    <MudGrid Justify="Justify.Center">
-        <MudItem>
-            <MudPaper Elevation="0" Class="d-flex flex-column align-center justify-center px-2">
-                <MudButton Size="Size.Small"
-                           Variant="Variant.Filled"
-                           Color="Color.Info"
-                           Href="/newform"
-                           Disabled="true"
-                           Style="text-transform:none;font-size: 20px">
-                    Nowy formularz
-                </MudButton>
-            </MudPaper>
-        </MudItem>
-        <MudItem>
-            <MudPaper Elevation="0" Class="d-flex flex-column align-center justify-center px-2">
-                <MudButton Size="Size.Small"
-                           Variant="Variant.Filled"
-                           Color="Color.Secondary"
-                           Href="/newquiz"
-                           Style="text-transform:none;font-size: 20px">
-                    New Quiz
-                </MudButton>
-            </MudPaper>
-        </MudItem>
-    </MudGrid>
+<MudPaper Elevation="0" Class="d-flex flex-column align-center justify-center">
+    <MudPaper Elevation="0" Style="margin: 1%;" Width="90%">
+        <AdvCarousel />
+    </MudPaper>
+    <MudPaper Elevation="1" Style="margin: 1%; padding: 1%;" Width="400px" Class="d-flex flex-row align-center justify-space-around">
+        <MudPaper Elevation="0">
+            <MudButton Size="Size.Small"
+                       Variant="Variant.Filled"
+                       Color="Color.Info"
+                       Href="/newform"
+                       Disabled="true"
+                       Style="text-transform:none; font-size: 20px">
+                Nowy formularz
+            </MudButton>
+        </MudPaper>
+        <MudPaper Elevation="0">
+            <MudButton Size="Size.Small"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Href="/newquiz"
+                       Style="text-transform:none; font-size: 20px">
+                Nowy quiz
+            </MudButton>
+        </MudPaper>
+    </MudPaper>
+    <MudPaper Elevation="0" Class="d-flex justify-center flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
+        @foreach (var i in _list)
+        {
+            <FormTile />
+        }
+    </MudPaper>
 </MudPaper>
