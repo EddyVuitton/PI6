@@ -36,8 +36,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFkdkNhcm91c2VsLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Shared/Test.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFRlc3QucmF6b3I=
+[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Shared/FormTile.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEZvcm1UaWxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/Shared/Option.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE9wdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programowanie/visual/csharp/web/Projekty Blazor/PI6/PI6.Components/_Imports.razor]
