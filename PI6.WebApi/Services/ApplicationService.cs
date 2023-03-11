@@ -25,7 +25,7 @@ public class ApplicationService : IApplicationService
         await _httpClient.PostAsync("api/pi6/ZapiszFormularz", data);
     }
 
-    public async Task ZapiszFormularz1(FormularzDto form)
+    public async Task ZapiszFormularz2(FormularzDto form)
     {
         var json = JsonConvert.SerializeObject(form);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
