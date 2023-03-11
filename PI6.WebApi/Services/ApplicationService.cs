@@ -24,4 +24,11 @@ public class ApplicationService : IApplicationService
         var data = new StringContent(json, Encoding.UTF8, "application/json");
         await _httpClient.PostAsync("api/pi6/ZapiszFormularz", data);
     }
+
+    public async Task ZapiszFormularz1(FormularzDto form)
+    {
+        var json = JsonConvert.SerializeObject(form);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        await _httpClient.PostAsync("api/pi6/ZapiszFormularz", data);
+    }
 }
