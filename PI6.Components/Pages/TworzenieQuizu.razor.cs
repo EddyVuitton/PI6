@@ -200,7 +200,7 @@ public partial class TworzenieQuizu
         newForm.DozwolonePodejscia = _allowedNumberAppr ?? 999;
         newForm.LimitCzasu = ((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + ((_requiredSeconds ?? 0));
         newForm.ProgZal = _passingThreshold ?? 0;
-        newForm.FortId = 1;
+        newForm.FortId = 3;
 
         ApplicationService.ZapiszFormularz(newForm);
     }

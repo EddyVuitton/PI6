@@ -26,9 +26,18 @@
         </MudPaper>
     </MudPaper>
     <MudPaper Elevation="0" Class="d-flex justify-center flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
-        @foreach (var i in _list)
+        @if (_formTiles == null)
         {
-            <FormTile />
+            <MudText>
+                Ładowanie formularzy...
+            </MudText>
+        }
+        else
+        {
+            @foreach (var i in _formTiles)
+            {
+                <FormTile />
+            }
         }
     </MudPaper>
 </MudPaper>

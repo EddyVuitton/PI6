@@ -1,13 +1,18 @@
-﻿namespace PI6.Components.Pages;
+﻿using Microsoft.AspNetCore.Components;
+using PI6.Shared.Data.Dtos;
+using PI6.Shared.Data.Entities;
+using PI6.WebApi.Services;
+
+namespace PI6.Components.Pages;
 
 public partial class FormularzIndex
 {
-    private List<int> _list = new();
-    private List<int> _list2 = new();
+    [Inject] public IApplicationService ApplicationService { get; set; }
 
-    protected override void OnInitialized()
+    private List<FormularzKafelekDto> _formTiles;
+
+    protected override async Task OnInitializedAsync()
     {
-        _list.Add(1);
-        _list.Add(1);
+        _formTiles = await ApplicationService.PobierzFormularzKafelekDto();
     }
 }

@@ -11,6 +11,4 @@ public class formularz
     public int for_dozwolone_podejscia { get; set; }
     public int for_limit_czasu { get; set; }
     public int for_prog_zal { get; set; }
-
-    public virtual formularz_typ? formularz_typ { get; set; }
 }

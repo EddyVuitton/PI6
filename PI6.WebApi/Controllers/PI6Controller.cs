@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PI6.Shared.Data.Dtos;
+using PI6.Shared.Data.Entities;
 using PI6.WebApi.Repositories;
 
 namespace PI6.WebApi.Controllers;
@@ -15,10 +16,22 @@ public class PI6Controller : Controller
         _applicationRepository = applicationRepository;
     }
 
-    [HttpGet("PobierzFormularzeDto")]
-    public async Task<ActionResult<IEnumerable<FormularzDto>>> PobierzFormularzeDto()
+    [HttpGet("PobierzFormularze")]
+    public async Task<ActionResult<List<formularz>>> PobierzFormularze()
     {
-        return Ok(await _applicationRepository.PobierzFormularzeDto());
+        return Ok(await _applicationRepository.PobierzFormularze());
+    }
+
+    [HttpGet("PobierzFormularzTyp")]
+    public async Task<ActionResult<List<formularz_typ>>> PobierzFormularzTyp()
+    {
+        return Ok(await _applicationRepository.PobierzFormularzTyp());
+    }
+
+    [HttpGet("PobierzFormularzKafelekDto")]
+    public async Task<ActionResult<List<FormularzKafelekDto>>> PobierzFormularzKafelekDto()
+    {
+        return Ok(await _applicationRepository.PobierzFormularzKafelekDto());
     }
 
     [HttpPost("ZapiszFormularz")]

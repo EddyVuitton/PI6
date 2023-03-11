@@ -1,4 +1,6 @@
 ﻿using PI6.Shared.Data.Dtos;
+using PI6.Shared.Data.Entities;
+using PI6.WebApi.Repositories;
 using System.Xml.Serialization;
 
 namespace PI6.WebApi.Helpers;
