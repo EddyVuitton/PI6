@@ -1,0 +1,24 @@
+﻿@foreach (var f in FormTiles)
+{
+    <MudLink OnClick="@(() => ConsoleLog("123"))" Href="@($"/form/{f.ForId}")">
+        <MudPaper Elevation="6"  Width="250px" Height="350px">
+            <MudPaper Elevation="0" Class="d-flex flex-column justify-start">
+                <MudPaper Elevation="0"
+                      Class="d-flex justify-start align-content-center flex-wrap flex-grow-1"
+                      Style="margin: 1%; background-color: mediumpurple;"
+                      Height="175px">
+                </MudPaper>
+                <MudPaper Elevation="0"
+                      Class="d-flex flex-column justify-center align-content-center"
+                      Style="margin: 1%;"
+                      Height="175px">
+                    <MudText>Nazwa: @f.Nazwa</MudText>
+                    <MudText>Typ: @f.FortNazwa</MudText>
+                    <MudText>Data stworzenia: @f.DataStworzenia.Date.ToShortDateString()</MudText>
+                    <MudText>Data otwarcia: @f.DataOtwarcia.Date.ToShortDateString()</MudText>
+                    <MudText>Data zamkniecia: @f.DataZamkniecia.Date.ToShortDateString()</MudText>
+                </MudPaper>
+            </MudPaper>
+        </MudPaper>
+    </MudLink>
+}

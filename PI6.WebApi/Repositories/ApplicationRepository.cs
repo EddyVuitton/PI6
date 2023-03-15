@@ -38,6 +38,6 @@ public class ApplicationRepository : IApplicationRepository
         sqlParams.AddParam("xml", xml, System.Data.SqlDbType.Xml);
         var param = sqlParams.Params();
 
-        await _context.SqlQueryAsync("exec dbo.p_formularz_zapisz @xml", param, default);
+        //await _context.SqlQueryAsync("exec dbo.p_formularz_zapisz @xml", param, default);
     }
 }
