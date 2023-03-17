@@ -22,6 +22,13 @@ public class PI6Controller : Controller
         return Ok(await _applicationRepository.PobierzFormularze());
     }
 
+
+    [HttpGet("PobierzFormularz")]
+    public async Task<ActionResult<List<formularz>>> PobierzFormularz(int for_id)
+    {
+        return Ok(await _applicationRepository.PobierzFormularz(for_id));
+    }
+
     [HttpGet("PobierzFormularzTyp")]
     public async Task<ActionResult<List<formularz_typ>>> PobierzFormularzTyp()
     {
@@ -38,5 +45,17 @@ public class PI6Controller : Controller
     public async Task ZapiszFormularz(FormularzDto form)
     {
         await _applicationRepository.ZapiszFormularz(form);
+    }
+
+    [HttpGet("PobierzPytaniaFormularza")]
+    public async Task<ActionResult<List<formularz_pytanie>>> PobierzPytaniaFormularza(int for_id)
+    {
+        return Ok(await _applicationRepository.PobierzPytaniaFormularza(for_id));
+    }
+
+    [HttpGet("PobierzOpcjeFormularza")]
+    public async Task<ActionResult<List<formularz_pytanie_opcja>>> PobierzOpcjeFormularza(int for_id)
+    {
+        return Ok(await _applicationRepository.PobierzOpcjeFormularza(for_id));
     }
 }

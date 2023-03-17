@@ -5,8 +5,11 @@ namespace PI6.WebApi.Services;
 
 public interface IApplicationService
 {
-    Task<List<formularz>> PobierzFormularze();
-    Task<List<formularz_typ>> PobierzFormularzeTyp();
-    Task<List<FormularzKafelekDto>> PobierzFormularzKafelekDto();
-    Task ZapiszFormularz(FormularzDto form);
+    public Task<List<formularz>> PobierzFormularze();
+    public Task<List<formularz>> PobierzFormularz(int for_id);
+    public Task<List<formularz_typ>> PobierzFormularzTyp();
+    public Task<List<FormularzKafelekDto>> PobierzFormularzKafelekDto();
+    public Task ZapiszFormularz(FormularzDto form);
+    public Task<List<formularz_pytanie>> PobierzPytaniaFormularza(int for_id);
+    public Task<List<formularz_pytanie_opcja>> PobierzOpcjeFormularza(int for_id);
 }

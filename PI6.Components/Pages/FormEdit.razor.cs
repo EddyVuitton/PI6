@@ -2,6 +2,9 @@
 using MudBlazor;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
+using PI6.WebApi.Helpers;
+using PI6.WebApi.Services;
+using static MudBlazor.CategoryTypes;
 
 namespace PI6.Components.Pages;
 
@@ -9,13 +12,17 @@ public partial class FormEdit
 {
     [Parameter] public int FormId { get; set; }
 
-    private readonly FormularzDto newForm = new();
-    private readonly List<formularz_pytanie> _questions = new();
-    private readonly List<formularz_pytanie_opcja> _options = new();
-    private readonly IMask _pointsPatternMask = new PatternMask("00");
-    private readonly IMask _regHours = new RegexMask(@"^([1-9][0-9]|[0-9])$", "00");
-    private readonly IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$", "00");
-    private readonly IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$", "00");
+    [Inject] public IApplicationService ApplicationService { get; set; }
+
+    private FormularzDto _formDto = new();
+    private List<PytanieDto> _formQuestionsDto = new();
+    private formularz _form = new();
+    private List<formularz_pytanie> _questions = new();
+    private List<formularz_pytanie_opcja> _options = new();
+    private IMask _pointsPatternMask = new PatternMask("00");
+    private IMask _regHours = new RegexMask(@"^([1-9][0-9]|[0-9])$", "00");
+    private IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$", "00");
+    private IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$", "00");
     private string _title = string.Empty;
     private DateTime _dateOpen = DateTime.Now;
     private DateTime? _dateClose;
@@ -25,9 +32,25 @@ public partial class FormEdit
     private int? _requiredHours;
     private int? _passingThreshold;
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
-        AddQuestion();
+        _questions = await ApplicationService.PobierzPytaniaFormularza(FormId);
+        _options = await ApplicationService.PobierzOpcjeFormularza(FormId);
+        _form = (await ApplicationService.PobierzFormularz(FormId)).FirstOrDefault();
+
+        _formQuestionsDto = Formularz.GetFormQuestionsDto(_questions, _options);
+        _formDto = Formularz.GetFormularzDto(_form, _formQuestionsDto);
+
+        TimeSpan time = TimeSpan.FromSeconds(_formDto.LimitCzasu);
+
+        _title = _formDto.Nazwa;
+        _dateOpen = _formDto.DataOtwarcia;
+        _dateClose = _formDto.DataZamkniecia;
+        _allowedNumberAppr = _formDto.DozwolonePodejscia;
+        _requiredSeconds = time.Seconds;
+        _requiredMinutes = time.Minutes;
+        _requiredHours = time.Hours;
+        _passingThreshold = _formDto.ProgZal;
     }
 
     private List<formularz_pytanie_opcja> GetQuestionOptions(int questionId) => _options.Where(x => x.fpop_forp_id == questionId).ToList();

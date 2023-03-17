@@ -19,7 +19,12 @@ public class ApplicationService : IApplicationService
         return await _httpClient.GetFromJsonAsync<List<formularz>>("api/pi6/PobierzFormularze") ?? new List<formularz>();
     }
 
-    public async Task<List<formularz_typ>> PobierzFormularzeTyp()
+    public async Task<List<formularz>> PobierzFormularz(int for_id)
+    {
+        return await _httpClient.GetFromJsonAsync<List<formularz>>($"api/pi6/PobierzFormularz?for_id={for_id}") ?? new List<formularz>();
+    }
+
+    public async Task<List<formularz_typ>> PobierzFormularzTyp()
     {
         return await _httpClient.GetFromJsonAsync<List<formularz_typ>>("api/pi6/PobierzFormularzTyp") ?? new List<formularz_typ>();
     }
@@ -34,5 +39,15 @@ public class ApplicationService : IApplicationService
         var json = JsonConvert.SerializeObject(form);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
         await _httpClient.PostAsync("api/pi6/ZapiszFormularz", data);
+    }
+
+    public async Task<List<formularz_pytanie>> PobierzPytaniaFormularza(int for_id)
+    {
+        return await _httpClient.GetFromJsonAsync<List<formularz_pytanie>>($"api/pi6/PobierzPytaniaFormularza?for_id={for_id}") ?? new List<formularz_pytanie>();
+    }
+
+    public async Task<List<formularz_pytanie_opcja>> PobierzOpcjeFormularza(int for_id)
+    {
+        return await _httpClient.GetFromJsonAsync<List<formularz_pytanie_opcja>>($"api/pi6/PobierzOpcjeFormularza?for_id={for_id}") ?? new List<formularz_pytanie_opcja>();
     }
 }
