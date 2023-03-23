@@ -4,7 +4,6 @@ using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
 using PI6.WebApi.Helpers;
 using PI6.WebApi.Services;
-using static MudBlazor.CategoryTypes;
 
 namespace PI6.Components.Pages;
 
@@ -51,6 +50,8 @@ public partial class FormEdit
         _requiredMinutes = time.Minutes;
         _requiredHours = time.Hours;
         _passingThreshold = _formDto.ProgZal;
+
+        StateHasChanged();
     }
 
     private List<formularz_pytanie_opcja> GetQuestionOptions(int questionId) => _options.Where(x => x.fpop_forp_id == questionId).ToList();

@@ -119,10 +119,10 @@ public partial class TworzenieQuizu
     private void DeleteOption(formularz_pytanie_opcja option)
     {
         var questionOptions = _options.Where(x => x.fpop_forp_id == option.fpop_forp_id).ToList();
-        if (questionOptions.Count > 1)
+        if (questionOptions.Count > 2)
             _options.Remove(option);
 
-        UpdateLPs();
+        UpdateLPs();        
         StateHasChanged();
     }
 
