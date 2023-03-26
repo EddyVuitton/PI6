@@ -16,46 +16,46 @@ public class PI6Controller : Controller
         _applicationRepository = applicationRepository;
     }
 
-    [HttpGet("PobierzFormularze")]
-    public async Task<ActionResult<List<formularz>>> PobierzFormularze()
+    [HttpGet("GetForms")]
+    public async Task<ActionResult<List<formularz>>> GetForms()
     {
-        return Ok(await _applicationRepository.PobierzFormularze());
+        return Ok(await _applicationRepository.GetForms());
     }
 
 
-    [HttpGet("PobierzFormularz")]
-    public async Task<ActionResult<List<formularz>>> PobierzFormularz(int for_id)
+    [HttpGet("GetForm")]
+    public async Task<ActionResult<List<formularz>>> GetForm(int for_id)
     {
-        return Ok(await _applicationRepository.PobierzFormularz(for_id));
+        return Ok(await _applicationRepository.GetForm(for_id));
     }
 
-    [HttpGet("PobierzFormularzTyp")]
-    public async Task<ActionResult<List<formularz_typ>>> PobierzFormularzTyp()
+    [HttpGet("GetFormType")]
+    public async Task<ActionResult<List<formularz_typ>>> GetFormType()
     {
-        return Ok(await _applicationRepository.PobierzFormularzTyp());
+        return Ok(await _applicationRepository.GetFormType());
     }
 
-    [HttpGet("PobierzFormularzKafelekDto")]
-    public async Task<ActionResult<List<FormularzKafelekDto>>> PobierzFormularzKafelekDto()
+    [HttpGet("GetFormTileDto")]
+    public async Task<ActionResult<List<FormularzKafelekDto>>> GetFormTileDto()
     {
-        return Ok(await _applicationRepository.PobierzFormularzKafelekDto());
+        return Ok(await _applicationRepository.GetFormTileDto());
     }
 
-    [HttpPost("ZapiszFormularz")]
-    public async Task ZapiszFormularz(FormularzDto form)
+    [HttpPost("CreateForm")]
+    public async Task CreateForm(FormularzDto form)
     {
-        await _applicationRepository.ZapiszFormularz(form);
+        await _applicationRepository.CreateForm(form);
     }
 
-    [HttpGet("PobierzPytaniaFormularza")]
-    public async Task<ActionResult<List<formularz_pytanie>>> PobierzPytaniaFormularza(int for_id)
+    [HttpGet("GetFormQuestions")]
+    public async Task<ActionResult<List<formularz_pytanie>>> GetFormQuestions(int for_id)
     {
-        return Ok(await _applicationRepository.PobierzPytaniaFormularza(for_id));
+        return Ok(await _applicationRepository.GetFormQuestions(for_id));
     }
 
-    [HttpGet("PobierzOpcjeFormularza")]
-    public async Task<ActionResult<List<formularz_pytanie_opcja>>> PobierzOpcjeFormularza(int for_id)
+    [HttpGet("GetFormOptions")]
+    public async Task<ActionResult<List<formularz_pytanie_opcja>>> GetFormOptions(int for_id)
     {
-        return Ok(await _applicationRepository.PobierzOpcjeFormularza(for_id));
+        return Ok(await _applicationRepository.GetFormOptions(for_id));
     }
 }

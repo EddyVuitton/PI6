@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PI6.Shared.Data.Dtos;
-using PI6.Shared.Data.Entities;
 using PI6.WebApi.Services;
 
 namespace PI6.Components.Pages;
 
-public partial class FormularzIndex
+public partial class FormIndex
 {
     [Inject] public IApplicationService ApplicationService { get; set; }
 
@@ -13,6 +12,6 @@ public partial class FormularzIndex
 
     protected override async Task OnInitializedAsync()
     {
-        _formTiles = await ApplicationService.PobierzFormularzKafelekDto();
+        _formTiles = await ApplicationService.GetFormTileDto();
     }
 }

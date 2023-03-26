@@ -1,12 +1,20 @@
 ﻿@foreach (var f in FormTiles)
 {
-    <MudLink OnClick="@(() => ConsoleLog("123"))" Href="@($"/form/{f.ForId}")">
-        <MudPaper Elevation="6"  Width="250px" Height="350px">
+    <MudLink Href="@($"/formdetails/{f.ForId}")">
+        <MudPaper Elevation="6" Width="250px" Height="350px">
             <MudPaper Elevation="0" Class="d-flex flex-column justify-start">
                 <MudPaper Elevation="0"
-                      Class="d-flex justify-start align-content-center flex-wrap flex-grow-1"
+                      Class="d-flex justify-center align-content-center flex-wrap flex-grow-1"
                       Style="margin: 1%; background-color: mediumpurple;"
                       Height="175px">
+                    @if (f.DataZamkniecia < DateTime.Now)
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.Close" Style="font-size: 4rem;" Color="Color.Error" />
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.Check" Style="font-size: 4rem;" Color="Color.Success" />
+                    }
                 </MudPaper>
                 <MudPaper Elevation="0"
                       Class="d-flex flex-column justify-center align-content-center"

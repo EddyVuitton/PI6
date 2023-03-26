@@ -1,27 +1,24 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using PI6.Shared.Data.Entities;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MudBlazor;
-using PI6.Shared.Data.Dtos;
-using PI6.Shared.Data.Entities;
-using PI6.WebApi.Helpers;
 using PI6.WebApi.Services;
+using PI6.Shared.Data.Dtos;
 
 namespace PI6.Components.Pages;
 
-public partial class FormEdit
+public partial class FormCreate
 {
-    [Parameter] public int FormId { get; set; }
-
+    [Inject] public IJSRuntime JSRuntime { get; set; }
     [Inject] public IApplicationService ApplicationService { get; set; }
 
-    private FormularzDto _formDto = new();
-    private List<PytanieDto> _formQuestionsDto = new();
-    private formularz _form = new();
-    private List<formularz_pytanie> _questions = new();
-    private List<formularz_pytanie_opcja> _options = new();
-    private IMask _pointsPatternMask = new PatternMask("00");
-    private IMask _regHours = new RegexMask(@"^([1-9][0-9]|[0-9])$", "00");
-    private IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$", "00");
-    private IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$", "00");
+    private readonly FormularzDto newForm = new();
+    private readonly List<formularz_pytanie> _questions = new();
+    private readonly List<formularz_pytanie_opcja> _options = new();
+    private readonly IMask _pointsPatternMask = new PatternMask("00");
+    private readonly IMask _regHours = new RegexMask(@"^([1-9][0-9]|[0-9])$", "00");
+    private readonly IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$", "00");
+    private readonly IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$", "00");
     private string _title = string.Empty;
     private DateTime _dateOpen = DateTime.Now;
     private DateTime? _dateClose;
@@ -31,27 +28,14 @@ public partial class FormEdit
     private int? _requiredHours;
     private int? _passingThreshold;
 
-    protected override async void OnInitialized()
+    protected override void OnInitialized()
     {
-        _questions = await ApplicationService.PobierzPytaniaFormularza(FormId);
-        _options = await ApplicationService.PobierzOpcjeFormularza(FormId);
-        _form = (await ApplicationService.PobierzFormularz(FormId)).FirstOrDefault();
+        AddQuestion();
+    }
 
-        _formQuestionsDto = Formularz.GetFormQuestionsDto(_questions, _options);
-        _formDto = Formularz.GetFormularzDto(_form, _formQuestionsDto);
-
-        TimeSpan time = TimeSpan.FromSeconds(_formDto.LimitCzasu);
-
-        _title = _formDto.Nazwa;
-        _dateOpen = _formDto.DataOtwarcia;
-        _dateClose = _formDto.DataZamkniecia;
-        _allowedNumberAppr = _formDto.DozwolonePodejscia;
-        _requiredSeconds = time.Seconds;
-        _requiredMinutes = time.Minutes;
-        _requiredHours = time.Hours;
-        _passingThreshold = _formDto.ProgZal;
-
-        StateHasChanged();
+    private async Task ConsoleLog(string message)
+    {
+        await JSRuntime.InvokeVoidAsync("console.log", message);
     }
 
     private List<formularz_pytanie_opcja> GetQuestionOptions(int questionId) => _options.Where(x => x.fpop_forp_id == questionId).ToList();
@@ -135,10 +119,10 @@ public partial class FormEdit
     private void DeleteOption(formularz_pytanie_opcja option)
     {
         var questionOptions = _options.Where(x => x.fpop_forp_id == option.fpop_forp_id).ToList();
-        if (questionOptions.Count > 1)
+        if (questionOptions.Count > 2)
             _options.Remove(option);
 
-        UpdateLPs();
+        UpdateLPs();        
         StateHasChanged();
     }
 
@@ -180,5 +164,44 @@ public partial class FormEdit
         StateHasChanged();
     }
 
-    private void DoNothing() { }
+    private void CreateForm()
+    {
+        List<OpcjaDto> options = (
+            from o in _options
+            select new OpcjaDto
+            {
+                PytanieId = o.fpop_forp_id,
+                OpcjaId = o.fpop_id,
+                OpcjaNazwa = o.fpop_nazwa,
+                OpcjaCzyPoprawna = o.fpop_czy_poprawna,
+                OpcjaNumerOpc = (int)o.forp_numer_opcji
+            }).ToList();
+
+        List<PytanieDto> questions = (
+            from q in _questions
+            select new PytanieDto
+            {
+                PytanieId = q.forp_id,
+                PytanieNazwa = q.forp_nazwa,
+                PytaniePunkty = q.forp_punkty,
+                PytanieCzyWieleOdp = q.forp_czy_wiele_odp,
+                PytanieCzyWymagane = q.forp_czy_wymagane,
+                PytanieForId = q.forp_for_id,
+                PytanieNumerPyt = (int)q.forp_numer_pytania,
+                Opcje = options.Where(x => x.PytanieId == q.forp_id).ToList()
+            }).ToList();
+
+        newForm.Pytania = questions;
+        newForm.ForId = -1;
+        newForm.Nazwa = _title;
+        newForm.DataStworzenia = DateTime.Now;
+        newForm.DataOtwarcia = _dateOpen;
+        newForm.DataZamkniecia = _dateClose ?? new DateTime(2100, 1, 1);
+        newForm.DozwolonePodejscia = _allowedNumberAppr ?? 999;
+        newForm.LimitCzasu = ((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + ((_requiredSeconds ?? 0));
+        newForm.ProgZal = _passingThreshold ?? 0;
+        newForm.FortId = 3;
+
+        ApplicationService.CreateForm(newForm);
+    }
 }

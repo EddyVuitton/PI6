@@ -15,12 +15,12 @@ public class ApplicationRepository : IApplicationRepository
         _context = context;
     }
 
-    public async Task<List<formularz>> PobierzFormularze()
+    public async Task<List<formularz>> GetForms()
     {
         return await _context.SqlQueryAsync<formularz>("exec dbo.p_formularz_pobierz null");
     }
 
-    public async Task<List<formularz>> PobierzFormularz(int for_id)
+    public async Task<List<formularz>> GetForm(int for_id)
     {
         SqlParam sqlParams = new();
         sqlParams.AddParam("for_id", for_id, System.Data.SqlDbType.Int);
@@ -29,17 +29,17 @@ public class ApplicationRepository : IApplicationRepository
         return await _context.SqlQueryAsync<formularz>("exec dbo.p_formularz_pobierz @for_id", param, default);
     }
 
-    public async Task<List<formularz_typ>> PobierzFormularzTyp()
+    public async Task<List<formularz_typ>> GetFormType()
     {
         return await _context.SqlQueryAsync<formularz_typ>("exec dbo.p_formularz_typ_pobierz");
     }
 
-    public async Task<List<FormularzKafelekDto>> PobierzFormularzKafelekDto()
+    public async Task<List<FormularzKafelekDto>> GetFormTileDto()
     {
         return await _context.SqlQueryAsync<FormularzKafelekDto>("exec dbo.p_formularz_kafelek_pobierz");
     }
 
-    public async Task ZapiszFormularz(FormularzDto form)
+    public async Task CreateForm(FormularzDto form)
     {
         var xml = Formularz.GenerateXml(form);
 
@@ -50,7 +50,7 @@ public class ApplicationRepository : IApplicationRepository
         await _context.SqlQueryAsync("exec dbo.p_formularz_zapisz @xml", param, default);
     }
 
-    public async Task<List<formularz_pytanie>> PobierzPytaniaFormularza(int for_id)
+    public async Task<List<formularz_pytanie>> GetFormQuestions(int for_id)
     {
         SqlParam sqlParams = new();
         sqlParams.AddParam("for_id", for_id, System.Data.SqlDbType.Int);
@@ -59,7 +59,7 @@ public class ApplicationRepository : IApplicationRepository
         return await _context.SqlQueryAsync<formularz_pytanie>("exec dbo.p_pobierz_pytania @for_id", param, default);
     }
 
-    public async Task<List<formularz_pytanie_opcja>> PobierzOpcjeFormularza(int for_id)
+    public async Task<List<formularz_pytanie_opcja>> GetFormOptions(int for_id)
     {
         SqlParam sqlParams = new();
         sqlParams.AddParam("for_id", for_id, System.Data.SqlDbType.Int);

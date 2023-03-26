@@ -5,11 +5,11 @@ namespace PI6.WebApi.Repositories;
 
 public interface IApplicationRepository
 {
-    public Task<List<formularz>> PobierzFormularze();
-    public Task<List<formularz>> PobierzFormularz(int for_id);
-    public Task<List<formularz_typ>> PobierzFormularzTyp();
-    public Task<List<FormularzKafelekDto>> PobierzFormularzKafelekDto();
-    public Task ZapiszFormularz(FormularzDto form);
-    public Task<List<formularz_pytanie>> PobierzPytaniaFormularza(int for_id);
-    public Task<List<formularz_pytanie_opcja>> PobierzOpcjeFormularza(int for_id);
+    public Task<List<formularz>> GetForms();
+    public Task<List<formularz>> GetForm(int for_id);
+    public Task<List<formularz_typ>> GetFormType();
+    public Task<List<FormularzKafelekDto>> GetFormTileDto();
+    public Task CreateForm(FormularzDto form);
+    public Task<List<formularz_pytanie>> GetFormQuestions(int for_id);
+    public Task<List<formularz_pytanie_opcja>> GetFormOptions(int for_id);
 }
