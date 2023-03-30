@@ -1,58 +1,59 @@
 ﻿@page "/newquiz"
-@using PI6.Shared.Data.Entities;
 
 <MudPaper Elevation="0" Class="d-flex flex-column" Width="800px" Style="margin-top: 1%; margin-left: 1%; padding: 0px; margin-right: auto; margin-left: auto;">
     <MudPaper Elevation="0" Class="d-flex flex-column align-content-center" Style="background-color: inherit;">
         <MudPaper Elevation="0" Class="d-flex flex-column align-content-start gap-2">
-            <MudPaper Elevation="0" Class="d-flex flex-row justify-space-between">
-                <MudPaper Elevation="0" Class="d-flex flex-row gap-x-8">
-                    <MudTextField @bind-Value="@_dateOpen"
-                                  Style="width: 200px; font-size: 20px"
-                                  Format="s"
-                                  Label="Data otwarcia"
-                                  InputType="InputType.DateTimeLocal" />
-                    <MudTextField @bind-Value="@_dateClose"
-                                  Style="width: 200px; font-size: 20px"
-                                  Format="s"
-                                  Label="Data zamknięcia"
-                                  InputType="InputType.DateTimeLocal" />
-                    <MudPaper Elevation="0" Class="d-flex flex-column " Style="margin: 0%; padding: 0%;">
-                        <MudText Typo="Typo.h5">Limit czasowy</MudText>
-                        <MudPaper Elevation="0" Class="d-flex flex-row">
-                            <MudTextField @bind-Value="@_requiredHours"
-                                          Mask="_regHours"
-                                          Class="align-self-center"
-                                          Style="font-size: 25px; width: 55px; height: 30px;"
-                                          Placeholder="00"
-                                          Variant="Variant.Outlined" />
-                            <MudText Class="align-self-center" Style="font-weight: bold;">:</MudText>
-                            <MudTextField @bind-Value="@_requiredMinutes"
-                                          Mask="_regMinutes"
-                                          Class="align-self-center"
-                                          Style="font-size: 25px; width: 55px; height: 30px;"
-                                          Placeholder="00"
-                                          Variant="Variant.Outlined" />
-                            <MudText Class="align-self-center" Style="font-weight: bold;">:</MudText>
-                            <MudTextField @bind-Value="@_requiredSeconds"
-                                          Mask="_regSeconds"
-                                          Class="align-self-center"
-                                          Style="font-size: 25px; width: 55px; height: 30px;"
-                                          Placeholder="00"
-                                          Variant="Variant.Outlined" />
-                        </MudPaper>
+            <MudPaper Elevation="0" Class="d-flex flex-row gap-x-4">
+                <MudTextField @bind-Value="@_dateOpen"
+                              Style="width: 200px; font-size: 20px"
+                              Format="s"
+                              Label="Data otwarcia"
+                              InputType="InputType.DateTimeLocal" />
+                <MudTextField @bind-Value="@_dateClose"
+                              Style="width: 200px; font-size: 20px"
+                              Format="s"
+                              Label="Data zamknięcia"
+                              InputType="InputType.DateTimeLocal" />
+                <MudPaper Elevation="0" Class="d-flex flex-column" Style="margin: 0%; padding: 0%;">
+                    <MudText Typo="Typo.h5">Limit czasowy</MudText>
+                    <MudPaper Elevation="0" Class="d-flex flex-row">
+                        <MudTextField @bind-Value="@_requiredHours"
+                                      Class="align-self-center"
+                                      Style="font-size: 25px; width: 55px; height: 30px;"
+                                      Placeholder="00"
+                                      Variant="Variant.Outlined" />
+                        <MudText Class="align-self-center" Style="font-weight: bold;">:</MudText>
+                        <MudTextField @bind-Value="@_requiredMinutes"
+                                      Class="align-self-center"
+                                      Style="font-size: 25px; width: 55px; height: 30px;"
+                                      Placeholder="00"
+                                      Variant="Variant.Outlined" />
+                        <MudText Class="align-self-center" Style="font-weight: bold;">:</MudText>
+                        <MudTextField @bind-Value="@_requiredSeconds"
+                                      Class="align-self-center"
+                                      Style="font-size: 25px; width: 55px; height: 30px;"
+                                      Placeholder="00"
+                                      Variant="Variant.Outlined" />
                     </MudPaper>
                 </MudPaper>
+                <MudPaper Elevation="0" Class="d-flex flex-column">
+                    <MudText Typo="Typo.h5" Class="align-self-start">
+                        Suma punktów
+                    </MudText>
+                    <MudText Typo="Typo.h5" Class="align-self-end" Style="padding-right: 5%; border: 1px solid; border-radius: 10px; width: 100%; text-align: end;">
+                        @(GetTotalPoints())
+                    </MudText>
+                </MudPaper>
             </MudPaper>
-            <MudText Class="align-self-start" Typo="Typo.h5">@($"Łącznie punktów: {GetTotalPoints()}")</MudText>
             <MudTextField Placeholder="Tytuł"
-                        Class=""
-                        Margin="Margin.Dense"
-                        T="string"
+                          Class=""
+                          Margin="Margin.Dense"
+                          T="string"
                           @bind-Value="@_title"
-                        Style="height: 50px; font-size: 70px" />
-            </MudPaper>
-            <MudPaper Elevation="0" Style="margin-top: 1%;">
-                @foreach (var q in _questions)
+                          Style="height: 50px; font-size: 70px" />
+        </MudPaper>
+        <MudPaper Elevation="0" Style="margin-top: 1%;">
+            @foreach (var q in _questions)
             {
                 var localQuestion = q;
                 var localQuestionId = localQuestion.forp_id;
