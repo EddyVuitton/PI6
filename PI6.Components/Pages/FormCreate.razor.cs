@@ -118,11 +118,18 @@ public partial class FormCreate
 
     private void DeleteOption(formularz_pytanie_opcja option)
     {
-        var questionOptions = _options.Where(x => x.fpop_forp_id == option.fpop_forp_id).ToList();
+        var question = _questions.FirstOrDefault(x => x.forp_id == option.fpop_forp_id);
+        var questionOptions = GetQuestionOptions(option.fpop_forp_id);
         if (questionOptions.Count > 2)
             _options.Remove(option);
 
-        UpdateLPs();        
+        questionOptions = GetQuestionOptions(option.fpop_forp_id);
+        var firstOptionId = questionOptions.OrderBy(x => x.fpop_id).FirstOrDefault().fpop_id;
+
+        if (!questionOptions.Where(x => x.fpop_czy_poprawna).Any())
+            _options.Where(x => x.fpop_id == firstOptionId).FirstOrDefault().fpop_czy_poprawna = true;
+
+        UpdateLPs();
         StateHasChanged();
     }
 
@@ -198,7 +205,7 @@ public partial class FormCreate
         newForm.DataOtwarcia = _dateOpen;
         newForm.DataZamkniecia = _dateClose ?? new DateTime(2100, 1, 1);
         newForm.DozwolonePodejscia = _allowedNumberAppr ?? 999;
-        newForm.LimitCzasu = ((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + ((_requiredSeconds ?? 0));
+        newForm.LimitCzasu = ((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + (_requiredSeconds ?? 0);
         newForm.ProgZal = _passingThreshold ?? 0;
         newForm.FortId = 3;
 

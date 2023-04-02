@@ -7,6 +7,6 @@ public class FormularzKafelekDto
     public string? FortNazwa { get; set; }
     public DateTime DataStworzenia { get; set; }
     public DateTime DataOtwarcia { get; set; }
-    public DateTime DataZamkniecia { get; set; }
+    public DateTime? DataZamkniecia { get; set; }
     public int? IloscPodejsc { get; set; }
 }

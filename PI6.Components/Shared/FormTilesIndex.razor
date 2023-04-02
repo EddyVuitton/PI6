@@ -24,7 +24,7 @@
                     <MudText>Typ: @f.FortNazwa</MudText>
                     <MudText>Data stworzenia: @f.DataStworzenia.Date.ToShortDateString()</MudText>
                     <MudText>Data otwarcia: @f.DataOtwarcia.Date.ToShortDateString()</MudText>
-                    <MudText>Data zamkniecia: @f.DataZamkniecia.Date.ToShortDateString()</MudText>
+                    <MudText>Data zamkniecia: @(f.DataZamkniecia.HasValue == true ? f.DataZamkniecia.Value.Date.ToShortDateString() : string.Empty)</MudText>
                 </MudPaper>
             </MudPaper>
         </MudPaper>

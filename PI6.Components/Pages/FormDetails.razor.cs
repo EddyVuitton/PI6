@@ -40,11 +40,11 @@ public partial class FormDetails
         _formQuestionsDto = Formularz.GetFormQuestionsDto(_questions, _options);
         _formDto = Formularz.GetFormularzDto(_form, _formQuestionsDto);
 
-        TimeSpan time = TimeSpan.FromSeconds(_formDto.LimitCzasu);
+        TimeSpan time = TimeSpan.FromSeconds(_formDto.LimitCzasu ?? 0);
 
         _title = _formDto.Nazwa;
         _dateOpen = _formDto.DataOtwarcia;
-        _dateClose = _formDto.DataZamkniecia;
+        _dateClose = _formDto.DataZamkniecia;// == DateTime.d;
         _allowedNumberAppr = _formDto.DozwolonePodejscia;
         _requiredSeconds = FormatRequiredTime(time.Seconds);
         _requiredMinutes = FormatRequiredTime(time.Minutes);
