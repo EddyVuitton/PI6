@@ -1,0 +1,114 @@
+﻿@page "/formsolve/{FormId:int}"
+
+<MudPaper Elevation="0" Class="d-flex flex-column" Width="800px" Style="margin: 1%; padding: 0px; margin-right: auto; margin-left: auto;">
+    <MudPaper Elevation="0" Class="d-flex flex-column align-content-center" Style="background-color: inherit;">
+        <MudPaper Elevation="0" Class="d-flex flex-column align-content-start gap-2">
+            <MudPaper Elevation="0" Class="d-flex flex-row justify-space-between">
+                <MudPaper Elevation="0" Class="d-flex flex-row gap-x-4">
+                    <MudPaper Elevation="0" Class="d-flex flex-column" Style="margin: 0%; padding: 0%;">
+                        <MudText Typo="Typo.h5">Czas do końca</MudText>
+                        <MudPaper Elevation="0">
+                            @if (AppState.RequiredTime == 0)
+                            {
+                                <MudText Typo="Typo.h5" Class="align-self-center" Style="padding-right: 5%; border: 1px solid; border-radius: 10px; width: 100%; text-align: end;">
+                                    00:00:00
+                                </MudText>
+                            }
+                            else
+                            {
+                                <CountdownTimer AppState="AppState" OnDisableChange="AppState.SetDisable" />
+                            }
+                        </MudPaper>
+                    </MudPaper>
+                    <MudPaper Elevation="0" Class="d-flex flex-column">
+                        <MudText Typo="Typo.h5" Class="align-self-start">
+                            Suma punktów
+                        </MudText>
+                        <MudText Typo="Typo.h5" Class="align-self-end" Style="padding-right: 5%; border: 1px solid; border-radius: 10px; width: 100%; text-align: end;">
+                            @(GetTotalPoints())
+                        </MudText>
+                    </MudPaper>
+                </MudPaper>
+            </MudPaper>
+            <MudTextField Placeholder="Tytuł"
+                          Margin="Margin.Dense"
+                          T="string"
+                          @bind-Value="@_title"
+                          Style="height: 50px; font-size: 70px"
+                          ReadOnly="false" />
+        </MudPaper>
+        <MudPaper Elevation="0" Style="margin-top: 1%;">
+            @foreach (var q in _questions)
+            {
+                var localQuestion = q;
+                var localQuestionId = localQuestion.forp_id;
+                int? localQuestionLp = localQuestion.forp_numer_pytania;
+                var localIsMultipleOptions = localQuestion.forp_czy_wiele_odp;
+
+                <MudPaper Elevation="0" Class="d-flex flex-column" Style="background-color: #f8f4f4; margin-top: 1%; padding: 1%;">
+                    <MudPaper Elevation="0" Class="d-flex justify-space-between" Style="background-color: inherit;">
+                        <MudText Style="font-size: 25px; margin-right: 1%;" Class="align-self-center">Punkty:</MudText>
+                        <MudTextField T="int"
+                                  @bind-Value="localQuestion.forp_punkty"
+                                  Mask="_pointsPatternMask"
+                                  Class="align-self-center"
+                                  Style="font-size: 25px; width: 60px; height: 30px;"
+                                  Placeholder="0"
+                                  Variant="Variant.Outlined"
+                                  ReadOnly="false" />
+                        @if (localQuestion.forp_czy_wiele_odp)
+                        {
+                            <MudChip Label="true" Color="Color.Info">Możliwe kilka odpowiedzi</MudChip>
+                        }
+                        @*@if (localQuestion.forp_czy_wymagane)
+                        {
+                            <MudChip Label="true" Color="Color.Warning">Wymagana odpowiedź</MudChip>
+                        }*@
+                    </MudPaper>
+                    <MudPaper Elevation="0" Class="d-flex flex-column" Style="background-color: inherit;">
+                        <MudPaper Elevation="0" Class="d-flex flex-row" Style="background-color: inherit;">
+                            <MudText Style="font-size: 25px; margin-right: 1%;" Class="align-self-end">@localQuestionLp.</MudText>
+                            <MudTextField T="string"
+                                      @bind-Value=q.forp_nazwa
+                                      Style="font-size: 30px; height: 45px;"
+                                      Variant="Variant.Outlined"
+                                      ReadOnly="false" />
+                        </MudPaper>
+                        <MudPaper Elevation="0" Class="d-flex flex-column" Style="background-color: inherit;">
+                            @foreach (var qo in GetQuestionOptions(localQuestionId))
+                            {
+                                var localOption = qo;
+                                var localOptionId = localOption.fpop_id;
+                                int? localOptionLp = localOption.forp_numer_opcji;
+
+                                <MudPaper Elevation="0" Class="d-flex flex-row" Style="background-color: inherit; margin: 1%;">
+                                    <MudPaper Elevation="0" Class="align-self-end" Style="background-color: inherit;">
+                                        <MudCheckBox @bind-Checked="localOption.fpop_czy_poprawna"
+                                             @oninput="(() => UpdateOtherOptionsOnChange(localOption, localIsMultipleOptions))"
+                                             Style="padding: 0px; margin: 0px;"
+                                             Size="Size.Medium"
+                                             Color="Color.Primary"
+                                             Dense="true"
+                                             CheckedIcon="@Icons.Material.Filled.CheckBox"
+                                             UncheckedIcon="@Icons.Material.Filled.CheckBoxOutlineBlank"
+                                             ReadOnly="false" />
+                                    </MudPaper>
+                                    <MudPaper Elevation="0" Width="100%" Style="background-color: inherit;">
+                                        <MudTextField T="string"
+                                              @bind-Value="qo.fpop_nazwa"
+                                              Style="font-size: medium; height: 25px; padding: 0px; margin: 0px;"
+                                              Placeholder="@($"Opcja {localOptionLp}")"
+                                              ReadOnly="false" />
+                                    </MudPaper>
+                                </MudPaper>
+                            }
+                        </MudPaper>
+                    </MudPaper>
+                </MudPaper>
+            }
+        </MudPaper>
+        <MudScrollToTop>
+            <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.ArrowCircleUp" />
+        </MudScrollToTop>
+    </MudPaper>
+</MudPaper>

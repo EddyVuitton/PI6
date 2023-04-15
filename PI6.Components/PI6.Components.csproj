@@ -5,13 +5,13 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
-		<SupportedPlatform Include="browser"/>
+		<SupportedPlatform Include="browser" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.3"/>
-		<PackageReference Include="MudBlazor" Version="6.1.9"/>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.3" />
+		<PackageReference Include="MudBlazor" Version="6.1.9" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\PI6.WebApi\PI6.WebApi.csproj"/>
+		<ProjectReference Include="..\PI6.WebApi\PI6.WebApi.csproj" />
 	</ItemGroup>
 </Project>

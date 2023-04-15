@@ -44,7 +44,7 @@ public partial class FormDetails
 
         _title = _formDto.Nazwa;
         _dateOpen = _formDto.DataOtwarcia;
-        _dateClose = _formDto.DataZamkniecia;// == DateTime.d;
+        _dateClose = _formDto.DataZamkniecia;
         _allowedNumberAppr = _formDto.DozwolonePodejscia;
         _requiredSeconds = FormatRequiredTime(time.Seconds);
         _requiredMinutes = FormatRequiredTime(time.Minutes);
