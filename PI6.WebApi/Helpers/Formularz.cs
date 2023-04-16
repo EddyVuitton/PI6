@@ -36,19 +36,12 @@ public static class Formularz
             select new PytanieDto
             {
                 PytanieId = question.forp_id,
-
                 PytanieNazwa = question.forp_nazwa,
-
                 PytaniePunkty = question.forp_punkty,
-
                 PytanieCzyWieleOdp = question.forp_czy_wiele_odp,
-
                 PytanieCzyWymagane = question.forp_czy_wymagane,
-
                 PytanieForId = question.forp_for_id,
-
                 PytanieNumerPyt = question.forp_numer_pytania ?? 0,
-
                 Opcje = tempO.Where(x => x.PytanieId == question.forp_id).ToList()
             };
 

@@ -60,10 +60,6 @@
                         {
                             <MudChip Label="true" Color="Color.Info">Możliwe kilka odpowiedzi</MudChip>
                         }
-                        @*@if (localQuestion.forp_czy_wymagane)
-                        {
-                            <MudChip Label="true" Color="Color.Warning">Wymagana odpowiedź</MudChip>
-                        }*@
                     </MudPaper>
                     <MudPaper Elevation="0" Class="d-flex flex-column" Style="background-color: inherit;">
                         <MudPaper Elevation="0" Class="d-flex flex-row" Style="background-color: inherit;">
@@ -91,7 +87,7 @@
                                              Dense="true"
                                              CheckedIcon="@Icons.Material.Filled.CheckBox"
                                              UncheckedIcon="@Icons.Material.Filled.CheckBoxOutlineBlank"
-                                             ReadOnly="false" />
+                                             ReadOnly="@AppState.IsDisabled" />
                                     </MudPaper>
                                     <MudPaper Elevation="0" Width="100%" Style="background-color: inherit;">
                                         <MudTextField T="string"
@@ -107,8 +103,14 @@
                 </MudPaper>
             }
         </MudPaper>
+        <MudButton 
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   Style="bottom:20px;left:20px; position: fixed; border-radius: 30px; padding: 1%;">
+            Potwierdź podejście
+        </MudButton>
         <MudScrollToTop>
-            <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.ArrowCircleUp" />
+            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowCircleUp" />
         </MudScrollToTop>
     </MudPaper>
 </MudPaper>

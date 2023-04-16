@@ -13,6 +13,7 @@ public partial class DBContext : DbContext
     public virtual DbSet<formularz_podejscie> formularz_podejscie { get; set; }
     public virtual DbSet<formularz_pytanie> formularz_pytanie { get; set; }
     public virtual DbSet<formularz_pytanie_opcja> formularz_pytanie_opcja { get; set; }
+    public virtual DbSet<formularz_odpowiedz> formularz_odpowiedz { get; set; }
 
     public virtual DbSet<FormularzDto> formularz_dto { get; set; }
     public virtual DbSet<FormularzKafelekDto> formularz_kafelek_dto { get; set; }
@@ -42,6 +43,11 @@ public partial class DBContext : DbContext
         modelBuilder.Entity<formularz_pytanie_opcja>(entity =>
         {
             entity.HasKey(e => e.fpop_id);
+        });
+
+        modelBuilder.Entity<formularz_odpowiedz>(entity =>
+        {
+            entity.HasKey(e => e.fodp_id);
         });
 
 

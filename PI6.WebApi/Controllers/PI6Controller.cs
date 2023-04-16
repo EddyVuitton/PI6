@@ -51,7 +51,6 @@ public class PI6Controller : Controller
     public async Task<ActionResult<List<formularz_pytanie>>> GetFormQuestions(int for_id)
     {
         return Ok(await _applicationRepository.GetFormQuestions(for_id));
-        //return Ok(new List<formularz_pytanie>());
     }
 
     [HttpGet("GetFormOptions")]

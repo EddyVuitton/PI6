@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MudBlazor;
 using PI6.Components.Objects;
+using PI6.Components.Shared;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
 using PI6.WebApi.Helpers;
@@ -10,21 +12,30 @@ namespace PI6.Components.Pages;
 
 public partial class FormSolve
 {
+    [Inject] public IJSRuntime JSRuntime { get; set; }
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Parameter] public int FormId { get; set; }
-    [CascadingParameter] public AppState AppState { get; set; } = new();
+    [Parameter] public AppState AppState { get; set; } = new();
 
     private FormularzDto _formDto = new();
     private List<PytanieDto> _formQuestionsDto = new();
     private formularz _form = new();
     private List<formularz_pytanie> _questions = new();
     private List<formularz_pytanie_opcja> _options = new();
+    private List<formularz_odpowiedz> _answers = new();
     private IMask _pointsPatternMask = new PatternMask("00");
     private string _title = string.Empty;
-    private DateTime _dateOpen = DateTime.Now;
+    private DateTime _dateOpen;
     private DateTime? _dateClose;
     private int? _allowedNumberAppr;
     private int _requiredTime;
+    private DateTime _startDateTime = DateTime.Now;
+    private DateTime _finishDateTime;
+
+    private async Task ConsoleLog(string message)
+    {
+        await JSRuntime.InvokeVoidAsync("console.log", message);
+    }
 
     protected override async void OnInitialized()
     {
@@ -42,9 +53,14 @@ public partial class FormSolve
         _dateClose = _formDto.DataZamkniecia;
         _allowedNumberAppr = _formDto.DozwolonePodejscia;
         _requiredTime = _formDto.LimitCzasu ?? 0;
-        AppState.RequiredTime = 5;//_requiredTime;
+        AppState.RequiredTime = _requiredTime;
 
         UpdateOptionsOnInitial();
+
+        foreach (var o in _options)
+        {
+            await ConsoleLog($"{o.fpop_id}");
+        }
 
         StateHasChanged();
     }
@@ -67,6 +83,8 @@ public partial class FormSolve
 
     private void UpdateOtherOptionsOnChange(formularz_pytanie_opcja option, bool isMultiAvailable)
     {
+        AnswerOnChange(option);
+
         if (isMultiAvailable)
             return;
 
@@ -83,16 +101,54 @@ public partial class FormSolve
         StateHasChanged();
     }
 
-    private void UpdateFirstOptions()
+    private void AnswerOnChange(formularz_pytanie_opcja answer)
     {
-        //First option of required questions
-        var options =
-            from option in _options
-            join question in _questions on option.fpop_forp_id equals question.forp_id
-            where option.forp_numer_opcji == 1 && question.forp_czy_wymagane == true
-            select option;
+        var questionId = answer.fpop_forp_id;
 
-        foreach (var op in options)
-            _options.FirstOrDefault(x => x.fpop_id == op.fpop_id).fpop_czy_poprawna = true;
+        var options = _options.FirstOrDefault(x => x.fpop_forp_id == questionId);
+        var answersToAdd = _options.Where(x => x.fpop_forp_id == questionId && x.fpop_czy_poprawna == true);
+
+        _answers.RemoveAll(x => x.fodp_forp_id == questionId);
+
+        foreach (var a in answersToAdd)
+        {
+            _answers.Add(new formularz_odpowiedz
+            {
+                fodp_id = -1,
+                fodp_for_id = FormId,
+                fodp_forp_id = questionId,
+                fodp_wybrana_odp = a.fpop_id
+            });
+        }
+    }
+
+    private void CreateForm()
+    {
+        List<OpcjaDto> options = (
+            from o in _options
+            select new OpcjaDto
+            {
+                PytanieId = o.fpop_forp_id,
+                OpcjaId = o.fpop_id,
+                OpcjaNazwa = o.fpop_nazwa,
+                OpcjaCzyPoprawna = o.fpop_czy_poprawna,
+                OpcjaNumerOpc = (int)o.forp_numer_opcji
+            }).ToList();
+
+        List<PytanieDto> questions = (
+            from q in _questions
+            select new PytanieDto
+            {
+                PytanieId = q.forp_id,
+                PytanieNazwa = q.forp_nazwa,
+                PytaniePunkty = q.forp_punkty,
+                PytanieCzyWieleOdp = q.forp_czy_wiele_odp,
+                PytanieCzyWymagane = q.forp_czy_wymagane,
+                PytanieForId = q.forp_for_id,
+                PytanieNumerPyt = (int)q.forp_numer_pytania,
+                Opcje = options.Where(x => x.PytanieId == q.forp_id).ToList()
+            }).ToList();
+
+        //ApplicationService.CreateForm(_formDto);
     }
 }

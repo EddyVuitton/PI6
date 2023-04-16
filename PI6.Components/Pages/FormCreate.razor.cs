@@ -9,7 +9,6 @@ namespace PI6.Components.Pages;
 
 public partial class FormCreate
 {
-    [Inject] public IJSRuntime JSRuntime { get; set; }
     [Inject] public IApplicationService ApplicationService { get; set; }
 
     private readonly FormularzDto newForm = new();
@@ -31,11 +30,6 @@ public partial class FormCreate
     protected override void OnInitialized()
     {
         AddQuestion();
-    }
-
-    private async Task ConsoleLog(string message)
-    {
-        await JSRuntime.InvokeVoidAsync("console.log", message);
     }
 
     private List<formularz_pytanie_opcja> GetQuestionOptions(int questionId) => _options.Where(x => x.fpop_forp_id == questionId).ToList();

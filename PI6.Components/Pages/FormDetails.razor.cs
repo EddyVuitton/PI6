@@ -9,9 +9,8 @@ namespace PI6.Components.Pages;
 
 public partial class FormDetails
 {
-    [Parameter] public int FormId { get; set; }
-
     [Inject] public IApplicationService ApplicationService { get; set; }
+    [Parameter] public int FormId { get; set; }
 
     private FormularzDto _formDto = new();
     private List<PytanieDto> _formQuestionsDto = new();
