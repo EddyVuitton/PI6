@@ -1,0 +1,12 @@
+git reset --hard main & git clean -f & git pull ||| cofnięcie zmian i pobranie najnowszych plików
+
+git status - Lista zmian
+git branch features/walidacja_do - Utworzenie własnego brancha
+git branch - Sprawdzenie, w którym jest się branchu
+git checkout features/walidacja_do - Przejście do swojego brancha
+git status - Lista zmian
+git add . - Dodanie zmian do commita
+git commit -m "Poprawka w walidacji danych osobowych" - Utworzenie commita
+git push -u origin features/walidacja_do - Push commita do swojego brancha
+git remote - Sprawdzenie jaki jest remote
+git -b checkout features/walidacja_do - git branch & git checkout
