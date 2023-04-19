@@ -2,7 +2,6 @@
 using Microsoft.JSInterop;
 using MudBlazor;
 using PI6.Components.Objects;
-using PI6.Components.Shared;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
 using PI6.WebApi.Helpers;
@@ -17,6 +16,7 @@ public partial class FormSolve
     [Parameter] public int FormId { get; set; }
     [Parameter] public AppState AppState { get; set; } = new();
 
+    private FormularzPodejscieDto _solvedForm = new();
     private FormularzDto _formDto = new();
     private List<PytanieDto> _formQuestionsDto = new();
     private formularz _form = new();
@@ -25,9 +25,6 @@ public partial class FormSolve
     private List<formularz_odpowiedz> _answers = new();
     private IMask _pointsPatternMask = new PatternMask("00");
     private string _title = string.Empty;
-    private DateTime _dateOpen;
-    private DateTime? _dateClose;
-    private int? _allowedNumberAppr;
     private int _requiredTime;
     private DateTime _startDateTime = DateTime.Now;
     private DateTime _finishDateTime;
@@ -45,22 +42,14 @@ public partial class FormSolve
         _options = await ApplicationService.GetFormOptions(FormId);
         _form = (await ApplicationService.GetForm(FormId)).FirstOrDefault();
 
-        _formQuestionsDto = Formularz.GetFormQuestionsDto(_questions, _options);
-        _formDto = Formularz.GetFormularzDto(_form, _formQuestionsDto);
+        _formQuestionsDto = FormHelper.GetFormQuestionsDto(_questions, _options);
+        _formDto = FormHelper.GetFormularzDto(_form, _formQuestionsDto);
         
         _title = _formDto.Nazwa;
-        _dateOpen = _formDto.DataOtwarcia;
-        _dateClose = _formDto.DataZamkniecia;
-        _allowedNumberAppr = _formDto.DozwolonePodejscia;
         _requiredTime = _formDto.LimitCzasu ?? 0;
         AppState.RequiredTime = _requiredTime;
 
         UpdateOptionsOnInitial();
-
-        foreach (var o in _options)
-        {
-            await ConsoleLog($"{o.fpop_id}");
-        }
 
         StateHasChanged();
     }
@@ -105,7 +94,7 @@ public partial class FormSolve
     {
         var questionId = answer.fpop_forp_id;
 
-        var options = _options.FirstOrDefault(x => x.fpop_forp_id == questionId);
+        var options = _options.Where(x => x.fpop_forp_id == questionId);
         var answersToAdd = _options.Where(x => x.fpop_forp_id == questionId && x.fpop_czy_poprawna == true);
 
         _answers.RemoveAll(x => x.fodp_forp_id == questionId);
@@ -122,33 +111,26 @@ public partial class FormSolve
         }
     }
 
-    private void CreateForm()
+    private List<formularz_odpowiedz> GetAllAnswers()
     {
-        List<OpcjaDto> options = (
-            from o in _options
-            select new OpcjaDto
-            {
-                PytanieId = o.fpop_forp_id,
-                OpcjaId = o.fpop_id,
-                OpcjaNazwa = o.fpop_nazwa,
-                OpcjaCzyPoprawna = o.fpop_czy_poprawna,
-                OpcjaNumerOpc = (int)o.forp_numer_opcji
-            }).ToList();
+        var allAnswers = _options.Where(x => x.fpop_czy_poprawna == true).ToList();
 
-        List<PytanieDto> questions = (
-            from q in _questions
-            select new PytanieDto
-            {
-                PytanieId = q.forp_id,
-                PytanieNazwa = q.forp_nazwa,
-                PytaniePunkty = q.forp_punkty,
-                PytanieCzyWieleOdp = q.forp_czy_wiele_odp,
-                PytanieCzyWymagane = q.forp_czy_wymagane,
-                PytanieForId = q.forp_for_id,
-                PytanieNumerPyt = (int)q.forp_numer_pytania,
-                Opcje = options.Where(x => x.PytanieId == q.forp_id).ToList()
-            }).ToList();
+        return FormHelper.GetFormAnswer(allAnswers, FormId);
+    }
 
-        //ApplicationService.CreateForm(_formDto);
+    private void SaveSolvedForm()
+    {
+        _finishDateTime = DateTime.Now;
+
+        _solvedForm.FpodId = -1;
+        _solvedForm.FpodUserId = -1;
+        _solvedForm.FormId = FormId;
+        _solvedForm.FpodDataRozpoczenia = _startDateTime;
+        _solvedForm.FpodStan = true;
+        _solvedForm.FpodDataZakonczenia = _finishDateTime;
+        _solvedForm.FpodWykorzystanyCzas = (int)_finishDateTime.Subtract(_startDateTime).TotalSeconds;
+        _solvedForm.Odpowiedzi = GetAllAnswers();
+
+        ApplicationService.SaveSolvedForm(_solvedForm);
     }
 }

@@ -14,9 +14,3 @@ public class AppState : ComponentBase
         LoadStateChanged.Invoke();
     }
 }
-
-/*
- <CascadingValue Value="@AppState" Name="AppState">
-    <CountdownTimer RequiredTime="5" OnDisableChange="X"/>
-</CascadingValue>
- */

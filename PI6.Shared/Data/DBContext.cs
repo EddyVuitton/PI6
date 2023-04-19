@@ -17,6 +17,7 @@ public partial class DBContext : DbContext
 
     public virtual DbSet<FormularzDto> formularz_dto { get; set; }
     public virtual DbSet<FormularzKafelekDto> formularz_kafelek_dto { get; set; }
+    public virtual DbSet<FormularzPodejscieDto> formularz_podejscie_dto { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,6 +58,11 @@ public partial class DBContext : DbContext
         });
 
         modelBuilder.Entity<FormularzKafelekDto>(entity =>
+        {
+            entity.HasNoKey();
+        });
+
+        modelBuilder.Entity<FormularzPodejscieDto>(entity =>
         {
             entity.HasNoKey();
         });

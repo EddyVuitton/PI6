@@ -12,4 +12,5 @@ public interface IApplicationService
     public Task CreateForm(FormularzDto form);
     public Task<List<formularz_pytanie>> GetFormQuestions(int for_id);
     public Task<List<formularz_pytanie_opcja>> GetFormOptions(int for_id);
+    public Task SaveSolvedForm(FormularzPodejscieDto solvedForm);
 }

@@ -58,4 +58,10 @@ public class PI6Controller : Controller
     {
         return Ok(await _applicationRepository.GetFormOptions(for_id));
     }
+
+    [HttpPost("SaveSolvedForm")]
+    public async Task SaveSolvedForm(FormularzPodejscieDto solvedForm)
+    {
+        await _applicationRepository.SaveSolvedForm(solvedForm);
+    }
 }

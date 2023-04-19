@@ -36,8 +36,8 @@ public partial class FormDetails
         _options = await ApplicationService.GetFormOptions(FormId);
         _form = (await ApplicationService.GetForm(FormId)).FirstOrDefault();
 
-        _formQuestionsDto = Formularz.GetFormQuestionsDto(_questions, _options);
-        _formDto = Formularz.GetFormularzDto(_form, _formQuestionsDto);
+        _formQuestionsDto = FormHelper.GetFormQuestionsDto(_questions, _options);
+        _formDto = FormHelper.GetFormularzDto(_form, _formQuestionsDto);
 
         TimeSpan time = TimeSpan.FromSeconds(_formDto.LimitCzasu ?? 0);
 

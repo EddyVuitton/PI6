@@ -50,4 +50,11 @@ public class ApplicationService : IApplicationService
     {
         return await _httpClient.GetFromJsonAsync<List<formularz_pytanie_opcja>>($"api/pi6/GetFormOptions?for_id={for_id}") ?? new List<formularz_pytanie_opcja>();
     }
+
+    public async Task SaveSolvedForm(FormularzPodejscieDto solvedForm)
+    {
+        var json = JsonConvert.SerializeObject(solvedForm);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        await _httpClient.PostAsync("api/pi6/SaveSolvedForm", data);
+    }
 }

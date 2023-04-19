@@ -41,7 +41,7 @@ public class ApplicationRepository : IApplicationRepository
 
     public async Task CreateForm(FormularzDto form)
     {
-        var xml = Formularz.GenerateXml(form);
+        var xml = FormHelper.GenerateXml(form);
 
         SqlParam sqlParams = new();
         sqlParams.AddParam("xml", xml, System.Data.SqlDbType.Xml);
@@ -66,5 +66,16 @@ public class ApplicationRepository : IApplicationRepository
         var param = sqlParams.Params();
 
         return await _context.SqlQueryAsync<formularz_pytanie_opcja>("exec dbo.p_pobierz_opcje @for_id", param, default);
+    }
+
+    public async Task SaveSolvedForm(FormularzPodejscieDto solvedForm)
+    {
+        var xml = FormHelper.GenerateXmlGeneric(solvedForm, "FormularzPodejscie");
+
+        SqlParam sqlParams = new();
+        sqlParams.AddParam("xml", xml, System.Data.SqlDbType.Xml);
+        var param = sqlParams.Params();
+
+        await _context.SqlQueryAsync("exec dbo.p_formularz_podejscie_zapisz @xml", param, default);
     }
 }

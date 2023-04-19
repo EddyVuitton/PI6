@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PI6.Shared.Data.Dtos;
+﻿using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
-using PI6.WebApi.Repositories;
 using System.Xml.Serialization;
 
 namespace PI6.WebApi.Helpers;
 
-public static class Formularz
+public static class FormHelper
 {
     public static string GenerateXml(FormularzDto form)
     {
@@ -14,6 +12,20 @@ public static class Formularz
         var serializer = new XmlSerializer(typeof(FormularzDto), new XmlRootAttribute("Formularz"));
         serializer.Serialize(stream, form);
         var xml = stream.ToString();
+
+        stream.Close();
+
+        return stream.ToString();
+    }
+
+    public static string GenerateXmlGeneric<T>(T objectToGenerateXml, string rootAttribute)
+    {
+        using var stream = new StringWriter();
+        var serializer = new XmlSerializer(typeof(T), new XmlRootAttribute(rootAttribute));
+        serializer.Serialize(stream, objectToGenerateXml);
+        var xml = stream.ToString();
+
+        stream.Close();
 
         return stream.ToString();
     }
@@ -66,5 +78,23 @@ public static class Formularz
         };
 
         return tempF;
+    }
+
+    public static List<formularz_odpowiedz> GetFormAnswer(List<formularz_pytanie_opcja> options, int formId)
+    {
+        var answers = new List<formularz_odpowiedz>();
+
+        foreach (var o in options)
+        {
+            answers.Add(new formularz_odpowiedz()
+            {
+                fodp_id = -1,
+                fodp_for_id = formId,
+                fodp_forp_id = o.fpop_forp_id,
+                fodp_wybrana_odp = o.fpop_id
+            });
+        }
+
+        return answers;
     }
 }
