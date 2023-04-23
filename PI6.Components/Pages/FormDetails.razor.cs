@@ -30,7 +30,7 @@ public partial class FormDetails
     private string _requiredHours;
     private int? _passingThreshold;
 
-    protected override async void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         _questions = await ApplicationService.GetFormQuestions(FormId);
         _options = await ApplicationService.GetFormOptions(FormId);

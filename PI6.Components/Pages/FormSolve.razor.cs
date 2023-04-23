@@ -34,7 +34,7 @@ public partial class FormSolve
         await JSRuntime.InvokeVoidAsync("console.log", message);
     }
 
-    protected override async void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         AppState.LoadStateChanged += OnStateChanged;
 
@@ -53,7 +53,7 @@ public partial class FormSolve
 
         StateHasChanged();
     }
-
+    
     private void OnStateChanged() => this.InvokeAsync(StateHasChanged);
 
     private List<formularz_pytanie_opcja> GetQuestionOptions(int questionId) => _options.Where(x => x.fpop_forp_id == questionId).ToList();
@@ -118,7 +118,7 @@ public partial class FormSolve
         return FormHelper.GetFormAnswer(allAnswers, FormId);
     }
 
-    private void SaveSolvedForm()
+    private async Task SaveSolvedForm()
     {
         _finishDateTime = DateTime.Now;
 
@@ -131,6 +131,6 @@ public partial class FormSolve
         _solvedForm.FpodWykorzystanyCzas = (int)_finishDateTime.Subtract(_startDateTime).TotalSeconds;
         _solvedForm.Odpowiedzi = GetAllAnswers();
 
-        ApplicationService.SaveSolvedForm(_solvedForm);
+        await ApplicationService.SaveSolvedForm(_solvedForm);
     }
 }
