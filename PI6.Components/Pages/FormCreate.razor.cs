@@ -1,9 +1,9 @@
 ﻿using PI6.Shared.Data.Entities;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using MudBlazor;
 using PI6.WebApi.Services;
 using PI6.Shared.Data.Dtos;
+using PI6.WebApi.Helpers;
 
 namespace PI6.Components.Pages;
 
@@ -15,9 +15,6 @@ public partial class FormCreate
     private readonly List<formularz_pytanie> _questions = new();
     private readonly List<formularz_pytanie_opcja> _options = new();
     private readonly IMask _pointsPatternMask = new PatternMask("00");
-    private readonly IMask _regHours = new RegexMask(@"^([1-9][0-9]|[0-9])$", "00");
-    private readonly IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$", "00");
-    private readonly IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$", "00");
     private string _title = string.Empty;
     private DateTime _dateOpen = DateTime.Now;
     private DateTime? _dateClose;
@@ -167,30 +164,7 @@ public partial class FormCreate
 
     private void CreateForm()
     {
-        List<OpcjaDto> options = (
-            from o in _options
-            select new OpcjaDto
-            {
-                PytanieId = o.fpop_forp_id,
-                OpcjaId = o.fpop_id,
-                OpcjaNazwa = o.fpop_nazwa,
-                OpcjaCzyPoprawna = o.fpop_czy_poprawna,
-                OpcjaNumerOpc = (int)o.forp_numer_opcji
-            }).ToList();
-
-        List<PytanieDto> questions = (
-            from q in _questions
-            select new PytanieDto
-            {
-                PytanieId = q.forp_id,
-                PytanieNazwa = q.forp_nazwa,
-                PytaniePunkty = q.forp_punkty,
-                PytanieCzyWieleOdp = q.forp_czy_wiele_odp,
-                PytanieCzyWymagane = q.forp_czy_wymagane,
-                PytanieForId = q.forp_for_id,
-                PytanieNumerPyt = (int)q.forp_numer_pytania,
-                Opcje = options.Where(x => x.PytanieId == q.forp_id).ToList()
-            }).ToList();
+        var questions = FormHelper.GetFormQuestionsDto(_questions, _options);
 
         newForm.Pytania = questions;
         newForm.ForId = -1;

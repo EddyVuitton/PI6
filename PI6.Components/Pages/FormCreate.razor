@@ -7,11 +7,13 @@
                 <MudTextField @bind-Value="@_dateOpen"
                               Style="width: 200px; font-size: 20px"
                               Format="s"
+                              T="DateTime"
                               Label="Data otwarcia"
                               InputType="InputType.DateTimeLocal" />
                 <MudTextField @bind-Value="@_dateClose"
                               Style="width: 200px; font-size: 20px"
                               Format="s"
+                              T="DateTime?"
                               Label="Data zamknięcia"
                               InputType="InputType.DateTimeLocal" />
                 <MudPaper Elevation="0" Class="d-flex flex-column" Style="margin: 0%; padding: 0%;">
