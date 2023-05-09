@@ -1,0 +1,40 @@
+﻿<MudPaper Elevation="0" Style="margin: 1%; width: 50%;">
+        <MudTextField @bind-Value="_account.us_name" 
+                      T="string"
+                      Label="Imię" />
+        <MudTextField @bind-Value="_account.us_surname"
+                      T="string"
+                      Label="Nazwisko" />
+        <MudTextField @bind-Value="_account.us_email"
+                      T="string"
+                      Label="Email" />
+        <MudTextField @bind-Value="_account.us_pass"
+                      T="string"
+                      Label="Hasło"
+                      InputType="InputType.Password" />
+        <MudSelect @bind-Value="_choosedAccountType"
+                   T="string"
+                   Label="Typ użytkownika"
+                   AnchorOrigin="Origin.BottomCenter">
+            @if (_accountTypes != null)
+            {
+                foreach (var accountType in _accountTypes)
+                {
+                    <MudSelectItem Value="(accountType.ust_name)" />
+                }
+            }
+        </MudSelect>
+        <MudTextField @bind-Value="_account.us_deactivate"
+                      T="DateTime?"
+                      Style="width: 200px; font-size: 20px"
+                      Label="Dzień dezaktywacji konta"
+                      Format="s"
+                      InputType="InputType.DateTimeLocal" />
+        <MudButton OnClick="Save"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   Class="ml-auto"
+               Style="border-radius: 10px; padding: 2% 4% 2% 4%; margin-top: 5%; font-size: 15px;">
+            Add account
+        </MudButton>
+</MudPaper>

@@ -1,0 +1,15 @@
+﻿<MudDialog Style="">
+    <DialogContent>
+        <MudTextField @bind-Value="_account.us_email"
+                      T="string"
+                      Label="Email" />
+        <MudTextField @bind-Value="_account.us_pass"
+                      T="string"
+                      Label="Hasło"
+                      InputType="InputType.Password" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Login">Login</MudButton>
+    </DialogActions>
+</MudDialog>

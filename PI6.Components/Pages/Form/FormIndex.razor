@@ -9,8 +9,8 @@
             <MudButton Size="Size.Small"
                        Variant="Variant.Filled"
                        Color="Color.Info"
-                       Href="/newform"
-                       Disabled="true"
+                       Href="/account"
+                       Disabled="false"
                        Style="text-transform:none; font-size: 20px">
                 Nowy formularz
             </MudButton>
@@ -37,4 +37,9 @@
             <FormTilesIndex FormTiles="_formTiles" />
         }
     </MudPaper>
+</MudPaper>
+
+<MudPaper Class="d-flex justify-center">
+    @*<AccountCreate />*@
+    <AccountLogin />
 </MudPaper>

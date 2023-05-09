@@ -13,4 +13,6 @@ public interface IApplicationRepository
     public Task<List<formularz_pytanie>> GetFormQuestions(int for_id);
     public Task<List<formularz_pytanie_opcja>> GetFormOptions(int for_id);
     public Task SaveSolvedForm(FormularzPodejscieDto solvedForm);
+    public Task<List<account_type>> GetAccountTypes();
+    public Task CreateAccount(account account);
 }

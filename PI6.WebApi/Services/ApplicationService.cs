@@ -57,4 +57,16 @@ public class ApplicationService : IApplicationService
         var data = new StringContent(json, Encoding.UTF8, "application/json");
         await _httpClient.PostAsync("api/pi6/SaveSolvedForm", data);
     }
+
+    public async Task<List<account_type>> GetAccountTypes()
+    {
+        return await _httpClient.GetFromJsonAsync<List<account_type>>("api/pi6/GetAccountTypes") ?? new List<account_type>();
+    }
+
+    public async Task CreateAccount(account account)
+    {
+        var json = JsonConvert.SerializeObject(account);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        await _httpClient.PostAsync("api/pi6/CreateAccount", data);
+    }
 }

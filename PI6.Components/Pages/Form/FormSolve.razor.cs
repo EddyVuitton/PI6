@@ -7,7 +7,7 @@ using PI6.Shared.Data.Entities;
 using PI6.WebApi.Helpers;
 using PI6.WebApi.Services;
 
-namespace PI6.Components.Pages;
+namespace PI6.Components.Pages.Form;
 
 public partial class FormSolve
 {

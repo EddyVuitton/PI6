@@ -1,4 +1,4 @@
-﻿    @inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
 <MudThemeProvider />
 <MudDialogProvider />
@@ -6,13 +6,16 @@
 
 <MudLayout>
     <MudAppBar Elevation="0" Dense="@true" Fixed="@true">
-        <MudButton OnClick="NavToIndex" Style="background-color: transparent; color: white;">
-            <MudText Typo="Typo.h4">Home</MudText>
-        </MudButton>
+        <MudPaper Elevation="0" Class="d-flex flex-row" Style="width: 100%; background-color: inherit;">
+            <MudPaper Elevation="0" Class="d-flex justify-start flex-shrink-1" Style="background-color: inherit;" Width="50%;">
+                <MudIconButton OnClick="NavToIndex" Icon="@Icons.Material.Filled.Home" Style="color: #FFFFFF;" />
+            </MudPaper>
+            <MudPaper Elevation="0" Class="d-flex justify-end" Style="background-color: inherit;" Width="50%;">
+                <MudIconButton OnClick="OpenDialog" Icon="@Icons.Material.Filled.Login" Style="color: #FFFFFF;" />
+                <MudIconButton Icon="@Icons.Material.Filled.Logout" Style="color: #FFFFFF;" />
+            </MudPaper>
+        </MudPaper>
     </MudAppBar>
-@*    <MudDrawer ClipMode="DrawerClipMode.Always" DisableOverlay="false" @bind-Open="@_drawerOpen">
-        <NavMenu />
-    </MudDrawer>*@
     <MudMainContent>
         @Body
     </MudMainContent>

@@ -78,4 +78,24 @@ public class ApplicationRepository : IApplicationRepository
 
         await _context.SqlQueryAsync("exec dbo.p_formularz_podejscie_zapisz @xml", param, default);
     }
+
+    public async Task<List<account_type>> GetAccountTypes()
+    {
+        return await _context.SqlQueryAsync<account_type>("exec p_account_type_get");
+    }
+
+    public async Task CreateAccount(account account)
+    {
+        SqlParam sqlParams = new();
+        sqlParams.AddParam("name", account.us_name, System.Data.SqlDbType.NVarChar);
+        sqlParams.AddParam("surname", account.us_surname, System.Data.SqlDbType.NVarChar);
+        sqlParams.AddParam("email", account.us_email, System.Data.SqlDbType.NVarChar);
+        sqlParams.AddParam("pass", AccountHelper.HashPassword(account.us_pass), System.Data.SqlDbType.NVarChar);
+        sqlParams.AddParam("ust_id", account.us_ust_id, System.Data.SqlDbType.Int);
+        sqlParams.AddParam("activate", account.us_activate, System.Data.SqlDbType.DateTime);
+        sqlParams.AddParam("deactivate", account.us_deactivate, System.Data.SqlDbType.DateTime);
+        var param = sqlParams.Params();
+
+        await _context.SqlQueryAsync("exec dbo.p_account_add @name, @surname, @email, @pass, @ust_id, @activate, @deactivate", param, default);
+    }
 }

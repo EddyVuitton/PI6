@@ -14,4 +14,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\PI6.WebApi\PI6.WebApi.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Pages\Account\" />
+	</ItemGroup>
 </Project>

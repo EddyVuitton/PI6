@@ -64,4 +64,16 @@ public class PI6Controller : Controller
     {
         await _applicationRepository.SaveSolvedForm(solvedForm);
     }
+
+    [HttpGet("GetAccountTypes")]
+    public async Task<ActionResult<List<account_type>>> GetAccountTypes()
+    {
+        return Ok(await _applicationRepository.GetAccountTypes());
+    }
+
+    [HttpPost("CreateAccount")]
+    public async Task CreateAccount(account account)
+    {
+        await _applicationRepository.CreateAccount(account);
+    }
 }

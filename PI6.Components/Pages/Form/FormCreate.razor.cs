@@ -5,7 +5,7 @@ using PI6.WebApi.Services;
 using PI6.Shared.Data.Dtos;
 using PI6.WebApi.Helpers;
 
-namespace PI6.Components.Pages;
+namespace PI6.Components.Pages.Form;
 
 public partial class FormCreate
 {

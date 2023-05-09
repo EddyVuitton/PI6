@@ -2,7 +2,7 @@
 using PI6.Shared.Data.Dtos;
 using PI6.WebApi.Services;
 
-namespace PI6.Components.Pages;
+namespace PI6.Components.Pages.Form;
 
 public partial class FormIndex
 {
