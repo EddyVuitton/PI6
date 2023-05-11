@@ -15,4 +15,5 @@ public interface IApplicationService
     public Task SaveSolvedForm(FormularzPodejscieDto solvedForm);
     public Task<List<account_type>> GetAccountTypes();
     public Task CreateAccount(account account);
+    public Task<UserToken> Login(account account);
 }

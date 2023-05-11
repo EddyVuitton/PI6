@@ -1,4 +1,9 @@
-﻿using System.Security.Cryptography;
+﻿using Microsoft.IdentityModel.Tokens;
+using PI6.Shared.Data.Dtos;
+using PI6.Shared.Data.Entities;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace PI6.WebApi.Helpers;
@@ -13,5 +18,29 @@ public class AccountHelper
         var hashedPassword = SHA256.HashData(passwordBytes);
 
         return Convert.ToHexString(hashedPassword);
+    }
+
+    public static UserToken BuildToken(account account, SymmetricSecurityKey symmetricSecurityKey)
+    {
+        var claims = new List<Claim>() {
+            new Claim(ClaimTypes.Email, account.us_email)
+        };
+
+        var creds = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+        var expiration = DateTime.UtcNow.AddYears(1);
+
+        JwtSecurityToken token = new(
+            issuer: null,
+            audience: null,
+            claims: claims,
+            expires: expiration,
+            signingCredentials: creds
+        );
+
+        return new UserToken()
+        {
+            Token = new JwtSecurityTokenHandler().WriteToken(token),
+            Expiration = expiration
+        };
     }
 }

@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.IdentityModel.Tokens;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
+using PI6.WebApi.Helpers;
 using PI6.WebApi.Repositories;
+using System.Text;
 
 namespace PI6.WebApi.Controllers;
 
@@ -10,10 +14,12 @@ namespace PI6.WebApi.Controllers;
 public class PI6Controller : Controller
 {
     private readonly IApplicationRepository _applicationRepository;
+    private readonly IConfiguration _configuration;
 
-    public PI6Controller(IApplicationRepository applicationRepository)
+    public PI6Controller(IApplicationRepository applicationRepository, IConfiguration configuration)
     {
         _applicationRepository = applicationRepository;
+        _configuration = configuration;
     }
 
     [HttpGet("GetForms")]
@@ -21,7 +27,6 @@ public class PI6Controller : Controller
     {
         return Ok(await _applicationRepository.GetForms());
     }
-
 
     [HttpGet("GetForm")]
     public async Task<ActionResult<List<formularz>>> GetForm(int for_id)
@@ -75,5 +80,23 @@ public class PI6Controller : Controller
     public async Task CreateAccount(account account)
     {
         await _applicationRepository.CreateAccount(account);
+    }
+
+    [HttpPost("Login")]
+    public ActionResult<UserToken> Login(account account)
+    {
+        var result = false;
+        var dbAccountPassword = _applicationRepository.GetAccountHashedPassword(account);
+        
+        if (AccountHelper.HashPassword(account.us_pass) == dbAccountPassword)
+            result = true;
+
+        if (result)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));
+            return AccountHelper.BuildToken(account, key);
+        }
+        else
+            return BadRequest("Invalid login attempt");
     }
 }

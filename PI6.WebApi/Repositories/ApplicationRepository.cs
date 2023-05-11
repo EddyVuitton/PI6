@@ -98,4 +98,15 @@ public class ApplicationRepository : IApplicationRepository
 
         await _context.SqlQueryAsync("exec dbo.p_account_add @name, @surname, @email, @pass, @ust_id, @activate, @deactivate", param, default);
     }
+
+    public string GetAccountHashedPassword(account account)
+    {
+        SqlParam sqlParam = new();
+        sqlParam.AddParam("email", account.us_email, System.Data.SqlDbType.NVarChar);
+        var param = sqlParam.Params();
+
+        var dbAccount = _context.SqlQueryAsync<account>($"exec p_account_get @email", param, default).Result.First();
+
+        return dbAccount.us_pass;
+    }
 }

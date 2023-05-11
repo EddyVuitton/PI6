@@ -1,4 +1,4 @@
-﻿<MudDialog Style="">
+﻿<MudDialog>
     <DialogContent>
         <MudTextField @bind-Value="_account.us_email"
                       T="string"
@@ -7,6 +7,10 @@
                       T="string"
                       Label="Hasło"
                       InputType="InputType.Password" />
+        @if (_isLoginFailed)
+        {
+            <MudText Color="Color.Error">Błędne hasło lub email</MudText>
+        }
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>

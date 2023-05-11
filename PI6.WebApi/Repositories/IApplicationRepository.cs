@@ -15,4 +15,5 @@ public interface IApplicationRepository
     public Task SaveSolvedForm(FormularzPodejscieDto solvedForm);
     public Task<List<account_type>> GetAccountTypes();
     public Task CreateAccount(account account);
+    public string GetAccountHashedPassword(account account);
 }

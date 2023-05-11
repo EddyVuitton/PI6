@@ -69,4 +69,20 @@ public class ApplicationService : IApplicationService
         var data = new StringContent(json, Encoding.UTF8, "application/json");
         await _httpClient.PostAsync("api/pi6/CreateAccount", data);
     }
+
+    public async Task<UserToken> Login(account account)
+    {
+        var json = JsonConvert.SerializeObject(account);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("api/pi6/Login", data);
+        var userToken = new UserToken();
+
+        if (response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            userToken = JsonConvert.DeserializeObject<UserToken>(responseContent);
+        }
+        
+        return userToken;
+    }
 }
