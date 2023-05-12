@@ -145,21 +145,21 @@
                 </MudPaper>
             }
         </MudPaper>
-        <MudPaper Elevation="0" Style="background-color: inherit; margin-top: 1%; margin-bottom: 1%;">
+        <MudPaper Elevation="0" Class="d-flex flex-row justify-space-between" Style="background-color: inherit; margin-top: 1%; margin-bottom: 1%;">
             <MudButton Size="Size.Large"
                        Variant="Variant.Filled"
                        OnClick="AddQuestion"
                        Color="Color.Success"
-                       Style="text-transform:none; padding: 10px 20px 10px 20px; font-size: 22px;">
+                       Style="border-radius: 20px; padding: 1%; font-size: 18px;">
                 Dodaj pytanie
             </MudButton>
+            <MudButton OnClick="CreateForm"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Style="border-radius: 20px; padding: 1%; font-size: 18px;">
+                Stwórz formularz
+            </MudButton>
         </MudPaper>
-        <MudButton OnClick="CreateForm"
-                   Variant="Variant.Filled"
-                   Color="Color.Primary"
-                   Style="bottom:20px;left:20px; position: fixed; border-radius: 30px; padding: 1%;">
-            Stwórz formularz
-        </MudButton>
         <MudScrollToTop>
             <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowCircleUp" />
         </MudScrollToTop>

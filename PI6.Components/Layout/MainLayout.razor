@@ -15,6 +15,11 @@
             </MudPaper>
         </MudPaper>
     </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="1" Variant="DrawerVariant.Responsive">
+        <MudNavMenu Margin="Margin.Normal">
+            <MudNavLink Icon="@Icons.Material.Filled.People" IconColor="Color.Success">Moja grupa</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
     <MudMainContent>
         @Body
     </MudMainContent>

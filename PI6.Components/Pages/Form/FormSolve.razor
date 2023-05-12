@@ -103,12 +103,14 @@
                 </MudPaper>
             }
         </MudPaper>
-        <MudButton OnClick="SaveSolvedForm"
-                   Variant="Variant.Filled"
-                   Color="Color.Primary"
-                   Style="bottom:20px;left:20px; position: fixed; border-radius: 30px; padding: 1%;">
-            Potwierdź podejście
-        </MudButton>
+        <MudPaper Elevation="0" Class="d-flex flex-row justify-space-between" Style="background-color: inherit; margin-top: 1%; margin-bottom: 1%;">
+            <MudButton OnClick="SaveSolvedForm"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Style="border-radius: 20px; padding: 1%; font-size: 18px;">
+                Potwierdź podejście
+            </MudButton>
+        </MudPaper>
         <MudScrollToTop>
             <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowCircleUp" />
         </MudScrollToTop>
