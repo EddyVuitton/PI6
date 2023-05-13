@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using PI6.Components.Shared.Account;
 using PI6.WebApi.Auth;
@@ -22,7 +23,7 @@ public partial class LoginLinks
             MaxWidth = MaxWidth.Small,
             FullWidth = true
         };
-        DialogService.Show<AccountLogin>("Cokolwiek", options);
+        DialogService.Show<AccountLogin>(null, options);
     }
 
     private async Task LogOut()

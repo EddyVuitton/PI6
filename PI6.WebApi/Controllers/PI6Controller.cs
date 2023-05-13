@@ -94,7 +94,8 @@ public class PI6Controller : Controller
         if (result)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));
-            return AccountHelper.BuildToken(account, key);
+            var accountDtoInfo = _applicationRepository.GetAccountByEmail(account.us_email);
+            return AccountHelper.BuildToken(accountDtoInfo, key);
         }
         else
             return BadRequest("Invalid login attempt");

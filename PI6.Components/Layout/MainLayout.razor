@@ -4,23 +4,29 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
-    <MudAppBar Elevation="0" Dense="@true" Fixed="@true">
-        <MudPaper Elevation="0" Class="d-flex flex-row" Style="width: 100%; background-color: inherit;">
-            <MudPaper Elevation="0" Class="d-flex justify-start flex-shrink-1" Style="background-color: inherit;" Width="50%;">
-                <MudIconButton OnClick="NavToIndex" Icon="@Icons.Material.Filled.Home" Style="color: #FFFFFF;" />
+<CascadingAuthenticationState>
+    <MudLayout>
+        <MudAppBar Elevation="0" Dense="@true" Fixed="@true">
+            <MudPaper Elevation="0" Class="d-flex flex-row" Style="width: 100%; background-color: inherit;">
+                <MudPaper Elevation="0" Class="d-flex justify-start flex-shrink-1" Style="background-color: inherit;" Width="50%;">
+                    <MudIconButton OnClick="NavToIndex" Icon="@Icons.Material.Filled.Home" Style="color: #FFFFFF;" />
+                </MudPaper>
+                <MudPaper Elevation="0" Class="d-flex justify-end" Style="background-color: inherit;" Width="50%;">
+                    <LoginLinks />
+                </MudPaper>
             </MudPaper>
-            <MudPaper Elevation="0" Class="d-flex justify-end" Style="background-color: inherit;" Width="50%;">
-                <LoginLinks />
-            </MudPaper>
-        </MudPaper>
-    </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="1" Variant="DrawerVariant.Responsive">
-        <MudNavMenu Margin="Margin.Normal">
-            <MudNavLink Icon="@Icons.Material.Filled.People" IconColor="Color.Success">Moja grupa</MudNavLink>
-        </MudNavMenu>
-    </MudDrawer>
-    <MudMainContent>
-        @Body
-    </MudMainContent>
-</MudLayout>
+        </MudAppBar>
+        <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="1" Variant="DrawerVariant.Responsive">
+            <MudNavMenu Margin="Margin.Normal">
+                <AuthorizeView Roles=@roles>
+                    <Authorized>
+                        <MudNavLink Icon="@Icons.Material.Filled.People" IconColor="Color.Success">Moja grupa</MudNavLink>
+                    </Authorized>
+                </AuthorizeView>
+            </MudNavMenu>
+        </MudDrawer>
+        <MudMainContent>
+            @Body
+        </MudMainContent>
+    </MudLayout>
+</CascadingAuthenticationState>

@@ -1,6 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using PI6.Shared.Data.Dtos;
-using PI6.Shared.Data.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -20,10 +19,11 @@ public class AccountHelper
         return Convert.ToHexString(hashedPassword);
     }
 
-    public static UserToken BuildToken(account account, SymmetricSecurityKey symmetricSecurityKey)
+    public static UserToken BuildToken(AccountDto accountDto, SymmetricSecurityKey symmetricSecurityKey)
     {
         var claims = new List<Claim>() {
-            new Claim(ClaimTypes.Email, account.us_email)
+            new Claim(ClaimTypes.Email, accountDto.UserEmail),
+            new Claim(ClaimTypes.Role, accountDto.UstName)
         };
 
         var creds = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);

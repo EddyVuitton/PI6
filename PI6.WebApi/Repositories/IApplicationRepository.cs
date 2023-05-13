@@ -16,4 +16,5 @@ public interface IApplicationRepository
     public Task<List<account_type>> GetAccountTypes();
     public Task CreateAccount(account account);
     public string GetAccountHashedPassword(account account);
+    public AccountDto GetAccountByEmail(string email);
 }

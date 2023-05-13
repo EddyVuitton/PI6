@@ -1,4 +1,5 @@
-﻿using PI6.Shared.Data.Dtos;
+﻿using Microsoft.EntityFrameworkCore;
+using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
 using PI6.Shared.DataSource;
 using PI6.WebApi.Extensions;
@@ -108,5 +109,22 @@ public class ApplicationRepository : IApplicationRepository
         var dbAccount = _context.SqlQueryAsync<account>($"exec p_account_get @email", param, default).Result.First();
 
         return dbAccount.us_pass;
+    }
+
+    public AccountDto GetAccountByEmail(string email)
+    {
+        var accountDto =
+            from account in _context.account
+            join accountType in _context.account_type on account.us_ust_id equals accountType.ust_id
+            where account.us_email == email
+            select new AccountDto
+            {
+                UserId = account.us_id,
+                UserEmail = account.us_email,
+                UstId = account.us_ust_id,
+                UstName = accountType.ust_name
+            };
+        
+        return accountDto.FirstOrDefault();
     }
 }
