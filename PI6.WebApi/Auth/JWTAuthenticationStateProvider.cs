@@ -86,9 +86,10 @@ public class JWTAuthenticationStateProvider : AuthenticationStateProvider, ILogi
         return Convert.FromBase64String(base64);
     }
 
-    public async Task Login(string token)
+    public async Task Login(string token, string email)
     {
         await _js.SetInLocalStorage(_TOKENKEY, token);
+        await _js.SetInLocalStorage("email", email);
         var authState = BuildAuthenticationState(token);
         NotifyAuthenticationStateChanged(Task.FromResult(authState));
     }
@@ -101,6 +102,7 @@ public class JWTAuthenticationStateProvider : AuthenticationStateProvider, ILogi
     private async Task CleanUp()
     {
         await _js.RemoveItemFromLocalStorage(_TOKENKEY);
+        await _js.RemoveItemFromLocalStorage("email");
         _httpClient.DefaultRequestHeaders.Authorization = null;
         NotifyAuthenticationStateChanged(Task.FromResult(_anonymous));
     }

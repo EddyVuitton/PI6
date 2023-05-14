@@ -1,0 +1,99 @@
+﻿@page "/account/"
+
+<style>
+    .mud-table-cell-custom-group {
+        font-weight: 500;
+    }
+
+    .mud-table-cell-custom-group-footer {
+        padding-bottom: 50px;
+        text-align: right;
+    }
+</style>
+
+@if (_account != null)
+{
+    <MudPaper Elevation="0" Style="margin: 1%;">
+        <MudText Align="Align.Left" Typo="Typo.h3">@_account.us_name @_account.us_surname</MudText>
+        <MudText Align="Align.Left" Typo="Typo.h6"><b>Data aktywacji konta: </b>@_account.us_activate.ToShortDateString()</MudText>
+        <MudText Align="Align.Left" Typo="Typo.h6"><b>Data deaktywacji konta: </b>@_deactivateDate</MudText>
+        <br />
+        <MudText Align="Align.Left" Typo="Typo.h3">Moje klasy</MudText>
+        <MudPaper Elevation="0" Width="50%">
+            @if (_studentGroups != null)
+            {
+                if (_studentGroups.Count != 0)
+                {
+                    <MudTable Items="@_studentGroups" Hover="true" Dense="true" Striped="true" Bordered="true">
+                        <HeaderContent>
+                            <MudTh>Nazwa</MudTh>
+                            <MudTh>Kierunek</MudTh>
+                            <MudTh>Specjalność</MudTh>
+                            <MudTh>Data rozpoczęcia</MudTh>
+                            <MudTh>Data zakończenia</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd>@context.sgr_name</MudTd>
+                            <MudTd>@context.sgr_field_of_study</MudTd>
+                            <MudTd>@context.sgr_speciality</MudTd>
+                            <MudTd>@context.sgr_start_date.ToShortDateString()</MudTd>
+                            <MudTd>@context.sgr_end_date.Value.ToShortDateString()</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                }
+                else
+                {
+                    <MudText>
+                        Brak przypisanych grup...
+                    </MudText>
+                }
+            }
+            else
+            {
+                <MudText>
+                    Ładowanie grup...
+                </MudText>
+            }
+        </MudPaper>
+        <br />
+        <MudText Align="Align.Left" Typo="Typo.h3">Studenci</MudText>
+        <MudPaper Elevation="0" Width="50%">
+            @if (_studentGroupMapDtos != null)
+            {
+                if (_studentGroupMapDtos.Count != 0)
+                {
+                    <MudTable Hover="true" Breakpoint="Breakpoint.Sm" FixedHeader="false" Items="@_studentGroupMapDtos" GroupBy="@_groupDefinition" GroupHeaderStyle="background-color:var(--mud-palette-background-grey)" GroupFooterClass="mb-4" Dense="true" MultiSelection="false" Striped="true" Bordered="true" Virtualize="false">
+                        <HeaderContent>
+                            <MudTh>Imię</MudTh>
+                            <MudTh>Nazwisko</MudTh>
+                            <MudTh>Email</MudTh>
+                        </HeaderContent>
+                        <GroupHeaderTemplate>
+                            <MudTh Class="mud-table-cell-custom-group" colspan="5">@context.Key</MudTh>
+                        </GroupHeaderTemplate>
+                        <RowTemplate>
+                            <MudTd>@context.UserName</MudTd>
+                            <MudTd>@context.UserSurname</MudTd>
+                            <MudTd>@context.UserEmail</MudTd>
+                        </RowTemplate>
+                        <GroupFooterTemplate>
+                            <MudTh Class="mud-table-cell-custom-group mud-table-cell-custom-group-footer" colspan="5">Liczba studentów: @context.Items.Count()</MudTh>
+                        </GroupFooterTemplate>
+                    </MudTable>
+                }
+                else
+                {
+                    <MudText>
+                        Nie znaleziono studentów...
+                    </MudText>
+                }
+            }
+            else
+            {
+                <MudText>
+                    Ładowanie studentów...
+                </MudText>
+            }
+        </MudPaper>
+    </MudPaper>
+}

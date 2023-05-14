@@ -4,27 +4,31 @@
     <MudPaper Elevation="0" Style="margin: 1%;" Width="90%">
         <AdvCarousel />
     </MudPaper>
-    <MudPaper Elevation="1" Style="margin: 1%; padding: 1%;" Width="400px" Class="d-flex flex-row align-center justify-space-around">
-        <MudPaper Elevation="0">
-            <MudButton Size="Size.Small"
-                       Variant="Variant.Filled"
-                       Color="Color.Info"
-                       Href="/account"
-                       Disabled="false"
-                       Style="text-transform:none; font-size: 20px">
-                Nowy formularz
-            </MudButton>
-        </MudPaper>
-        <MudPaper Elevation="0">
-            <MudButton Size="Size.Small"
-                       Variant="Variant.Filled"
-                       Color="Color.Primary"
-                       Href="/newquiz"
-                       Style="text-transform:none; font-size: 20px">
-                Nowy quiz
-            </MudButton>
-        </MudPaper>
-    </MudPaper>
+    <CascadingAuthenticationState>
+        <AuthorizeView Roles=@_roles>
+            <MudPaper Elevation="1" Style="margin: 1%; padding: 1%;" Width="400px" Class="d-flex flex-row align-center justify-space-around">
+                <MudPaper Elevation="0">
+                    <MudButton Size="Size.Small"
+                               Variant="Variant.Filled"
+                               Color="Color.Info"
+                               Href="/account"
+                               Disabled="true"
+                               Style="text-transform:none; font-size: 20px">
+                        Nowy formularz
+                    </MudButton>
+                </MudPaper>
+                <MudPaper Elevation="0">
+                    <MudButton Size="Size.Small"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Href="/newquiz"
+                               Style="text-transform:none; font-size: 20px">
+                        Nowy quiz
+                    </MudButton>
+                </MudPaper>
+            </MudPaper>
+        </AuthorizeView>
+    </CascadingAuthenticationState>
     <MudPaper Elevation="0" Class="d-flex justify-center flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
         @if (_formTiles == null)
         {
@@ -34,12 +38,7 @@
         }
         else
         {
-            <FormTilesIndex FormTiles="_formTiles" />
+            <FormTilesIndex FormTiles="@_formTiles" Account="@_account" />
         }
     </MudPaper>
-</MudPaper>
-
-<MudPaper Class="d-flex justify-center">
-    @*<AccountCreate />*@
-    <AccountLogin />
 </MudPaper>

@@ -82,22 +82,47 @@ public class PI6Controller : Controller
         await _applicationRepository.CreateAccount(account);
     }
 
+    [HttpPost("GetAccountDtoByEmail")]
+    public async Task<ActionResult<AccountDto>> GetAccountDtoByEmail(account account)
+    {
+        return Ok(await _applicationRepository.GetAccountDtoByEmail(account.us_email));
+    }
+
+    [HttpGet("GetAccount")]
+    public async Task<ActionResult<account>> GetAccount(int id)
+    {
+        return Ok(await _applicationRepository.GetAccount(id));
+    }
+
     [HttpPost("Login")]
-    public ActionResult<UserToken> Login(account account)
+    public async Task<ActionResult<UserToken>> Login(account account)
     {
         var result = false;
-        var dbAccountPassword = _applicationRepository.GetAccountHashedPassword(account);
-        
-        if (AccountHelper.HashPassword(account.us_pass) == dbAccountPassword)
+        var dbAccountPassword = await _applicationRepository.GetAccountHashedPassword(account);
+        var hashedPassword = AccountHelper.HashPassword(account.us_pass);
+
+        if (dbAccountPassword == hashedPassword)
             result = true;
 
         if (result)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));
-            var accountDtoInfo = _applicationRepository.GetAccountByEmail(account.us_email);
-            return AccountHelper.BuildToken(accountDtoInfo, key);
+            var accountDtoInfo = await _applicationRepository.GetAccountDtoByEmail(account.us_email);
+            return Ok(AccountHelper.BuildToken(accountDtoInfo, key));
         }
         else
             return BadRequest("Invalid login attempt");
+    }
+
+    [HttpGet("GetStudentGroups")]
+    public async Task<ActionResult<List<student_group>>> GetStudentGroups(int us_id)
+    {
+        return Ok(await _applicationRepository.GetStudentGroups(us_id));
+    }
+
+    [HttpGet("GetStudentGroupMapDto")]
+    public async Task<ActionResult<List<StudentGroupMapDto>>> GetStudentGroupMapDto(int us_id)
+    {
+        return Ok(await _applicationRepository.GetStudentGroupMapDto(us_id));
     }
 }

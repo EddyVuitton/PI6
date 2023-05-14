@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
+using PI6.WebApi.Helpers;
 using System.Text;
 
 namespace PI6.WebApi.Services;
@@ -70,6 +72,37 @@ public class ApplicationService : IApplicationService
         await _httpClient.PostAsync("api/pi6/CreateAccount", data);
     }
 
+    public async Task<AccountDto> GetAccountDtoByEmail(string email)
+    {
+        var tempAccount = new account() { us_email = email };
+        var json = JsonConvert.SerializeObject(tempAccount);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = _httpClient.PostAsync($"api/pi6/GetAccountDtoByEmail", data);
+        var accountDto = new AccountDto();
+
+        if (response.Result.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Result.Content.ReadAsStringAsync();
+            accountDto = JsonConvert.DeserializeObject<AccountDto>(responseContent);
+        }
+
+        return accountDto;
+    }
+
+    public async Task<account> GetAccount(int id)
+    {
+        var response = _httpClient.GetAsync($"api/pi6/GetAccount?id={id}");
+        var account = new account();
+
+        if (response.Result.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Result.Content.ReadAsStringAsync();
+            account = JsonConvert.DeserializeObject<account>(responseContent);
+        }
+
+        return account;
+    }
+
     public async Task<UserToken> Login(account account)
     {
         var json = JsonConvert.SerializeObject(account);
@@ -84,5 +117,15 @@ public class ApplicationService : IApplicationService
         }
         
         return userToken;
+    }
+
+    public async Task<List<student_group>> GetStudentGroups(int us_id)
+    {
+        return await _httpClient.GetFromJsonAsync<List<student_group>>($"api/pi6/GetStudentGroups?us_id={us_id}") ?? new List<student_group>();
+    }
+
+    public async Task<List<StudentGroupMapDto>> GetStudentGroupMapDto(int us_id)
+    {
+        return await _httpClient.GetFromJsonAsync<List<StudentGroupMapDto>>($"api/pi6/GetStudentGroupMapDto?us_id={us_id}") ?? new List<StudentGroupMapDto>();
     }
 }

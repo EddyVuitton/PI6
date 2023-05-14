@@ -22,7 +22,7 @@ public partial class AccountLogin
         
         if (!string.IsNullOrWhiteSpace(userToken.Token))
         {
-            await LoginService.Login(userToken.Token);
+            await LoginService.Login(userToken.Token, _account.us_email);
             NavigationManager.NavigateTo("");
         }
         else

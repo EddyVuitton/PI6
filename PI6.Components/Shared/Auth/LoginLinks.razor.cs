@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MudBlazor;
 using PI6.Components.Shared.Account;
 using PI6.WebApi.Auth;
+using PI6.WebApi.Helpers;
 using PI6.WebApi.Services;
 
 namespace PI6.Components.Shared.Auth;
@@ -12,6 +14,15 @@ public partial class LoginLinks
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public NavigationManager NavigationManager { get; set; }
     [Inject] public ILoginService LoginService { get; set; }
+    [Inject] public IJSRuntime JS { get; set; }
+
+    private string _loggedEmail = string.Empty;
+
+    protected override async Task OnAfterRenderAsync(bool isFirstRender)
+    {
+        _loggedEmail = await JS.GetFromLocalStorage("email");
+        StateHasChanged();
+    }
 
     private void OpenLoginDialog()
     {

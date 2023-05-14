@@ -100,31 +100,66 @@ public class ApplicationRepository : IApplicationRepository
         await _context.SqlQueryAsync("exec dbo.p_account_add @name, @surname, @email, @pass, @ust_id, @activate, @deactivate", param, default);
     }
 
-    public string GetAccountHashedPassword(account account)
+    public async Task<string> GetAccountHashedPassword(account account)
     {
         SqlParam sqlParam = new();
+        sqlParam.AddParam("us_id", account.us_id <= 0 ? null : account.us_id, System.Data.SqlDbType.Int);
         sqlParam.AddParam("email", account.us_email, System.Data.SqlDbType.NVarChar);
         var param = sqlParam.Params();
 
-        var dbAccount = _context.SqlQueryAsync<account>($"exec p_account_get @email", param, default).Result.First();
+        var accounts = await _context.SqlQueryAsync<account>($"exec p_account_get @us_id, @email", param, default);
 
-        return dbAccount.us_pass;
+        return accounts.FirstOrDefault().us_pass;
     }
 
-    public AccountDto GetAccountByEmail(string email)
+    public async Task<AccountDto> GetAccountDtoByEmail(string email)
     {
+        SqlParam sqlParam = new();
+        sqlParam.AddParam("us_id", null, System.Data.SqlDbType.Int);
+        sqlParam.AddParam("email", email, System.Data.SqlDbType.NVarChar);
+        var param = sqlParam.Params();
+
+        var accounts = await _context.SqlQueryAsync<account>($"exec p_account_get @us_id, @email", param, default);
         var accountDto =
-            from account in _context.account
+            from account in accounts
             join accountType in _context.account_type on account.us_ust_id equals accountType.ust_id
-            where account.us_email == email
             select new AccountDto
             {
                 UserId = account.us_id,
                 UserEmail = account.us_email,
-                UstId = account.us_ust_id,
+                UstId = accountType.ust_id,
                 UstName = accountType.ust_name
             };
-        
+
         return accountDto.FirstOrDefault();
+    }
+
+    public async Task<account> GetAccount(int id)
+    {
+        var acc =
+            from account in _context.account
+            where account.us_id == id
+            select account;
+
+        return await acc.FirstOrDefaultAsync();
+    }
+
+    public async Task<List<student_group>> GetStudentGroups(int us_id)
+    {
+        SqlParam sqlParams = new();
+        sqlParams.AddParam("us_id", us_id, System.Data.SqlDbType.Int);
+        var param = sqlParams.Params();
+
+        return await _context.SqlQueryAsync<student_group>($"exec p_student_groups_get @us_id", param, default);
+    }
+
+    public async Task<List<StudentGroupMapDto>> GetStudentGroupMapDto(int us_id)
+    {
+        SqlParam sqlParams = new();
+        sqlParams.AddParam("us_id", us_id, System.Data.SqlDbType.Int);
+        var param = sqlParams.Params();
+        var studentGroupMapDto = await _context.SqlQueryAsync<StudentGroupMapDto>($"exec p_student_group_map_get @us_id", param, default) ?? new List<StudentGroupMapDto>();
+
+        return studentGroupMapDto;
     }
 }

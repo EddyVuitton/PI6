@@ -16,4 +16,8 @@ public interface IApplicationService
     public Task<List<account_type>> GetAccountTypes();
     public Task CreateAccount(account account);
     public Task<UserToken> Login(account account);
+    public Task<AccountDto> GetAccountDtoByEmail(string email);
+    public Task<account> GetAccount(int id);
+    public Task<List<student_group>> GetStudentGroups(int us_id);
+    public Task<List<StudentGroupMapDto>> GetStudentGroupMapDto(int us_id);
 }

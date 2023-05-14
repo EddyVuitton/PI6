@@ -1,7 +1,10 @@
 ﻿<CascadingAuthenticationState>
     <AuthorizeView>
         <Authorized>
-            <MudButton OnClick="LogOut" StartIcon="@Icons.Material.Filled.Logout" Style="color: #FFFFFF;">Wyloguj się</MudButton>
+            <MudPaper Elevation="0" Class="d-flex align-content-center flex-wrap" Style="background-color: inherit;">
+                <MudText Class="align-self-center flex-1" Style="color: white; font-size: 18px;">Witaj, @_loggedEmail</MudText>
+                <MudButton OnClick="LogOut" StartIcon="@Icons.Material.Filled.Logout" Style="color: #FFFFFF;">Wyloguj się</MudButton>
+            </MudPaper>
         </Authorized>
         <NotAuthorized>
             <MudButton OnClick="OpenLoginDialog" StartIcon="@Icons.Material.Filled.Login" Style="color: #FFFFFF;">Zaloguj się</MudButton>>

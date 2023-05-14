@@ -22,7 +22,7 @@ public class AccountHelper
     public static UserToken BuildToken(AccountDto accountDto, SymmetricSecurityKey symmetricSecurityKey)
     {
         var claims = new List<Claim>() {
-            new Claim(ClaimTypes.Email, accountDto.UserEmail),
+            new Claim("Email", accountDto.UserEmail),
             new Claim(ClaimTypes.Role, accountDto.UstName)
         };
 

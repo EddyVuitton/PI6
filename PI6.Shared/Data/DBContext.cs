@@ -21,6 +21,9 @@ public partial class DBContext : DbContext
 
     public virtual DbSet<account> account { get; set; }
     public virtual DbSet<account_type> account_type { get; set; }
+    public virtual DbSet<student_group> student_group { get; set; }
+    public virtual DbSet<student_group_map> student_group_map { get; set; }
+    public virtual DbSet<StudentGroupMapDto> student_group_map_dto { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -78,6 +81,21 @@ public partial class DBContext : DbContext
         modelBuilder.Entity<account_type>(entity =>
         {
             entity.HasKey(e => e.ust_id);
+        });
+
+        modelBuilder.Entity<student_group>(entity =>
+        {
+            entity.HasKey(e => e.sgr_id);
+        });
+
+        modelBuilder.Entity<student_group_map>(entity =>
+        {
+            entity.HasNoKey();
+        });
+
+        modelBuilder.Entity<StudentGroupMapDto>(entity =>
+        {
+            entity.HasNoKey();
         });
 
         OnModelCreatingPartial(modelBuilder);
