@@ -20,4 +20,6 @@ public interface IApplicationService
     public Task<account> GetAccount(int id);
     public Task<List<student_group>> GetStudentGroups(int us_id);
     public Task<List<StudentGroupMapDto>> GetStudentGroupMapDto(int us_id);
+    public Task<List<formularz>> GetAccountForms(int us_id);
+    public Task<List<formularz_podejscie>> GetFormApproaches(int for_id);
 }

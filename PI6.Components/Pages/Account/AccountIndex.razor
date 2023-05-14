@@ -18,6 +18,20 @@
         <MudText Align="Align.Left" Typo="Typo.h6"><b>Data aktywacji konta: </b>@_account.us_activate.ToShortDateString()</MudText>
         <MudText Align="Align.Left" Typo="Typo.h6"><b>Data deaktywacji konta: </b>@_deactivateDate</MudText>
         <br />
+        <MudText Align="Align.Left" Typo="Typo.h3">Stworzone quizy</MudText>
+        <MudPaper Elevation="0" Class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
+            @if (_formTiles == null)
+            {
+                <MudText>
+                    Ładowanie formularzy...
+                </MudText>
+            }
+            else
+            {
+                <FormTilesIndex FormTiles="@_formTiles" Account="@_accountDto" />
+            }
+        </MudPaper>
+        <br />
         <MudText Align="Align.Left" Typo="Typo.h3">Moje klasy</MudText>
         <MudPaper Elevation="0" Width="50%">
             @if (_studentGroups != null)

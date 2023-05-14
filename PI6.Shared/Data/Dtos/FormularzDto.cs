@@ -12,6 +12,7 @@ public class FormularzDto
     public int? ProgZal { get; set; }
     public int FortId { get; set; }
     public string? FortNazwa { get; set; }
+    public int UserId { get; set; }
 
     public List<PytanieDto>? Pytania { get; set; }
 }

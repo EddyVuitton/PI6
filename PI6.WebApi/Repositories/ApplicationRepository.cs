@@ -18,7 +18,7 @@ public class ApplicationRepository : IApplicationRepository
 
     public async Task<List<formularz>> GetForms()
     {
-        return await _context.SqlQueryAsync<formularz>("exec dbo.p_formularz_pobierz null");
+        return await _context.SqlQueryAsync<formularz>("exec dbo.p_formularz_pobierz null, null");
     }
 
     public async Task<List<formularz>> GetForm(int for_id)
@@ -161,5 +161,25 @@ public class ApplicationRepository : IApplicationRepository
         var studentGroupMapDto = await _context.SqlQueryAsync<StudentGroupMapDto>($"exec p_student_group_map_get @us_id", param, default) ?? new List<StudentGroupMapDto>();
 
         return studentGroupMapDto;
+    }
+
+    public async Task<List<formularz>> GetAccountForms(int us_id)
+    {
+        SqlParam sqlParams = new();
+        sqlParams.AddParam("us_id", us_id, System.Data.SqlDbType.Int);
+        var param = sqlParams.Params();
+        var forms = await _context.SqlQueryAsync<formularz>($"exec p_account_forms_get @us_id", param, default) ?? new List<formularz>();
+
+        return forms;
+    }
+
+    public async Task<List<formularz_podejscie>> GetFormApproaches (int for_id)
+    {
+        SqlParam sqlParams = new();
+        sqlParams.AddParam("for_id", for_id, System.Data.SqlDbType.Int);
+        var param = sqlParams.Params();
+        var approaches = await _context.SqlQueryAsync<formularz_podejscie>($"exec p_form_approach_get @for_id", param, default) ?? new List<formularz_podejscie>();
+
+        return approaches;
     }
 }

@@ -4,12 +4,14 @@ using MudBlazor;
 using PI6.WebApi.Services;
 using PI6.Shared.Data.Dtos;
 using PI6.WebApi.Helpers;
+using Microsoft.JSInterop;
 
 namespace PI6.Components.Pages.Form;
 
 public partial class FormCreate
 {
     [Inject] public IApplicationService ApplicationService { get; set; }
+    [Inject] public IJSRuntime JS { get; set; }
 
     private readonly FormularzDto newForm = new();
     private readonly List<formularz_pytanie> _questions = new();
@@ -23,10 +25,21 @@ public partial class FormCreate
     private int? _requiredMinutes;
     private int? _requiredHours;
     private int? _passingThreshold;
+    private AccountDto _account = new();
 
     protected override void OnInitialized()
     {
         AddQuestion();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool isFirstRender)
+    {
+        var loggedEmail = await JS.GetFromLocalStorage("email");
+        if (isFirstRender)
+        {
+            _account = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
+        }
+        StateHasChanged();
     }
 
     private List<formularz_pytanie_opcja> GetQuestionOptions(int questionId) => _options.Where(x => x.fpop_forp_id == questionId).ToList();
@@ -176,6 +189,7 @@ public partial class FormCreate
         newForm.LimitCzasu = ((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + (_requiredSeconds ?? 0);
         newForm.ProgZal = _passingThreshold ?? 0;
         newForm.FortId = 3;
+        newForm.UserId = _account.UserId;
 
         ApplicationService.CreateForm(newForm);
     }

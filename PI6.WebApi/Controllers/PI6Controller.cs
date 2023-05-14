@@ -125,4 +125,16 @@ public class PI6Controller : Controller
     {
         return Ok(await _applicationRepository.GetStudentGroupMapDto(us_id));
     }
+
+    [HttpGet("GetAccountForms")]
+    public async Task<ActionResult<List<formularz>>> GetAccountForms(int us_id)
+    {
+        return Ok(await _applicationRepository.GetAccountForms(us_id));
+    }
+
+    [HttpGet("GetFormApproaches")]
+    public async Task<ActionResult<List<formularz_podejscie>>> GetFormApproaches(int for_id)
+    {
+        return Ok(await _applicationRepository.GetFormApproaches(for_id));
+    }
 }

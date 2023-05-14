@@ -128,4 +128,13 @@ public class ApplicationService : IApplicationService
     {
         return await _httpClient.GetFromJsonAsync<List<StudentGroupMapDto>>($"api/pi6/GetStudentGroupMapDto?us_id={us_id}") ?? new List<StudentGroupMapDto>();
     }
+    public async Task<List<formularz>> GetAccountForms(int us_id)
+    {
+        return await _httpClient.GetFromJsonAsync<List<formularz>>($"api/pi6/GetAccountForms?us_id={us_id}") ?? new List<formularz>();
+    }
+
+    public async Task<List<formularz_podejscie>> GetFormApproaches(int for_id)
+    {
+        return await _httpClient.GetFromJsonAsync<List<formularz_podejscie>>($"api/pi6/GetFormApproaches?for_id={for_id}") ?? new List<formularz_podejscie>();
+    }
 }

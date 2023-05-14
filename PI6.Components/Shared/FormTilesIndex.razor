@@ -1,30 +1,19 @@
 ﻿@foreach (var f in FormTiles)
 {
-    <MudLink Href="@($"/{_href}/{f.ForId}")">
-        <MudPaper Elevation="6" Width="250px" Height="350px">
-            <MudPaper Elevation="0" Class="d-flex flex-column justify-start">
-                <MudPaper Elevation="0"
-                      Class="d-flex justify-center align-content-center flex-wrap flex-grow-1"
-                      Style="margin: 1%; background-color: mediumpurple;"
-                      Height="175px">
-                    @if (f.DataZamkniecia < DateTime.Now)
-                    {
-                        <MudIcon Icon="@Icons.Material.Filled.Close" Style="font-size: 4rem;" Color="Color.Error" />
-                    }
-                    else
-                    {
-                        <MudIcon Icon="@Icons.Material.Filled.Check" Style="font-size: 4rem;" Color="Color.Success" />
-                    }
-                </MudPaper>
-                <MudPaper Elevation="0"
-                      Class="d-flex flex-column justify-center align-content-center"
-                      Style="margin: 1%;"
-                      Height="175px">
-                    <MudText>Nazwa: @f.Nazwa</MudText>
-                    <MudText>Typ: @f.FortNazwa</MudText>
-                    <MudText>Data stworzenia: @f.DataStworzenia.Date.ToShortDateString()</MudText>
-                    <MudText>Data otwarcia: @f.DataOtwarcia.Date.ToShortDateString()</MudText>
-                    <MudText>Data zamkniecia: @(f.DataZamkniecia.HasValue == true ? f.DataZamkniecia.Value.Date.ToShortDateString() : string.Empty)</MudText>
+    var tempHref = $"/{_href}/{f.ForId}";
+    var tempEndDate = f.DataZamkniecia.HasValue == true ? f.DataZamkniecia.Value.Date.ToShortDateString() : "Nie określono";
+
+    <MudLink Href="@tempHref">
+        <MudPaper Elevation="6" Width="250px" Height="130px" Style="background-color: #5ad94c;">
+            <MudPaper Elevation="0" Class="d-flex flex-column justify-start" Style="background-color: inherit;">
+                <MudPaper Elevation="0" Class="d-flex justify-center align-content-center flex-wrap flex-grow-1" Style="margin: 1%; background-color: inherit;">
+                    <MudPaper Elevation="0" Class="d-flex flex-column justify-center align-content-center" Style="margin: 1%; background-color: inherit;">
+                        <MudText Style="color: black;">Nazwa: @f.Nazwa</MudText>
+                        <MudText Style="color: black;">Typ: @f.FortNazwa</MudText>
+                        <MudText Style="color: black;">Data stworzenia: @f.DataStworzenia.Date.ToShortDateString()</MudText>
+                        <MudText Style="color: black;">Data otwarcia: @f.DataOtwarcia.Date.ToShortDateString()</MudText>
+                        <MudText Style="color: black;">Data zamkniecia: @tempEndDate</MudText>
+                    </MudPaper>
                 </MudPaper>
             </MudPaper>
         </MudPaper>

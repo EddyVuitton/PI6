@@ -3,7 +3,7 @@
 public class formularz_podejscie
 {
     public int fpod_id { get; set; }
-    public int fpod_user_id { get; set; }
+    public int fpod_us_id { get; set; }
     public int fpod_for_id { get; set; }
     public DateTime fpod_data_rozpoczenia { get; set; }
     public bool fpod_stan { get; set; }

@@ -1,10 +1,10 @@
 ﻿@page "/"
 
-<MudPaper Elevation="0" Class="d-flex flex-column align-center justify-center">
-    <MudPaper Elevation="0" Style="margin: 1%;" Width="90%">
-        <AdvCarousel />
-    </MudPaper>
-    <CascadingAuthenticationState>
+<CascadingAuthenticationState>
+    <MudPaper Elevation="0" Class="d-flex flex-column align-center justify-center">
+        <MudPaper Elevation="0" Style="margin: 1%;" Width="90%">
+            <AdvCarousel />
+        </MudPaper>
         <AuthorizeView Roles=@_roles>
             <MudPaper Elevation="1" Style="margin: 1%; padding: 1%;" Width="400px" Class="d-flex flex-row align-center justify-space-around">
                 <MudPaper Elevation="0">
@@ -27,18 +27,19 @@
                     </MudButton>
                 </MudPaper>
             </MudPaper>
+            @*<br />
+            <MudPaper Elevation="0" Class="d-flex justify-center flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
+                @if (_formTiles == null)
+                {
+                    <MudText>
+                        Ładowanie formularzy...
+                    </MudText>
+                }
+                else
+                {
+                    <FormTilesIndex FormTiles="@_formTiles" Account="@_account" />
+                }
+            </MudPaper>*@
         </AuthorizeView>
-    </CascadingAuthenticationState>
-    <MudPaper Elevation="0" Class="d-flex justify-center flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
-        @if (_formTiles == null)
-        {
-            <MudText>
-                Ładowanie formularzy...
-            </MudText>
-        }
-        else
-        {
-            <FormTilesIndex FormTiles="@_formTiles" Account="@_account" />
-        }
     </MudPaper>
-</MudPaper>
+</CascadingAuthenticationState>
