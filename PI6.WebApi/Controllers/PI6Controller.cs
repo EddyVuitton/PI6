@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.IdentityModel.Tokens;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
@@ -25,73 +24,181 @@ public class PI6Controller : Controller
     [HttpGet("GetForms")]
     public async Task<ActionResult<List<formularz>>> GetForms()
     {
-        return Ok(await _applicationRepository.GetForms());
+        try
+        {
+            var result = await _applicationRepository.GetForms();
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetForm")]
     public async Task<ActionResult<List<formularz>>> GetForm(int for_id)
     {
-        return Ok(await _applicationRepository.GetForm(for_id));
+        try
+        {
+            var result = await _applicationRepository.GetForm(for_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetFormType")]
     public async Task<ActionResult<List<formularz_typ>>> GetFormType()
     {
-        return Ok(await _applicationRepository.GetFormType());
+        try
+        {
+            var result = await _applicationRepository.GetFormType();
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetFormTileDto")]
     public async Task<ActionResult<List<FormularzKafelekDto>>> GetFormTileDto()
     {
-        return Ok(await _applicationRepository.GetFormTileDto());
+        try
+        {
+            var result = await _applicationRepository.GetFormTileDto();
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost("CreateForm")]
-    public async Task CreateForm(FormularzDto form)
+    public async Task<ActionResult> CreateForm(FormularzDto form)
     {
-        await _applicationRepository.CreateForm(form);
+        try
+        {
+            await _applicationRepository.CreateForm(form);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetFormQuestions")]
     public async Task<ActionResult<List<formularz_pytanie>>> GetFormQuestions(int for_id)
     {
-        return Ok(await _applicationRepository.GetFormQuestions(for_id));
+        try
+        {
+            var result = await _applicationRepository.GetFormQuestions(for_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetFormOptions")]
     public async Task<ActionResult<List<formularz_pytanie_opcja>>> GetFormOptions(int for_id)
     {
-        return Ok(await _applicationRepository.GetFormOptions(for_id));
+        try
+        {
+            var result = await _applicationRepository.GetFormOptions(for_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost("SaveSolvedForm")]
-    public async Task SaveSolvedForm(FormularzPodejscieDto solvedForm)
+    public async Task<ActionResult> SaveSolvedForm(FormularzPodejscieDto solvedForm)
     {
-        await _applicationRepository.SaveSolvedForm(solvedForm);
+        try
+        {
+            await _applicationRepository.SaveSolvedForm(solvedForm);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetAccountTypes")]
     public async Task<ActionResult<List<account_type>>> GetAccountTypes()
     {
-        return Ok(await _applicationRepository.GetAccountTypes());
+        try
+        {
+            var result = await _applicationRepository.GetAccountTypes();
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost("CreateAccount")]
-    public async Task CreateAccount(account account)
+    public async Task<ActionResult> CreateAccount(account account)
     {
-        await _applicationRepository.CreateAccount(account);
+        try
+        {
+            await _applicationRepository.CreateAccount(account);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost("GetAccountDtoByEmail")]
     public async Task<ActionResult<AccountDto>> GetAccountDtoByEmail(account account)
     {
-        return Ok(await _applicationRepository.GetAccountDtoByEmail(account.us_email));
+        try
+        {
+            var result = await _applicationRepository.GetAccountDtoByEmail(account.us_email);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetAccount")]
     public async Task<ActionResult<account>> GetAccount(int id)
     {
-        return Ok(await _applicationRepository.GetAccount(id));
+        try
+        {
+            var result = await _applicationRepository.GetAccount(id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost("Login")]
@@ -106,9 +213,18 @@ public class PI6Controller : Controller
 
         if (result)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));
-            var accountDtoInfo = await _applicationRepository.GetAccountDtoByEmail(account.us_email);
-            return Ok(AccountHelper.BuildToken(accountDtoInfo, key));
+            try
+            {
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));
+                var accountDtoInfo = await _applicationRepository.GetAccountDtoByEmail(account.us_email);
+                var token = AccountHelper.BuildToken(accountDtoInfo, key);
+                return Ok(token);
+            }
+            catch (Exception e)
+            {
+                ExceptionHelper.PrintException(e);
+                return BadRequest(e.Message);
+            }
         }
         else
             return BadRequest("Invalid login attempt");
@@ -117,24 +233,60 @@ public class PI6Controller : Controller
     [HttpGet("GetStudentGroups")]
     public async Task<ActionResult<List<student_group>>> GetStudentGroups(int us_id)
     {
-        return Ok(await _applicationRepository.GetStudentGroups(us_id));
+        try
+        {
+            var result = await _applicationRepository.GetStudentGroups(us_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetStudentGroupMapDto")]
     public async Task<ActionResult<List<StudentGroupMapDto>>> GetStudentGroupMapDto(int us_id)
     {
-        return Ok(await _applicationRepository.GetStudentGroupMapDto(us_id));
+        try
+        {
+            var result = await _applicationRepository.GetStudentGroupMapDto(us_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetAccountForms")]
     public async Task<ActionResult<List<formularz>>> GetAccountForms(int us_id)
     {
-        return Ok(await _applicationRepository.GetAccountForms(us_id));
+        try
+        {
+            var result = await _applicationRepository.GetAccountForms(us_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("GetFormApproaches")]
     public async Task<ActionResult<List<formularz_podejscie>>> GetFormApproaches(int for_id)
     {
-        return Ok(await _applicationRepository.GetFormApproaches(for_id));
+        try
+        {
+            var result = await _applicationRepository.GetFormApproaches(for_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+            return BadRequest(e.Message);
+        }
     }
 }
