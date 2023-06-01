@@ -1,3 +1,4 @@
+using Microsoft.Extensions.FileProviders;
 using MudBlazor.Services;
 using PI6.Server.Services;
 
@@ -19,6 +20,12 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(@"D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Files"),
+    RequestPath = "/files"
+});
 
 app.UseRouting();
 

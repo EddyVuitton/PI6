@@ -1,11 +1,8 @@
-﻿<MudCarousel Style="height:200px; border-radius: 20px;" ShowArrows="@arrows" ShowBullets="@bullets" AutoCycle="@autocycle" TData="object">
+﻿<MudCarousel Style="height:200px; border-radius: 20px;"  ShowArrows="@arrows" ShowBullets="@bullets" AutoCycle="@autocycle" TData="object">
     <MudCarouselItem Transition="transition" Color="@Color.Info">
-        <MudIcon Class="mx-auto my-auto" Size="@Size.Large" />
+        <MudImage Src="@_path1" Alt="Mony the dog" />
     </MudCarouselItem>
     <MudCarouselItem Transition="transition" Color="@Color.Success">
-        <MudIcon Class="mx-auto my-auto" Size="@Size.Large" />
-    </MudCarouselItem>
-    <MudCarouselItem Transition="transition" Color="@Color.Secondary">
-        <MudIcon Class="mx-auto my-auto" Size="@Size.Large" />
+        <MudImage Src="@_path2" Alt="Mony the dog" />
     </MudCarouselItem>
 </MudCarousel>

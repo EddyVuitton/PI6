@@ -1,32 +1,53 @@
-/*
-drop database pi6_logic;
-drop database pi6_data;
-*/
+declare @path_to_files nvarchar(max) = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy';
+declare @data nvarchar(max) = 'pi6_data';
+declare @logic nvarchar(max) = 'pi6_logic';
+declare
+	@drop_databases		bit = 1,
+	@delete_backup		bit = 0,
+	@backup_databases	bit = 0,
+	@restore_databases	bit = 1;
 
+declare @delete_data nvarchar(max) = 'xp_cmdshell ''del "' + @path_to_files + '\' + @data + '.bak"''';
+declare @delete_logic nvarchar(max) = 'xp_cmdshell ''del "' + @path_to_files + '\' + @logic + '.bak"''';
 
-declare @path nvarchar(max) = 'D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Bazy';
-declare @file_name_1 nvarchar(max) = 'pi6_data';
-declare @file_name_2 nvarchar(max) = 'pi6_logic';
+declare @backup_data nvarchar(max) = 'backup database ' + @data + ' to disk = ''' + @path_to_files + '\' + @data + '.bak'' with format, medianame = ''SQLServerBackups'';';
+declare @backup_logic nvarchar(max) = 'backup database ' + @logic + ' to disk = ''' + @path_to_files + '\' + @logic + '.bak'' with format, medianame = ''SQLServerBackups'';';
 
-declare @delete_cmd_1 nvarchar(max) = 'xp_cmdshell ''del "' + @path + '\' + @file_name_1 + '.bak"''';
-declare @delete_cmd_2 nvarchar(max) = 'xp_cmdshell ''del "' + @path + '\' + @file_name_2 + '.bak"''';
+declare @restore_data nvarchar(max) = 'restore database ' + @data + ' from disk = ''' + @path_to_files + '\' + @data + '.bak'';';
+declare @restore_logic nvarchar(max) = 'restore database ' + @logic + ' from disk = ''' + @path_to_files + '\' + @logic + '.bak'';';
 
-declare @backup_cmd_1 nvarchar(max) = 'backup database ' + @file_name_1 + ' to disk = ''' + @path + '\' + @file_name_1 + '.bak'' with format, medianame = ''SQLServerBackups'';';
-declare @backup_cmd_2 nvarchar(max) = 'backup database ' + @file_name_2 + ' to disk = ''' + @path + '\' + @file_name_2 + '.bak'' with format, medianame = ''SQLServerBackups'';';
+if (@drop_databases = 1)
+begin
+	--https://stackoverflow.com/a/7469167
+	declare @sql_drop_all_connections varchar(max);
 
-declare @restore_cmd_1 nvarchar(max) = 'restore database ' + @file_name_1 + ' from disk = ''' + @path + '\' + @file_name_1 + '.bak'';';
-declare @restore_cmd_2 nvarchar(max) = 'restore database ' + @file_name_2 + ' from disk = ''' + @path + '\' + @file_name_2 + '.bak'';';
+	select @sql_drop_all_connections = coalesce(@sql_drop_all_connections,'') + 'kill ' + convert(varchar, spid) + ';'
+	from master..sysprocesses
+	where dbid in (db_id(@data), db_id(@logic)) AND spid <> @@spid
 
+	exec(@sql_drop_all_connections);
 
-/*
+	if db_id('pi6_data') is not null
+		drop database pi6_data;
 
-DELETE
-exec (@delete_cmd_1); exec (@delete_cmd_2);
+	if db_id('pi6_logic') is not null
+		drop database pi6_logic;
+end
 
-BACKUP
-exec (@backup_cmd_1); exec (@backup_cmd_2);
+if (@delete_backup = 1)
+begin
+	exec (@delete_data);
+	exec (@delete_logic);
+end
 
-RESTORE
-exec (@restore_cmd_1); exec (@restore_cmd_2);
+if (@backup_databases = 1)
+begin
+	exec (@backup_data);
+	exec (@backup_logic);
+end
 
-*/
+if (@restore_databases = 1)
+begin
+	exec (@restore_data);
+	exec (@restore_logic);
+end

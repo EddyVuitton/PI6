@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
+using PI6.Components.Shared.Account;
 using PI6.Shared.Data.Dtos;
 
 namespace PI6.Components.Shared;
 
 public partial class FormTilesIndex
 {
+    [Inject] private IDialogService DialogService { get; set; }
+
     [Parameter] public List<FormularzKafelekDto> FormTiles { get; set; }
     [Parameter] public AccountDto Account { get; set; }
 
@@ -19,5 +23,17 @@ public partial class FormTilesIndex
             "Admin" => "formdetails",
             _ => "formdetails"
         };
+    }
+
+    private void OpenLoginDialog()
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            NoHeader = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true
+        };
+        DialogService.Show<UserGroup>(null, options);
     }
 }

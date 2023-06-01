@@ -12,17 +12,25 @@ public partial class FormIndex
     [Inject] public IJSRuntime JS { get; set; }
 
     private List<FormularzKafelekDto> _formTiles;
-    private AccountDto _account = new();
+    private AccountDto _accountDto = new();
     private readonly string _roles = "Admin,Lecturer";
 
     protected override async Task OnInitializedAsync()
     {
-        _formTiles = await ApplicationService.GetFormTileDto();
+        try
+        {
+            _formTiles = await ApplicationService.GetFormTileDto();
+            StateHasChanged();
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+        }
     }
 
     protected override async Task OnAfterRenderAsync(bool isFirstRender)
     {
         var loggedEmail = await JS.GetFromLocalStorage("email");
-        _account = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
+        _accountDto = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
     }
 }

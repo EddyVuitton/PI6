@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/home"
 
 <CascadingAuthenticationState>
     <MudPaper Elevation="0" Class="d-flex flex-column align-center justify-center">
@@ -6,40 +6,49 @@
             <AdvCarousel />
         </MudPaper>
         <AuthorizeView Roles=@_roles>
-            <MudPaper Elevation="1" Style="margin: 1%; padding: 1%;" Width="400px" Class="d-flex flex-row align-center justify-space-around">
-                <MudPaper Elevation="0">
-                    <MudButton Size="Size.Small"
-                               Variant="Variant.Filled"
-                               Color="Color.Info"
-                               Href="/account"
-                               Disabled="true"
-                               Style="text-transform:none; font-size: 20px">
-                        Nowy formularz
-                    </MudButton>
+
+        </AuthorizeView>
+    </MudPaper>
+    <MudPaper Elevation="0" Style="margin-left: 1%;">
+        <AuthorizeView Roles=@_roles>
+            <Authorized>
+                <MudPaper Elevation="0" Style="" Width="400px" Class="d-flex flex-row align-start">
+@*                    <MudPaper Elevation="0">
+                        <MudButton Size="Size.Small"
+                                   Variant="Variant.Filled"
+                                   Color="Color.Info"
+                                   Href="/account"
+                                   Disabled="true"
+                                   Style="text-transform:none; font-size: 20px">
+                            Nowy formularz
+                        </MudButton>
+                    </MudPaper>*@
+                    <MudPaper Elevation="0">
+                        <MudButton Size="Size.Medium"
+                                   Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   Href="/newquiz"
+                                   Style="text-transform:none; font-size: 20px">
+                            Nowy test
+                        </MudButton>
+                    </MudPaper>
                 </MudPaper>
-                <MudPaper Elevation="0">
-                    <MudButton Size="Size.Small"
-                               Variant="Variant.Filled"
-                               Color="Color.Primary"
-                               Href="/newquiz"
-                               Style="text-transform:none; font-size: 20px">
-                        Nowy quiz
-                    </MudButton>
+                <br />
+                <MudText Align="Align.Left" Typo="Typo.h3">Stworzone testy</MudText>
+                <br />
+                <MudPaper Elevation="0" Class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
+                    @if (_formTiles == null)
+                    {
+                        <MudText>
+                            Ładowanie formularzy...
+                        </MudText>
+                    }
+                    else
+                    {
+                        <FormTilesIndex FormTiles="@_formTiles" Account="@_accountDto" />
+                    }
                 </MudPaper>
-            </MudPaper>
-            @*<br />
-            <MudPaper Elevation="0" Class="d-flex justify-center flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
-                @if (_formTiles == null)
-                {
-                    <MudText>
-                        Ładowanie formularzy...
-                    </MudText>
-                }
-                else
-                {
-                    <FormTilesIndex FormTiles="@_formTiles" Account="@_account" />
-                }
-            </MudPaper>*@
+            </Authorized>
         </AuthorizeView>
     </MudPaper>
 </CascadingAuthenticationState>

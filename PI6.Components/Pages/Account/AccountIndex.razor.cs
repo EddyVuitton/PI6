@@ -25,6 +25,19 @@ public partial class AccountIndex
 
     protected override async Task OnInitializedAsync()
     {
+        try
+        {
+            var loggedEmail = await JS.GetFromLocalStorage("email");
+
+            _accountDto = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
+            _account = await ApplicationService.GetAccount(_accountDto.UserId);
+            _deactivateDate = _account.us_deactivate == null ? "Nie określono" : _account.us_deactivate.Value.ToShortDateString();
+        }
+        catch (Exception e)
+        {
+            ExceptionHelper.PrintException(e);
+        }
+
         InitGroupDefinition(_groupDefinition);
         _formTiles = await ApplicationService.GetFormTileDto();
         foreach (var tile in _formTiles)
@@ -36,6 +49,8 @@ public partial class AccountIndex
         _studentGroups = await ApplicationService.GetStudentGroups(_account.us_id);
         _studentGroupMapDtos = await ApplicationService.GetStudentGroupMapDto(_account.us_id);
         _forms = await ApplicationService.GetAccountForms(_account.us_id);
+
+        StateHasChanged();
     }
 
     protected override async Task OnAfterRenderAsync(bool isFirstRender)
