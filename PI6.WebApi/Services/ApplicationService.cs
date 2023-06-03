@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
+using PI6.WebApi.Helpers;
 using System.Text;
 
 namespace PI6.WebApi.Services;
@@ -16,58 +19,120 @@ public class ApplicationService : IApplicationService
 
     public async Task<List<formularz>> GetForms()
     {
-        return await _httpClient.GetFromJsonAsync<List<formularz>>("api/pi6/GetForms") ?? new List<formularz>();
+        var response = await _httpClient.GetAsync("api/pi6/GetForms");
+        
+        if (!response.IsSuccessStatusCode)
+            return new List<formularz>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<formularz>>(responseContent);
+        
+        return deserialisedResponse;
     }
 
-    public async Task<List<formularz>> GetForm(int for_id)
+    public async Task<formularz> GetForm(int for_id)
     {
-        return await _httpClient.GetFromJsonAsync<List<formularz>>($"api/pi6/GetForm?for_id={for_id}") ?? new List<formularz>();
+        var response = await _httpClient.GetAsync($"api/pi6/GetForm?for_id={for_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new formularz();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<formularz>(responseContent);
+        
+        return deserialisedResponse;
     }
 
     public async Task<List<formularz_typ>> GetFormType()
     {
-        return await _httpClient.GetFromJsonAsync<List<formularz_typ>>("api/pi6/GetFormType") ?? new List<formularz_typ>();
+        var response = await _httpClient.GetAsync("api/pi6/GetFormType");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<formularz_typ>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<formularz_typ>>(responseContent);
+        
+        return deserialisedResponse;
     }
 
     public async Task<List<FormularzKafelekDto>> GetFormTileDto()
     {
-        return await _httpClient.GetFromJsonAsync<List<FormularzKafelekDto>>("api/pi6/GetFormTileDto") ?? new List<FormularzKafelekDto>();
+        var response = await _httpClient.GetAsync("api/pi6/GetFormTileDto");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<FormularzKafelekDto>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<FormularzKafelekDto>>(responseContent);
+        
+        return deserialisedResponse;
     }
 
-    public async Task CreateForm(FormularzDto form)
+    public async Task<HttpResponseMessage> CreateForm(FormularzDto form)
     {
         var json = JsonConvert.SerializeObject(form);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
-        await _httpClient.PostAsync("api/pi6/CreateForm", data);
+        var response = await _httpClient.PostAsync("api/pi6/CreateForm", data);
+
+        return response;  
     }
 
     public async Task<List<formularz_pytanie>> GetFormQuestions(int for_id)
     {
-        return await _httpClient.GetFromJsonAsync<List<formularz_pytanie>>($"api/pi6/GetFormQuestions?for_id={for_id}") ?? new List<formularz_pytanie>();
+        var response = await _httpClient.GetAsync($"api/pi6/GetFormQuestions?for_id={for_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<formularz_pytanie>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<formularz_pytanie>>(responseContent);
+        
+        return deserialisedResponse;
     }
 
     public async Task<List<formularz_pytanie_opcja>> GetFormOptions(int for_id)
     {
-        return await _httpClient.GetFromJsonAsync<List<formularz_pytanie_opcja>>($"api/pi6/GetFormOptions?for_id={for_id}") ?? new List<formularz_pytanie_opcja>();
+        var response = await _httpClient.GetAsync($"api/pi6/GetFormOptions?for_id={for_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<formularz_pytanie_opcja>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<formularz_pytanie_opcja>>(responseContent);
+        
+        return deserialisedResponse;
     }
 
-    public async Task SaveSolvedForm(FormularzPodejscieDto solvedForm)
+    public async Task<HttpResponseMessage> SaveSolvedForm(FormularzPodejscieDto solvedForm)
     {
         var json = JsonConvert.SerializeObject(solvedForm);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
-        await _httpClient.PostAsync("api/pi6/SaveSolvedForm", data);
+        var response = await _httpClient.PostAsync("api/pi6/SaveSolvedForm", data);
+
+        return response;
     }
 
     public async Task<List<account_type>> GetAccountTypes()
     {
-        return await _httpClient.GetFromJsonAsync<List<account_type>>("api/pi6/GetAccountTypes") ?? new List<account_type>();
+        var response = await _httpClient.GetAsync("api/pi6/GetAccountTypes");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<account_type>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<account_type>>(responseContent);
+        
+        return deserialisedResponse;
     }
 
-    public async Task CreateAccount(account account)
+    public async Task<HttpResponseMessage> CreateAccount(account account)
     {
         var json = JsonConvert.SerializeObject(account);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
-        await _httpClient.PostAsync("api/pi6/CreateAccount", data);
+        var response = await _httpClient.PostAsync("api/pi6/CreateAccount", data);
+
+        return response;
     }
 
     public async Task<AccountDto> GetAccountDtoByEmail(string email)
@@ -76,63 +141,93 @@ public class ApplicationService : IApplicationService
         var json = JsonConvert.SerializeObject(tempAccount);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
         var response = _httpClient.PostAsync($"api/pi6/GetAccountDtoByEmail", data);
-        var accountDto = new AccountDto();
 
-        if (response.Result.IsSuccessStatusCode)
-        {
-            var responseContent = await response.Result.Content.ReadAsStringAsync();
-            accountDto = JsonConvert.DeserializeObject<AccountDto>(responseContent);
-        }
+        if (!response.IsCompletedSuccessfully)
+            return new AccountDto();
 
-        return accountDto;
+        var responseContent = await response.Result.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<AccountDto>(responseContent);
+       
+        return deserialisedResponse;
     }
 
     public async Task<account> GetAccount(int id)
     {
-        var response = _httpClient.GetAsync($"api/pi6/GetAccount?id={id}");
-        var account = new account();
+        var response = await _httpClient.GetAsync($"api/pi6/GetAccount?id={id}");
 
-        if (response.Result.IsSuccessStatusCode)
-        {
-            var responseContent = await response.Result.Content.ReadAsStringAsync();
-            account = JsonConvert.DeserializeObject<account>(responseContent);
-        }
+        if (!response.IsSuccessStatusCode)
+            return new account();
 
-        return account;
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<account>(responseContent);
+
+        return deserialisedResponse;
     }
 
     public async Task<UserToken> Login(account account)
     {
         var json = JsonConvert.SerializeObject(account);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync("api/pi6/Login", data);
-        var userToken = new UserToken();
+        var response = _httpClient.PostAsync("api/pi6/Login", data);
 
-        if (response.IsSuccessStatusCode)
-        {
-            var responseContent = await response.Content.ReadAsStringAsync();
-            userToken = JsonConvert.DeserializeObject<UserToken>(responseContent);
-        }
-        
-        return userToken;
+        if (!response.IsCompletedSuccessfully)
+            return new UserToken();
+
+        var responseContent = await response.Result.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<UserToken>(responseContent);
+
+        return deserialisedResponse;
     }
 
     public async Task<List<student_group>> GetStudentGroups(int us_id)
     {
-        return await _httpClient.GetFromJsonAsync<List<student_group>>($"api/pi6/GetStudentGroups?us_id={us_id}") ?? new List<student_group>();
+        var response = await _httpClient.GetAsync($"api/pi6/GetStudentGroups?us_id={us_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<student_group>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<student_group>>(responseContent);
+
+        return deserialisedResponse;
     }
 
     public async Task<List<StudentGroupMapDto>> GetStudentGroupMapDto(int us_id)
     {
-        return await _httpClient.GetFromJsonAsync<List<StudentGroupMapDto>>($"api/pi6/GetStudentGroupMapDto?us_id={us_id}") ?? new List<StudentGroupMapDto>();
+        var response = await _httpClient.GetAsync($"api/pi6/GetStudentGroupMapDto?us_id={us_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<StudentGroupMapDto>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<StudentGroupMapDto>>(responseContent);
+
+        return deserialisedResponse;
     }
+
     public async Task<List<formularz>> GetAccountForms(int us_id)
     {
-        return await _httpClient.GetFromJsonAsync<List<formularz>>($"api/pi6/GetAccountForms?us_id={us_id}") ?? new List<formularz>();
+        var response = await _httpClient.GetAsync($"api/pi6/GetAccountForms?us_id={us_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<formularz>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<formularz>>(responseContent);
+
+        return deserialisedResponse;
     }
 
     public async Task<List<formularz_podejscie>> GetFormApproaches(int for_id)
     {
-        return await _httpClient.GetFromJsonAsync<List<formularz_podejscie>>($"api/pi6/GetFormApproaches?for_id={for_id}") ?? new List<formularz_podejscie>();
+        var response = await _httpClient.GetAsync($"api/pi6/GetFormApproaches?for_id={for_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<formularz_podejscie>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<formularz_podejscie>>(responseContent);
+
+        return deserialisedResponse;
     }
 }

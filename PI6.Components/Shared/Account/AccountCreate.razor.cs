@@ -22,6 +22,13 @@ public partial class AccountCreate
         _account.us_activate = DateTime.Now;
         _account.us_ust_id = _accountTypes.FirstOrDefault(x => x.ust_name == _choosedAccountType).ust_id;
 
-        await ApplicationService.CreateAccount(_account);
+        try
+        {
+            var responseMessage = await ApplicationService.CreateAccount(_account);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }

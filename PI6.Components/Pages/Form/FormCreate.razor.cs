@@ -191,6 +191,13 @@ public partial class FormCreate
         newForm.FortId = 3;
         newForm.UserId = _account.UserId;
 
-        ApplicationService.CreateForm(newForm);
+        try
+        {
+            var responseMessage = ApplicationService.CreateForm(newForm);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }

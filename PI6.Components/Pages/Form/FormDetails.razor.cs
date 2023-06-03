@@ -34,7 +34,7 @@ public partial class FormDetails
     {
         _questions = await ApplicationService.GetFormQuestions(FormId);
         _options = await ApplicationService.GetFormOptions(FormId);
-        _form = (await ApplicationService.GetForm(FormId)).FirstOrDefault();
+        _form = (await ApplicationService.GetForm(FormId));
 
         _formQuestionsDto = FormHelper.GetFormQuestionsDto(_questions, _options);
         _formDto = FormHelper.GetFormularzDto(_form, _formQuestionsDto);

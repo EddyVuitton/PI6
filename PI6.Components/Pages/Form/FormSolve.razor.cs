@@ -40,7 +40,7 @@ public partial class FormSolve
 
         _questions = await ApplicationService.GetFormQuestions(FormId);
         _options = await ApplicationService.GetFormOptions(FormId);
-        _form = (await ApplicationService.GetForm(FormId)).FirstOrDefault();
+        _form = (await ApplicationService.GetForm(FormId));
 
         _formQuestionsDto = FormHelper.GetFormQuestionsDto(_questions, _options);
         _formDto = FormHelper.GetFormularzDto(_form, _formQuestionsDto);
@@ -131,6 +131,13 @@ public partial class FormSolve
         _solvedForm.FpodWykorzystanyCzas = (int)_finishDateTime.Subtract(_startDateTime).TotalSeconds;
         _solvedForm.Odpowiedzi = GetAllAnswers();
 
-        await ApplicationService.SaveSolvedForm(_solvedForm);
+        try
+        {
+            var responseMessage = await ApplicationService.SaveSolvedForm(_solvedForm);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }
