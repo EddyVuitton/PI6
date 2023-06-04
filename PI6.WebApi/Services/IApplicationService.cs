@@ -22,4 +22,6 @@ public interface IApplicationService
     public Task<List<StudentGroupMapDto>> GetStudentGroupMapDto(int us_id);
     public Task<List<formularz>> GetAccountForms(int us_id);
     public Task<List<formularz_podejscie>> GetFormApproaches(int for_id);
+    public Task<List<group_assigned_forms>> GetGroupAssignedForms(int us_id);
+    public Task<HttpResponseMessage> SaveGroupAssignedForms(List<GroupAssignedFormCheckDto> groupAssignedFormCheckDtos);
 }

@@ -16,8 +16,8 @@
             </MudPaper>
         </MudLink>
         <MudPaper Elevation="0" Class="d-flex flex-row justify-space-between" Style="background-color: inherit;">
-            <MudButton OnClick="OpenLoginDialog" Variant="Variant.Filled" Style="background-color: #28b2f7; width: 140px; margin: 1%">Przypisz</MudButton>
-            <MudButton OnClick="OpenLoginDialog" Variant="Variant.Filled" Style="background-color: #f2891f; width: 140px; margin: 1%">Otwórz/Zamknij</MudButton>
+            <MudButton OnClick="(() => OpenAssignFormDialog(f.ForId))" Variant="Variant.Outlined" Color="Color.Primary" Style="font-weight:bold; width: 140px; margin: 1%">Przypisz</MudButton>
+            <MudButton OnClick="OpenFormDatesDialog" Variant="Variant.Outlined" Color="Color.Info" Style="font-weight:bold; width: 140px; margin: 1%">Otwórz/Zamknij</MudButton>
         </MudPaper>
     </MudPaper>
 }

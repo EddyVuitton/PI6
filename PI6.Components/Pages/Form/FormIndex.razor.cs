@@ -24,7 +24,7 @@ public partial class FormIndex
         }
         catch (Exception e)
         {
-            ExceptionHelper.PrintException(e);
+            //ExceptionHelper.PrintException(e);
         }
     }
 

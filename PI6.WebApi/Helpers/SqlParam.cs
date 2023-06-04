@@ -22,5 +22,7 @@ public class SqlParam
         });
     }
 
+    public void ClearParams() => _params.Clear();
+
     public object[] Params() => _params.ToArray();
 }

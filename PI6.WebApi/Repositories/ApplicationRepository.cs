@@ -21,13 +21,14 @@ public class ApplicationRepository : IApplicationRepository
         return await _context.SqlQueryAsync<formularz>("exec dbo.p_formularz_pobierz null, null");
     }
 
-    public async Task<List<formularz>> GetForm(int for_id)
+    public async Task<formularz> GetForm(int for_id)
     {
         SqlParam sqlParams = new();
         sqlParams.AddParam("for_id", for_id, System.Data.SqlDbType.Int);
         var param = sqlParams.Params();
+        var result = await _context.SqlQueryAsync<formularz>("exec dbo.p_formularz_pobierz @for_id", param, default);
 
-        return await _context.SqlQueryAsync<formularz>("exec dbo.p_formularz_pobierz @for_id", param, default);
+        return result.FirstOrDefault();
     }
 
     public async Task<List<formularz_typ>> GetFormType()
@@ -181,5 +182,52 @@ public class ApplicationRepository : IApplicationRepository
         var approaches = await _context.SqlQueryAsync<formularz_podejscie>($"exec p_form_approach_get @for_id", param, default) ?? new List<formularz_podejscie>();
 
         return approaches;
+    }
+
+    public async Task<List<group_assigned_forms>> GetGroupAssignedForms(int us_id)
+    {
+        var gafs =
+            from gaf in _context.group_assigned_forms
+            where gaf.gaf_us_id == us_id
+            select gaf;
+
+        return await gafs.ToListAsync();
+    }
+
+    public async Task SaveGroupAssignedForms(List<GroupAssignedFormCheckDto> groupAssignedFormCheckDtos)
+    {
+        var usId = groupAssignedFormCheckDtos.FirstOrDefault().UsId;
+        var forId = groupAssignedFormCheckDtos.FirstOrDefault().ForId;
+        var allUserGafs = await _context.group_assigned_forms.Where(x => x.gaf_us_id == usId && x.gaf_for_id == forId).ToListAsync();
+
+        await _context.Database.BeginTransactionAsync();
+
+        try
+        {
+            SqlParam sqlParams = new();
+
+            sqlParams.AddParam("us_id", usId, System.Data.SqlDbType.Int);
+            sqlParams.AddParam("for_id", forId, System.Data.SqlDbType.Int);
+            var param = sqlParams.Params();
+            await _context.SqlQueryAsync($"exec p_delete_all_group_assigned_forms @us_id, @for_id", param, default);
+
+            foreach (var gafc in groupAssignedFormCheckDtos.Where(x => x.Check))
+            {
+                sqlParams.ClearParams();
+
+                sqlParams.AddParam("us_id", usId, System.Data.SqlDbType.Int);
+                sqlParams.AddParam("sgr_id", gafc.GrpId, System.Data.SqlDbType.Int);
+                sqlParams.AddParam("for_id", forId, System.Data.SqlDbType.Int);
+                param = sqlParams.Params();
+                await _context.SqlQueryAsync($"exec p_save_group_assigned_forms @us_id, @sgr_id, @for_id", param, default);
+            }
+
+            await _context.SaveChangesAsync();
+            await _context.Database.CommitTransactionAsync();
+        }
+        catch (Exception ex)
+        {
+            await _context.Database.RollbackTransactionAsync();
+        }
     }
 }

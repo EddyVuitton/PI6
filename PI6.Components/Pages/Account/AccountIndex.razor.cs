@@ -35,7 +35,7 @@ public partial class AccountIndex
         }
         catch (Exception e)
         {
-            ExceptionHelper.PrintException(e);
+            //ExceptionHelper.PrintException(e);
         }
 
         InitGroupDefinition(_groupDefinition);

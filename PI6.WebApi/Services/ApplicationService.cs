@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
-using PI6.WebApi.Helpers;
 using System.Text;
 
 namespace PI6.WebApi.Services;
@@ -37,10 +35,18 @@ public class ApplicationService : IApplicationService
         if (!response.IsSuccessStatusCode)
             return new formularz();
 
-        var responseContent = await response.Content.ReadAsStringAsync();
-        var deserialisedResponse = JsonConvert.DeserializeObject<formularz>(responseContent);
-        
-        return deserialisedResponse;
+        try
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var deserialisedResponse = JsonConvert.DeserializeObject<formularz>(responseContent);
+
+            return deserialisedResponse;
+        }
+        catch (Exception e)
+        {
+            //ToDo - logowanie
+            return new formularz();
+        }
     }
 
     public async Task<List<formularz_typ>> GetFormType()
@@ -140,12 +146,12 @@ public class ApplicationService : IApplicationService
         var tempAccount = new account() { us_email = email };
         var json = JsonConvert.SerializeObject(tempAccount);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = _httpClient.PostAsync($"api/pi6/GetAccountDtoByEmail", data);
+        var response = await _httpClient.PostAsync($"api/pi6/GetAccountDtoByEmail", data);
 
-        if (!response.IsCompletedSuccessfully)
+        if (!response.IsSuccessStatusCode)
             return new AccountDto();
 
-        var responseContent = await response.Result.Content.ReadAsStringAsync();
+        var responseContent = await response.Content.ReadAsStringAsync();
         var deserialisedResponse = JsonConvert.DeserializeObject<AccountDto>(responseContent);
        
         return deserialisedResponse;
@@ -229,5 +235,27 @@ public class ApplicationService : IApplicationService
         var deserialisedResponse = JsonConvert.DeserializeObject<List<formularz_podejscie>>(responseContent);
 
         return deserialisedResponse;
+    }
+
+    public async Task<List<group_assigned_forms>> GetGroupAssignedForms(int us_id)
+    {
+        var response = await _httpClient.GetAsync($"api/pi6/GetGroupAssignedForms?us_id={us_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<group_assigned_forms>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<group_assigned_forms>>(responseContent);
+
+        return deserialisedResponse;
+    }
+
+    public async Task<HttpResponseMessage> SaveGroupAssignedForms(List<GroupAssignedFormCheckDto> groupAssignedFormCheckDtos)
+    {
+        var json = JsonConvert.SerializeObject(groupAssignedFormCheckDtos);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("api/pi6/SaveGroupAssignedForms", data);
+
+        return response;
     }
 }

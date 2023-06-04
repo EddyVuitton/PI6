@@ -1,0 +1,42 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudText Typo="Typo.h4">Wybierz grupę</MudText>
+        <br />
+
+        @if (_groupAssignedFormCheckDtos != null)
+        {
+            if (_groupAssignedFormCheckDtos.Count != 0)
+            {
+                <MudTable Items="@_groupAssignedFormCheckDtos" Hover="true" Dense="true" Striped="true" Bordered="true">
+                    <ColGroup>
+                        <col />
+                        <col style="width: 1%;" />
+                    </ColGroup>
+                    <RowTemplate>
+                        <MudTd DataLabel="Nr">@context.GrpName</MudTd>
+                        <MudCheckBox @bind-Checked=@(context.Check)
+                                     Dense="true"
+                                     Color="Color.Primary" />
+                    </RowTemplate>
+                </MudTable>
+            }
+            else
+            {
+                <MudText>
+                    Brak dostępnych grup...
+                </MudText>
+            }
+        }
+        else
+        {
+            <MudText>
+                Ładowanie grup...
+            </MudText>
+        }
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="Save">Zapisz</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Cancel">Anuluj</MudButton>
+    </DialogActions>
+</MudDialog>

@@ -2,10 +2,10 @@ declare @path_to_files nvarchar(max) = 'D:\Programowanie\visual\csharp\web\Proje
 declare @data nvarchar(max) = 'pi6_data';
 declare @logic nvarchar(max) = 'pi6_logic';
 declare
-	@drop_databases		bit = 1,
+	@drop_databases		bit = 0,
 	@delete_backup		bit = 0,
 	@backup_databases	bit = 0,
-	@restore_databases	bit = 1;
+	@restore_databases	bit = 0;
 
 declare @delete_data nvarchar(max) = 'xp_cmdshell ''del "' + @path_to_files + '\' + @data + '.bak"''';
 declare @delete_logic nvarchar(max) = 'xp_cmdshell ''del "' + @path_to_files + '\' + @logic + '.bak"''';

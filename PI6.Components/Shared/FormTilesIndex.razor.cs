@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Hosting.Server;
 using MudBlazor;
 using PI6.Components.Shared.Account;
+using PI6.Components.Shared.Form.Dialogs;
 using PI6.Shared.Data.Dtos;
 
 namespace PI6.Components.Shared;
@@ -25,7 +27,22 @@ public partial class FormTilesIndex
         };
     }
 
-    private void OpenLoginDialog()
+    private void OpenAssignFormDialog(int formId)
+    {
+        var parameters = new DialogParameters { ["FormId"] = formId };
+
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            NoHeader = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true
+        };
+        DialogService.Show<AssignForm>(null, parameters, options);
+        StateHasChanged();
+    }
+
+    private void OpenFormDatesDialog()
     {
         var options = new DialogOptions
         {
@@ -34,6 +51,7 @@ public partial class FormTilesIndex
             MaxWidth = MaxWidth.Small,
             FullWidth = true
         };
-        DialogService.Show<UserGroup>(null, options);
+        DialogService.Show<FormDates>(null, options);
+        StateHasChanged();
     }
 }

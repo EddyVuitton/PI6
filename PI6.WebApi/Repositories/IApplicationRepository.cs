@@ -6,7 +6,7 @@ namespace PI6.WebApi.Repositories;
 public interface IApplicationRepository
 {
     public Task<List<formularz>> GetForms();
-    public Task<List<formularz>> GetForm(int for_id);
+    public Task<formularz> GetForm(int for_id);
     public Task<List<formularz_typ>> GetFormType();
     public Task<List<FormularzKafelekDto>> GetFormTileDto();
     public Task CreateForm(FormularzDto form);
@@ -22,4 +22,6 @@ public interface IApplicationRepository
     public Task<List<StudentGroupMapDto>> GetStudentGroupMapDto(int us_id);
     public Task<List<formularz>> GetAccountForms(int us_id);
     public Task<List<formularz_podejscie>> GetFormApproaches(int for_id);
+    public Task<List<group_assigned_forms>> GetGroupAssignedForms(int us_id);
+    public Task SaveGroupAssignedForms(List<GroupAssignedFormCheckDto> groupAssignedFormCheckDtos);
 }

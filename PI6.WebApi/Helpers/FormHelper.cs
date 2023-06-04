@@ -97,4 +97,32 @@ public static class FormHelper
 
         return answers;
     }
+
+    public static List<GroupAssignedFormCheckDto> GetGroupAssignedFormCheckDto(List<student_group> studentGroups, List<group_assigned_forms> groupAssignedForms, int usId, int forId)
+    {
+        var dtos = new List<GroupAssignedFormCheckDto>();
+        if (studentGroups == null || studentGroups.Count == 0)
+            return dtos;
+
+        foreach (var g in studentGroups)
+        {
+            if (g == null)
+                break;
+            else
+            {
+                var check = groupAssignedForms.FirstOrDefault(x => x.gaf_sgr_id == g.sgr_id);
+                var temp = new GroupAssignedFormCheckDto()
+                {
+                    UsId = usId,
+                    GrpId = g.sgr_id,
+                    GrpName = g.sgr_name,
+                    ForId = forId,
+                    Check = check != null
+                };
+                dtos.Add(temp);
+            }
+        }
+
+        return dtos;
+    }
 }
