@@ -5,6 +5,7 @@ using PI6.WebApi.Services;
 using PI6.Shared.Data.Dtos;
 using PI6.WebApi.Helpers;
 using Microsoft.JSInterop;
+using PI6.Components.Helpers.Interfaces;
 
 namespace PI6.Components.Pages.Form;
 
@@ -12,6 +13,7 @@ public partial class FormCreate
 {
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public IJSRuntime JS { get; set; }
+    [Inject] public IErrorHelper ErrorHelper { get; set; }
 
     private readonly FormularzDto newForm = new();
     private readonly List<formularz_pytanie> _questions = new();
@@ -194,10 +196,17 @@ public partial class FormCreate
         try
         {
             var responseMessage = ApplicationService.CreateForm(newForm);
+            if (!responseMessage.IsCompletedSuccessfully)
+            {
+                throw responseMessage.Exception;
+            }
+
+            ErrorHelper.ShowSnackbar("Poprawnie dodano test", Severity.Success);
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            ErrorHelper.ShowSnackbar("Błąd przy dodaniu testu", Severity.Warning);
+            ErrorHelper.ShowSnackbar(ex.Message, Severity.Error);
         }
     }
 }

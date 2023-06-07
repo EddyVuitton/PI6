@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
+using PI6.Components.Helpers.Interfaces;
 using PI6.Components.Objects;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
@@ -13,6 +14,8 @@ public partial class FormSolve
 {
     [Inject] public IJSRuntime JSRuntime { get; set; }
     [Inject] public IApplicationService ApplicationService { get; set; }
+    [Inject] public IErrorHelper ErrorHelper { get; set; }
+
     [Parameter] public int FormId { get; set; }
     [Parameter] public AppState AppState { get; set; } = new();
 
@@ -26,13 +29,8 @@ public partial class FormSolve
     private IMask _pointsPatternMask = new PatternMask("00");
     private string _title = string.Empty;
     private int _requiredTime;
-    private DateTime _startDateTime = DateTime.Now;
+    private readonly DateTime _startDateTime = DateTime.Now;
     private DateTime _finishDateTime;
-
-    private async Task ConsoleLog(string message)
-    {
-        await JSRuntime.InvokeVoidAsync("console.log", message);
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -134,10 +132,17 @@ public partial class FormSolve
         try
         {
             var responseMessage = await ApplicationService.SaveSolvedForm(_solvedForm);
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception(responseMessage.ReasonPhrase);
+            }
+
+            ErrorHelper.ShowSnackbar("Zapisano podejście", Severity.Success);
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            ErrorHelper.ShowSnackbar("Błąd przy zapisaniu podejścia", Severity.Warning);
+            ErrorHelper.ShowSnackbar(ex.Message, Severity.Error);
         }
     }
 }

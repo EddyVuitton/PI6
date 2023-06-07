@@ -1,6 +1,6 @@
 ﻿using MudBlazor;
 
-namespace PI6.Components.Helpers;
+namespace PI6.Components.Helpers.Interfaces;
 
 public interface IErrorHelper
 {

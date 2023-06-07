@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
-using PI6.Components.Helpers;
+using PI6.Components.Helpers.Interfaces;
 using PI6.WebApi.Helpers;
 using PI6.WebApi.Services;
 
@@ -12,7 +12,6 @@ public partial class Index
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public IJSRuntime JS { get; set; }
     [Inject] public NavigationManager NavigationManager { get; set; }
-
     [Inject] public IErrorHelper ErrorHelper { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool isFirstRender)

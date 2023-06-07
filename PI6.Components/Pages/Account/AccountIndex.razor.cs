@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
+using PI6.Components.Helpers.Interfaces;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
 using PI6.WebApi.Helpers;
@@ -12,6 +13,7 @@ public partial class AccountIndex
 {
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public IJSRuntime JS { get; set; }
+    [Inject] public IErrorHelper ErrorHelper { get; set; }
 
     private AccountDto _accountDto = new();
     private account _account = new();
@@ -35,7 +37,7 @@ public partial class AccountIndex
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
+            ErrorHelper.ShowSnackbar(e.Message, Severity.Error);
         }
 
         InitGroupDefinition(_groupDefinition);

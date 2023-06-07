@@ -9,6 +9,7 @@ namespace PI6.Components.Shared.Account;
 public partial class AccountLogin
 {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public NavigationManager NavigationManager { get; set; }
     [Inject] public ILoginService LoginService { get; set; }
