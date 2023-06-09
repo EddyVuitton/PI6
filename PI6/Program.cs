@@ -1,6 +1,8 @@
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
 using MudBlazor.Services;
 using PI6.Server.Services;
+using PI6.WebApi.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,11 +23,15 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.UseStaticFiles(new StaticFileOptions
+var filesDirectory = ServerHelper.GetFilesDirectory();
+if (!filesDirectory.IsNullOrEmpty())
 {
-    FileProvider = new PhysicalFileProvider(@"D:\Programowanie\visual\csharp\web\Projekty Blazor\PI6\Files"),
-    RequestPath = "/files"
-});
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(ServerHelper.GetFilesDirectory()),
+        RequestPath = "/files"
+    });
+}
 
 app.UseRouting();
 
