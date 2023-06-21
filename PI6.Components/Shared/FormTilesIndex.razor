@@ -15,9 +15,13 @@
                 </MudPaper>
             </MudPaper>
         </MudLink>
-        <MudPaper Elevation="0" Class="d-flex flex-row justify-space-between" Style="background-color: inherit;">
-            <MudButton OnClick="(() => OpenAssignFormDialog(f.ForId))" Variant="Variant.Outlined" Color="Color.Primary" Style="font-weight:bold; width: 140px; margin: 1%">Przypisz</MudButton>
-            <MudButton OnClick="OpenFormDatesDialog" Variant="Variant.Outlined" Color="Color.Info" Style="font-weight:bold; width: 140px; margin: 1%">Otwórz/Zamknij</MudButton>
-        </MudPaper>
+
+        @if (!_isStudent)
+        {
+            <MudPaper Elevation="0" Class="d-flex flex-row justify-space-between" Style="background-color: inherit;">
+                <MudButton OnClick="(() => OpenAssignFormDialog(f.ForId))" Variant="Variant.Outlined" Color="Color.Primary" Style="font-weight:bold; width: 140px; margin: 1%">Przypisz</MudButton>
+                <MudButton OnClick="(() => OpenFormDatesDialog(f.ForId))" Variant="Variant.Outlined" Color="Color.Info" Style="font-weight:bold; width: 140px; margin: 1%">Otwórz/Zamknij</MudButton>
+            </MudPaper>
+        }
     </MudPaper>
 }

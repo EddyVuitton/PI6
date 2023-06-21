@@ -318,4 +318,18 @@ public class PI6Controller : Controller
             return BadRequest(e.Message);
         }
     }
-}
+
+    [HttpPost("SaveFormDates")]
+    public async Task<ActionResult> SaveFormDates(FormDatesDto dto)
+    {
+        try
+        {
+            await _applicationRepository.SaveFormDates(dto);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+} 

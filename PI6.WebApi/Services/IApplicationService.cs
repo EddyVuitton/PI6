@@ -24,4 +24,5 @@ public interface IApplicationService
     public Task<List<formularz_podejscie>> GetFormApproaches(int for_id);
     public Task<List<group_assigned_forms>> GetGroupAssignedForms(int us_id);
     public Task<HttpResponseMessage> SaveGroupAssignedForms(List<GroupAssignedFormCheckDto> groupAssignedFormCheckDtos);
+    public Task<HttpResponseMessage> SaveFormDates(FormDatesDto dto);
 }

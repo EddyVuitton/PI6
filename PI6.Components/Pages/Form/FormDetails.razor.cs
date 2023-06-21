@@ -31,10 +31,10 @@ public partial class FormDetails
     private int? _passingThreshold;
 
     protected override async Task OnInitializedAsync()
-    {
+    { 
         _questions = await ApplicationService.GetFormQuestions(FormId);
         _options = await ApplicationService.GetFormOptions(FormId);
-        _form = (await ApplicationService.GetForm(FormId));
+        _form = await ApplicationService.GetForm(FormId);
 
         _formQuestionsDto = FormHelper.GetFormQuestionsDto(_questions, _options);
         _formDto = FormHelper.GetFormularzDto(_form, _formQuestionsDto);

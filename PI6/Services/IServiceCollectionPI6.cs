@@ -12,7 +12,7 @@ public static class IServiceCollectionPI6
     {
         services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44322/") });
         services.AddScoped<IApplicationService, ApplicationService>(); //webapi
-        services.AddScoped<IErrorHelper, ErrorHelper>();
+        services.AddScoped<ISnackbarHelper, SnackbarHelper>();
 
         services.AddScoped<JWTAuthenticationStateProvider>();
         services.AddScoped<AuthenticationStateProvider, JWTAuthenticationStateProvider>(provider => provider.GetRequiredService<JWTAuthenticationStateProvider>());

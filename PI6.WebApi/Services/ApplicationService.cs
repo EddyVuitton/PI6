@@ -255,6 +255,17 @@ public class ApplicationService : IApplicationService
         var json = JsonConvert.SerializeObject(groupAssignedFormCheckDtos);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync("api/pi6/SaveGroupAssignedForms", data);
+        
+        
+
+        return response;
+    }
+
+    public async Task<HttpResponseMessage> SaveFormDates(FormDatesDto dto)
+    {
+        var json = JsonConvert.SerializeObject(dto);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("api/pi6/SaveFormDates", data);
 
         return response;
     }

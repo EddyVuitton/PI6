@@ -5,24 +5,11 @@
         <MudPaper Elevation="0" Style="margin: 1%;" Width="90%">
             <AdvCarousel />
         </MudPaper>
-        <AuthorizeView Roles=@_roles>
-
-        </AuthorizeView>
     </MudPaper>
     <MudPaper Elevation="0" Style="margin-left: 1%;">
-        <AuthorizeView Roles=@_roles>
+        <AuthorizeView Roles=@_otherRoles>
             <Authorized>
                 <MudPaper Elevation="0" Style="" Width="400px" Class="d-flex flex-row align-start">
-@*                    <MudPaper Elevation="0">
-                        <MudButton Size="Size.Small"
-                                   Variant="Variant.Filled"
-                                   Color="Color.Info"
-                                   Href="/account"
-                                   Disabled="true"
-                                   Style="text-transform:none; font-size: 20px">
-                            Nowy formularz
-                        </MudButton>
-                    </MudPaper>*@
                     <MudPaper Elevation="0">
                         <MudButton Size="Size.Medium"
                                    Variant="Variant.Filled"
@@ -35,6 +22,24 @@
                 </MudPaper>
                 <br />
                 <MudText Align="Align.Left" Typo="Typo.h3">Stworzone testy</MudText>
+                <br />
+                <MudPaper Elevation="0" Class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
+                    @if (_formTiles == null)
+                    {
+                        <MudText>
+                            Ładowanie formularzy...
+                        </MudText>
+                    }
+                    else
+                    {
+                        <FormTilesIndex FormTiles="@_formTiles" Account="@_accountDto" />
+                    }
+                </MudPaper>
+            </Authorized>
+        </AuthorizeView>
+        <AuthorizeView Roles=@_studentRole>
+            <Authorized>
+                <MudText Align="Align.Left" Typo="Typo.h3">Aktywne testy do rozwiązania</MudText>
                 <br />
                 <MudPaper Elevation="0" Class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
                     @if (_formTiles == null)

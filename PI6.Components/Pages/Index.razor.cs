@@ -12,7 +12,7 @@ public partial class Index
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public IJSRuntime JS { get; set; }
     [Inject] public NavigationManager NavigationManager { get; set; }
-    [Inject] public IErrorHelper ErrorHelper { get; set; }
+    [Inject] public ISnackbarHelper ErrorHelper { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool isFirstRender)
     {

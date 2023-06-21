@@ -26,6 +26,7 @@ public partial class DBContext : DbContext
     public virtual DbSet<StudentGroupMapDto> student_group_map_dto { get; set; }
     public virtual DbSet<group_assigned_forms> group_assigned_forms { get; set; }
     public virtual DbSet<GroupAssignedFormCheckDto> group_assigned_form_check_dto { get; set; }
+    public virtual DbSet<FormDatesDto> form_dates_dto { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -107,6 +108,11 @@ public partial class DBContext : DbContext
         });
 
         modelBuilder.Entity<GroupAssignedFormCheckDto>(entity =>
+        {
+            entity.HasNoKey();
+        });
+
+        modelBuilder.Entity<FormDatesDto>(entity =>
         {
             entity.HasNoKey();
         });

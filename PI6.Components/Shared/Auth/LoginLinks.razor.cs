@@ -20,8 +20,11 @@ public partial class LoginLinks
 
     protected override async Task OnAfterRenderAsync(bool isFirstRender)
     {
-        _loggedEmail = await JS.GetFromLocalStorage("email");
-        StateHasChanged();
+        if (isFirstRender)
+        {
+            _loggedEmail = await JS.GetFromLocalStorage("email");
+            StateHasChanged();
+        }
     }
 
     private void OpenLoginDialog()

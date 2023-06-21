@@ -13,7 +13,7 @@ public partial class FormCreate
 {
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public IJSRuntime JS { get; set; }
-    [Inject] public IErrorHelper ErrorHelper { get; set; }
+    [Inject] public ISnackbarHelper ErrorHelper { get; set; }
 
     private readonly FormularzDto newForm = new();
     private readonly List<formularz_pytanie> _questions = new();

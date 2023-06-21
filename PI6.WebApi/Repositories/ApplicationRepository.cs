@@ -228,6 +228,29 @@ public class ApplicationRepository : IApplicationRepository
         catch (Exception ex)
         {
             await _context.Database.RollbackTransactionAsync();
+            throw;
+        }
+    }
+
+    public async Task SaveFormDates(FormDatesDto dto)
+    {
+        await _context.Database.BeginTransactionAsync();
+
+        try
+        {
+            SqlParam sqlParams = new();
+            sqlParams.AddParam("for_id", dto.FormId, System.Data.SqlDbType.Int);
+            sqlParams.AddParam("start", dto.StartDate, System.Data.SqlDbType.DateTime);
+            sqlParams.AddParam("end", dto.EndDate, System.Data.SqlDbType.DateTime);
+            await _context.SqlQueryAsync($"exec p_form_dates_set @for_id, @start, @end", sqlParams.Params(), default);
+
+            await _context.SaveChangesAsync();
+            await _context.Database.CommitTransactionAsync();
+        }
+        catch (Exception ex)
+        {
+            await _context.Database.RollbackTransactionAsync();
+            throw;
         }
     }
 }

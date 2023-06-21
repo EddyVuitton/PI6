@@ -1,9 +1,24 @@
-﻿<MudDialog>
-    <DialogContent>
-        <MudText>@_accountDto.UstName</MudText>
-        <MudText>@_accountDto.UserEmail</MudText>
-    </DialogContent>
-    <DialogActions>
-        <MudButton OnClick="Cancel">Anuluj</MudButton>
-    </DialogActions>
-</MudDialog>
+﻿<MudPaper Width="400px">
+    <MudDialog>
+        <DialogContent>
+            @*            <MudDatePicker Label="Data startu" @bind-Date="_dto.StartDate" />
+            <MudDatePicker Label="Data zakończenia" @bind-Date="_dto.EndDate" />*@
+            <MudTextField @bind-Value="_dto.StartDate"
+                          Style="width: 200px; font-size: 20px"
+                          Format="s"
+                          T="DateTime?"
+                          Label="Data startu"
+                          InputType="InputType.DateTimeLocal" />
+            <MudTextField @bind-Value="_dto.EndDate"
+                          Style="width: 200px; font-size: 20px"
+                          Format="s"
+                          T="DateTime?"
+                          Label="Data zakończenia"
+                          InputType="InputType.DateTimeLocal" />
+        </DialogContent>
+        <DialogActions>
+            <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="Save">Zapisz</MudButton>
+            <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Cancel">Anuluj</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudPaper>

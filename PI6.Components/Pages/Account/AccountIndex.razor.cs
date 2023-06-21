@@ -13,7 +13,7 @@ public partial class AccountIndex
 {
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public IJSRuntime JS { get; set; }
-    [Inject] public IErrorHelper ErrorHelper { get; set; }
+    [Inject] public ISnackbarHelper ErrorHelper { get; set; }
 
     private AccountDto _accountDto = new();
     private account _account = new();

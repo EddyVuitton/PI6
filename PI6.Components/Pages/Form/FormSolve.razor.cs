@@ -14,7 +14,7 @@ public partial class FormSolve
 {
     [Inject] public IJSRuntime JSRuntime { get; set; }
     [Inject] public IApplicationService ApplicationService { get; set; }
-    [Inject] public IErrorHelper ErrorHelper { get; set; }
+    [Inject] public ISnackbarHelper ErrorHelper { get; set; }
 
     [Parameter] public int FormId { get; set; }
     [Parameter] public AppState AppState { get; set; } = new();

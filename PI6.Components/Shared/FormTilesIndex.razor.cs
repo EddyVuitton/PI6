@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Hosting.Server;
 using MudBlazor;
-using PI6.Components.Shared.Account;
 using PI6.Components.Shared.Form.Dialogs;
 using PI6.Shared.Data.Dtos;
 
@@ -14,6 +12,7 @@ public partial class FormTilesIndex
     [Parameter] public List<FormularzKafelekDto> FormTiles { get; set; }
     [Parameter] public AccountDto Account { get; set; }
 
+    private bool _isStudent = false;
     private string _href = string.Empty;
 
     protected override void OnInitialized()
@@ -25,6 +24,8 @@ public partial class FormTilesIndex
             "Admin" => "formdetails",
             _ => "formdetails"
         };
+
+        _isStudent = Account.UstName == "Student" ? true : false;
     }
 
     private void OpenAssignFormDialog(int formId)
@@ -42,16 +43,18 @@ public partial class FormTilesIndex
         StateHasChanged();
     }
 
-    private void OpenFormDatesDialog()
+    private void OpenFormDatesDialog(int formId)
     {
+        var parameters = new DialogParameters { 
+            ["FormId"] = formId
+        };
+
         var options = new DialogOptions
         {
             CloseOnEscapeKey = true,
-            NoHeader = true,
-            MaxWidth = MaxWidth.Small,
-            FullWidth = true
+            NoHeader = true
         };
-        DialogService.Show<FormDates>(null, options);
-        StateHasChanged();
+
+        DialogService.Show<FormDates>(null, parameters, options);
     }
 }

@@ -20,7 +20,7 @@ public static class ServerHelper
     {
         bool isDebugMode = Debugger.IsAttached;
 
-        if (isDebugMode)
+        if (/*isDebugMode*/true)
         {
             var solutionDirectory = GetSolutionDirectory();
 

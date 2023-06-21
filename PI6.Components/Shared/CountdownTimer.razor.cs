@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using MudBlazor;
+using PI6.Components.Helpers.Interfaces;
 using PI6.Components.Objects;
 using System.Timers;
 
@@ -10,6 +12,7 @@ public partial class CountdownTimer
     //https://www.youtube.com/watch?v=gvXn4KdB-eE
 
     [Inject] public IJSRuntime JSRuntime { get; set; }
+    [Inject] public ISnackbarHelper ErrorHelper { get; set; }
     [Parameter] public AppState AppState { get; set; }
     [Parameter] public Action<bool> OnDisableChange { get; set; }
 
@@ -29,6 +32,7 @@ public partial class CountdownTimer
             _timer.Enabled = false;
             _elapsedTime = _DEFAULT_TIME;
             OnDisableChange?.Invoke(true);
+            ErrorHelper.ShowSnackbar("Skończył się czas! Zapisz swoje podejście przed zamknięciem", Severity.Info, false);
         }
 
         InvokeAsync(StateHasChanged);
