@@ -28,6 +28,7 @@ public partial class DBContext : DbContext
     public virtual DbSet<GroupAssignedFormCheckDto> group_assigned_form_check_dto { get; set; }
     public virtual DbSet<FormDatesDto> form_dates_dto { get; set; }
 
+    public virtual DbSet<FormResultDto> form_result_dto { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -113,6 +114,11 @@ public partial class DBContext : DbContext
         });
 
         modelBuilder.Entity<FormDatesDto>(entity =>
+        {
+            entity.HasNoKey();
+        });
+
+        modelBuilder.Entity<FormResultDto>(entity =>
         {
             entity.HasNoKey();
         });

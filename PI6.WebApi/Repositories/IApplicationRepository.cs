@@ -25,4 +25,5 @@ public interface IApplicationRepository
     public Task<List<group_assigned_forms>> GetGroupAssignedForms(int us_id);
     public Task SaveGroupAssignedForms(List<GroupAssignedFormCheckDto> groupAssignedFormCheckDtos);
     public Task SaveFormDates(FormDatesDto dto);
+    public Task<List<FormResultDto>> GetFormResultDto(int form_id);
 }

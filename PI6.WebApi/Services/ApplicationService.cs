@@ -255,8 +255,6 @@ public class ApplicationService : IApplicationService
         var json = JsonConvert.SerializeObject(groupAssignedFormCheckDtos);
         var data = new StringContent(json, Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync("api/pi6/SaveGroupAssignedForms", data);
-        
-        
 
         return response;
     }
@@ -268,5 +266,18 @@ public class ApplicationService : IApplicationService
         var response = await _httpClient.PostAsync("api/pi6/SaveFormDates", data);
 
         return response;
+    }
+
+    public async Task<List<FormResultDto>> GetFormResultDto(int form_id)
+    {
+        var response = await _httpClient.GetAsync($"api/pi6/GetFormResultDto?for_id={form_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<FormResultDto>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<FormResultDto>>(responseContent);
+
+        return deserialisedResponse;
     }
 }

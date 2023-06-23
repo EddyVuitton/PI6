@@ -31,6 +31,7 @@ public partial class FormSolve
     private int _requiredTime;
     private readonly DateTime _startDateTime = DateTime.Now;
     private DateTime _finishDateTime;
+    private AccountDto _accountDto = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,9 +50,17 @@ public partial class FormSolve
 
         UpdateOptionsOnInitial();
 
+        await LoadAccount();
+
         StateHasChanged();
     }
-    
+
+    private async Task LoadAccount()
+    {
+        var loggedEmail = await JSRuntime.GetFromLocalStorage("email");
+        _accountDto = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
+    }
+
     private void OnStateChanged() => this.InvokeAsync(StateHasChanged);
 
     private List<formularz_pytanie_opcja> GetQuestionOptions(int questionId) => _options.Where(x => x.fpop_forp_id == questionId).ToList();
@@ -120,8 +129,8 @@ public partial class FormSolve
     {
         _finishDateTime = DateTime.Now;
 
-        _solvedForm.FpodId = -1;
-        _solvedForm.FpodUserId = -1;
+        _solvedForm.FpodId = FormId;
+        _solvedForm.FpodUserId = _accountDto.UserId;
         _solvedForm.FormId = FormId;
         _solvedForm.FpodDataRozpoczenia = _startDateTime;
         _solvedForm.FpodStan = true;

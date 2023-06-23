@@ -17,61 +17,51 @@ public partial class AccountIndex
 
     private AccountDto _accountDto = new();
     private account _account = new();
-    private string _deactivateDate = string.Empty;
     private List<student_group> _studentGroups = new();
     private List<StudentGroupMapDto> _studentGroupMapDtos = new();
     private List<FormularzKafelekDto> _formTiles = new();
     private List<formularz_podejscie> _approaches = new();
     private List<formularz> _forms = new();
-    private readonly TableGroupDefinition<StudentGroupMapDto> _groupDefinition = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            var loggedEmail = await JS.GetFromLocalStorage("email");
-
-            _accountDto = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
-            _account = await ApplicationService.GetAccount(_accountDto.UserId);
-            _deactivateDate = _account.us_deactivate == null ? "Nie określono" : _account.us_deactivate.Value.ToShortDateString();
-        }
-        catch (Exception e)
-        {
-            ErrorHelper.ShowSnackbar(e.Message, Severity.Error);
-        }
-
-        InitGroupDefinition(_groupDefinition);
-        _formTiles = await ApplicationService.GetFormTileDto();
-        foreach (var tile in _formTiles)
-        {
-            var tempApproach = await ApplicationService.GetFormApproaches(tile.ForId);
-            foreach (var entry in tempApproach)
-                _approaches.Add(entry);
-        }
-        _studentGroups = await ApplicationService.GetStudentGroups(_account.us_id);
-        _studentGroupMapDtos = await ApplicationService.GetStudentGroupMapDto(_account.us_id);
-        _forms = await ApplicationService.GetAccountForms(_account.us_id);
-
-        StateHasChanged();
-    }
+    private List<FormResultDto> _formResultsDto = new();
 
     protected override async Task OnAfterRenderAsync(bool isFirstRender)
     {
-        var loggedEmail = await JS.GetFromLocalStorage("email");
         if (isFirstRender)
         {
+            var loggedEmail = await JS.GetFromLocalStorage("email");
             _accountDto = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
             _account = await ApplicationService.GetAccount(_accountDto.UserId);
-            _deactivateDate = _account.us_deactivate == null ? "Nie określono" : _account.us_deactivate.Value.ToShortDateString();
+
+            _formTiles = await ApplicationService.GetFormTileDto();
+
+            foreach (var tile in _formTiles)
+            {
+                var tempApproach = await ApplicationService.GetFormApproaches(tile.ForId);
+                foreach (var entry in tempApproach)
+                    _approaches.Add(entry);
+            }
+            _studentGroups = await ApplicationService.GetStudentGroups(_account.us_id);
+            _studentGroupMapDtos = await ApplicationService.GetStudentGroupMapDto(_account.us_id);
+            _forms = await ApplicationService.GetAccountForms(_account.us_id);
+
+            await LoadFormResultDto();
+            StateHasChanged();
         }
-        StateHasChanged();
     }
 
-    private static void InitGroupDefinition (TableGroupDefinition<StudentGroupMapDto> def)
+    private async Task LoadFormResultDto()
     {
-        def.GroupName = "Grupa";
-        def.Indentation = false;
-        def.Expandable = false;
-        def.Selector = (e) => e.SgrName;
+        foreach (var i in _forms)
+        {
+            try
+            {
+                _formResultsDto = await ApplicationService.GetFormResultDto(i.for_id);
+            }
+            catch (Exception ex)
+            {
+                ErrorHelper.ShowSnackbar($"Błąd przy wczytaniu wyników testu: {i.for_nazwa}", Severity.Warning);
+                ErrorHelper.ShowSnackbar(ex.Message, Severity.Error);
+            }
+        }
     }
 }

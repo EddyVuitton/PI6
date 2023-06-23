@@ -1,0 +1,32 @@
+﻿<style>
+    .mud-table-cell-custom-group {
+        font-weight: 500;
+    }
+
+    .mud-table-cell-custom-group-footer {
+        padding-bottom: 50px;
+        text-align: right;
+    }
+</style>
+
+<MudPaper Elevation="0">
+    @if (StudentGroups is not null)
+    {
+        <MudTable Items="@StudentGroups" Hover="true" Dense="true" Striped="true" Bordered="true">
+            <HeaderContent>
+                <MudTh>Nazwa</MudTh>
+                <MudTh>Kierunek</MudTh>
+                <MudTh>Specjalność</MudTh>
+                <MudTh>Data rozpoczęcia</MudTh>
+                <MudTh>Data zakończenia</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@context.sgr_name</MudTd>
+                <MudTd>@context.sgr_field_of_study</MudTd>
+                <MudTd>@context.sgr_speciality</MudTd>
+                <MudTd>@context.sgr_start_date.ToString("dd.MM.yyyy")</MudTd>
+                <MudTd>@context.sgr_end_date.Value.ToString("dd.MM.yyyy")</MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+</MudPaper>

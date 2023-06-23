@@ -225,7 +225,7 @@ public class ApplicationRepository : IApplicationRepository
             await _context.SaveChangesAsync();
             await _context.Database.CommitTransactionAsync();
         }
-        catch (Exception ex)
+        catch
         {
             await _context.Database.RollbackTransactionAsync();
             throw;
@@ -247,10 +247,20 @@ public class ApplicationRepository : IApplicationRepository
             await _context.SaveChangesAsync();
             await _context.Database.CommitTransactionAsync();
         }
-        catch (Exception ex)
+        catch
         {
             await _context.Database.RollbackTransactionAsync();
             throw;
         }
+    }
+
+    public async Task<List<FormResultDto>> GetFormResultDto(int form_id)
+    {
+        SqlParam sqlParams = new();
+        sqlParams.AddParam("for_id", form_id, System.Data.SqlDbType.Int);
+        var param = sqlParams.Params();
+        var result = await _context.SqlQueryAsync<FormResultDto>($"exec p_form_result_get @for_id", param, default) ?? new List<FormResultDto>();
+
+        return result;
     }
 }

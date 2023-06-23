@@ -332,4 +332,18 @@ public class PI6Controller : Controller
             return BadRequest(e.Message);
         }
     }
-} 
+
+    [HttpGet("GetFormResultDto")]
+    public async Task<ActionResult<List<FormResultDto>>> GetFormResultDto(int for_id)
+    {
+        try
+        {
+            var result = await _applicationRepository.GetFormResultDto(for_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+}

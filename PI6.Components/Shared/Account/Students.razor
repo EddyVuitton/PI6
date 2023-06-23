@@ -1,0 +1,49 @@
+﻿<style>
+    .mud-table-cell-custom-group {
+        font-weight: 500;
+    }
+
+    .mud-table-cell-custom-group-footer {
+        padding-bottom: 50px;
+        text-align: right;
+    }
+</style>
+
+<MudPaper Elevation="0">
+    @if (StudentGroupMap is not null)
+    {
+        <MudTable Hover="true"
+                  Breakpoint="Breakpoint.Sm"
+                  FixedHeader="true"
+                  Items="@StudentGroupMap"
+                  GroupBy="@_groupDefinition"
+                  GroupHeaderStyle="background-color:var(--mud-palette-background-grey)"
+                  GroupFooterClass="mb-4"
+                  Dense="true"
+                  Striped="true"
+                  Bordered="true">
+            <ColGroup>
+                <col />
+                <col style="width: 34%;" />
+                <col style="width: 33%;" />
+                <col style="width: 33%;" />
+            </ColGroup>
+            <HeaderContent>
+                <MudTh>Imię</MudTh>
+                <MudTh>Nazwisko</MudTh>
+                <MudTh>Email</MudTh>
+            </HeaderContent>
+            <GroupHeaderTemplate>
+                <MudTh Class="mud-table-cell-custom-group" colspan="3">@context.Key</MudTh>
+            </GroupHeaderTemplate>
+            <RowTemplate>
+                <MudTd>@context.UserName</MudTd>
+                <MudTd>@context.UserSurname</MudTd>
+                <MudTd>@context.UserEmail</MudTd>
+            </RowTemplate>
+            <GroupFooterTemplate>
+                <MudTh Class="mud-table-cell-custom-group mud-table-cell-custom-group-footer" colspan="3">Liczba studentów: @context.Items.Count()</MudTh>
+            </GroupFooterTemplate>
+        </MudTable>
+    }
+</MudPaper>
