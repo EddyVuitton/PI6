@@ -16,7 +16,7 @@
                    T="string"
                    Label="Typ użytkownika"
                    AnchorOrigin="Origin.BottomCenter">
-            @if (_accountTypes != null)
+            @if (_accountTypes is not null)
             {
                 foreach (var accountType in _accountTypes)
                 {

@@ -147,7 +147,7 @@ public partial class FormCreate
         var options = GetQuestionOptions(questionId);
         var firstCorrectAnswert = options.FirstOrDefault(x => x.fpop_czy_poprawna == true);
 
-        if (firstCorrectAnswert == null)
+        if (firstCorrectAnswert is null)
             return;
 
         foreach (var op in options)

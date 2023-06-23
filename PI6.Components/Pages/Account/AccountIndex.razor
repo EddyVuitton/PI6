@@ -1,12 +1,12 @@
 ﻿@page "/account/"
 
-@if (_account != null)
+@if (_account is not null)
 {
     <MudPaper Elevation="0" Style="margin: 1%;">
         <br />
         <MudText Align="Align.Left" Typo="Typo.h3">Moje klasy</MudText>
         <MudPaper Elevation="0" Width="50%">
-            @if (_studentGroups != null)
+            @if (_studentGroups is not null)
             {
                 if (_studentGroups.Count != 0)
                 {
@@ -29,7 +29,7 @@
         <br />
         <MudText Align="Align.Left" Typo="Typo.h3">Studenci</MudText>
         <MudPaper Elevation="0" Width="50%">
-            @if (_studentGroupMapDtos != null)
+            @if (_studentGroupMapDtos is not null)
             {
                 if (_studentGroupMapDtos.Count != 0)
                 {
@@ -52,7 +52,7 @@
         <br />
         <MudText Align="Align.Left" Typo="Typo.h3">Wyniki testów</MudText>
         <MudPaper Elevation="0" Width="50%">
-            @if (_formResultsDto != null)
+            @if (_formResultsDto is not null)
             {
                 if (_formResultsDto.Count != 0)
                 {

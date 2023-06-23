@@ -53,7 +53,7 @@ public class JWTAuthenticationStateProvider : AuthenticationStateProvider, ILogi
 
         keyValuePairs.TryGetValue(ClaimTypes.Role, out object roles);
 
-        if (roles != null)
+        if (roles is not null)
         {
             if (roles.ToString().Trim().StartsWith("["))
             {

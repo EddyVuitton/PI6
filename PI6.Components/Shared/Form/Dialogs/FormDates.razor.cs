@@ -35,7 +35,7 @@ public partial class FormDates
         {
             var responseMessage = await ApplicationService.SaveFormDates(_dto);
 
-            if (responseMessage == null)
+            if (responseMessage is null)
                 throw new NullReferenceException();
 
             if (!responseMessage.IsSuccessStatusCode)

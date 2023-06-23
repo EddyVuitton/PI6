@@ -45,7 +45,7 @@ public partial class AssignForm
         {
             var responseMessage = await ApplicationService.SaveGroupAssignedForms(_groupAssignedFormCheckDtos);
 
-            if (responseMessage == null)
+            if (responseMessage is null)
                 throw new NullReferenceException();
 
             if (!responseMessage.IsSuccessStatusCode)

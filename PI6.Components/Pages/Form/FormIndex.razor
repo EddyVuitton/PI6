@@ -24,7 +24,7 @@
                 <MudText Align="Align.Left" Typo="Typo.h3">Stworzone testy</MudText>
                 <br />
                 <MudPaper Elevation="0" Class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
-                    @if (_formTiles == null)
+                    @if (_formTiles is null)
                     {
                         <MudText>
                             Ładowanie formularzy...
@@ -42,7 +42,7 @@
                 <MudText Align="Align.Left" Typo="Typo.h3">Aktywne testy do rozwiązania</MudText>
                 <br />
                 <MudPaper Elevation="0" Class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
-                    @if (_formTiles == null)
+                    @if (_formTiles is null)
                     {
                         <MudText>
                             Ładowanie formularzy...

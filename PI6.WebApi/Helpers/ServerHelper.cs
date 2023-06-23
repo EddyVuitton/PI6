@@ -8,7 +8,7 @@ public static class ServerHelper
     {
         DirectoryInfo currentDirectory = new (Directory.GetCurrentDirectory());
 
-        while (currentDirectory != null && !currentDirectory.GetFiles("*.sln").Any())
+        while (currentDirectory is not null && !currentDirectory.GetFiles("*.sln").Any())
         {
             currentDirectory = currentDirectory.Parent;
         }

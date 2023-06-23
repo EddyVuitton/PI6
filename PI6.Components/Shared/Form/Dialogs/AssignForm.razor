@@ -2,7 +2,7 @@
     <DialogContent>
         <MudText Typo="Typo.h4">Wybierz grupę</MudText>
         <br />
-        @if (_groupAssignedFormCheckDtos != null)
+        @if (_groupAssignedFormCheckDtos is not null)
         {
             if (_groupAssignedFormCheckDtos.Count != 0)
             {

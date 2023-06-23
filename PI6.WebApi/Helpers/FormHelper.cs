@@ -101,12 +101,12 @@ public static class FormHelper
     public static List<GroupAssignedFormCheckDto> GetGroupAssignedFormCheckDto(List<student_group> studentGroups, List<group_assigned_forms> groupAssignedForms, int usId, int forId)
     {
         var dtos = new List<GroupAssignedFormCheckDto>();
-        if (studentGroups == null || studentGroups.Count == 0)
+        if (studentGroups is null || studentGroups.Count == 0)
             return dtos;
 
         foreach (var g in studentGroups)
         {
-            if (g == null)
+            if (g is null)
                 break;
             else
             {
@@ -117,7 +117,7 @@ public static class FormHelper
                     GrpId = g.sgr_id,
                     GrpName = g.sgr_name,
                     ForId = forId,
-                    Check = check != null
+                    Check = check is not null
                 };
                 dtos.Add(temp);
             }
