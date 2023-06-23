@@ -4,13 +4,13 @@
 {
     <MudPaper Elevation="0" Style="margin: 1%;">
         <br />
-        <MudText Align="Align.Left" Typo="Typo.h3">Moje klasy</MudText>
+        <MudText Align="Align.Left" Typo="Typo.h3">Moje grupy</MudText>
         <MudPaper Elevation="0" Width="50%">
             @if (_studentGroups is not null)
             {
                 if (_studentGroups.Count != 0)
                 {
-                    <Classes StudentGroups="_studentGroups" />
+                    <Groups StudentGroups="_studentGroups" />
                 }
                 else
                 {
