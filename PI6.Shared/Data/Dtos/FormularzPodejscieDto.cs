@@ -12,5 +12,5 @@ public class FormularzPodejscieDto
     public DateTime? FpodDataZakonczenia { get; set; }
     public int? FpodWykorzystanyCzas { get; set; }
 
-    public List<formularz_odpowiedz>? Odpowiedzi { get; set; }
+    public List<formularz_odpowiedz> Odpowiedzi { get; set; }
 }

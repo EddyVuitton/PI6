@@ -42,7 +42,7 @@ public class ApplicationService : IApplicationService
 
             return deserialisedResponse;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //ToDo - logowanie
             return new formularz();

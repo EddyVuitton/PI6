@@ -20,7 +20,7 @@ public partial class AccountIndex
     private List<student_group> _studentGroups = new();
     private List<StudentGroupMapDto> _studentGroupMapDtos = new();
     private List<FormularzKafelekDto> _formTiles = new();
-    private List<formularz_podejscie> _approaches = new();
+    private readonly List<formularz_podejscie> _approaches = new();
     private List<formularz> _forms = new();
     private List<FormResultDto> _formResultsDto = new();
 

@@ -22,11 +22,11 @@ public partial class FormCreate
     private string _title = string.Empty;
     private DateTime _dateOpen = DateTime.Now;
     private DateTime? _dateClose;
-    private int? _allowedNumberAppr;
+    //private int? _allowedNumberAppr;
     private int? _requiredSeconds;
     private int? _requiredMinutes;
     private int? _requiredHours;
-    private int? _passingThreshold;
+    //private readonly int? _passingThreshold;
     private AccountDto _account = new();
 
     protected override void OnInitialized()
@@ -187,9 +187,9 @@ public partial class FormCreate
         newForm.DataStworzenia = DateTime.Now;
         newForm.DataOtwarcia = _dateOpen;
         newForm.DataZamkniecia = _dateClose ?? new DateTime(2100, 1, 1);
-        newForm.DozwolonePodejscia = _allowedNumberAppr ?? 999;
+        newForm.DozwolonePodejscia = 999;//_allowedNumberAppr ?? 999;
         newForm.LimitCzasu = ((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + (_requiredSeconds ?? 0);
-        newForm.ProgZal = _passingThreshold ?? 0;
+        newForm.ProgZal = 0;//_passingThreshold ?? 0;
         newForm.FortId = 3;
         newForm.UserId = _account.UserId;
 

@@ -17,7 +17,7 @@ public partial class FormDates
     [Inject] public ISnackbarHelper ErrorHelper { get; set; }
 
     private formularz _form = new();
-    private FormDatesDto _dto = new();
+    private readonly FormDatesDto _dto = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -33,17 +33,14 @@ public partial class FormDates
     {
         try
         {
-            var responseMessage = await ApplicationService.SaveFormDates(_dto);
-
-            if (responseMessage is null)
-                throw new NullReferenceException();
+            var responseMessage = await ApplicationService.SaveFormDates(_dto) ?? throw new NullReferenceException();
 
             if (!responseMessage.IsSuccessStatusCode)
                 throw new Exception(responseMessage.ReasonPhrase);
 
             ErrorHelper.ShowSnackbar("Poprawnie zapisano", Severity.Success);
         }
-        catch (NullReferenceException e)
+        catch (NullReferenceException)
         {
             ErrorHelper.ShowSnackbar("Błąd przy zapisywaniu", Severity.Warning, false);
             ErrorHelper.ShowSnackbar("Obiekt nie został poprawnie zainicjonowany", Severity.Error, false);

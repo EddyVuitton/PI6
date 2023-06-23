@@ -12,7 +12,7 @@ public class SqlParam
         _params = new();
     }
 
-    public void AddParam(string name, object? value, SqlDbType type)
+    public void AddParam(string name, object value, SqlDbType type)
     {
         _params.Add(new SqlParameter()
         {

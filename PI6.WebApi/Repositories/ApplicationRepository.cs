@@ -26,7 +26,7 @@ public class ApplicationRepository : IApplicationRepository
         SqlParam sqlParams = new();
         sqlParams.AddParam("for_id", for_id, System.Data.SqlDbType.Int);
         var param = sqlParams.Params();
-        var result = await _context.SqlQueryAsync<formularz>("exec dbo.p_formularz_pobierz @for_id", param, default);
+        var result = await _context.SqlQueryAsync<formularz>("exec dbo.p_formularz_pobierz @for_id", param);
 
         return result.FirstOrDefault();
     }
@@ -49,7 +49,7 @@ public class ApplicationRepository : IApplicationRepository
         sqlParams.AddParam("xml", xml, System.Data.SqlDbType.Xml);
         var param = sqlParams.Params();
 
-        await _context.SqlQueryAsync("exec dbo.p_formularz_zapisz @xml", param, default);
+        await _context.SqlQueryAsync("exec dbo.p_formularz_zapisz @xml", param);
     }
 
     public async Task<List<formularz_pytanie>> GetFormQuestions(int for_id)
@@ -58,7 +58,7 @@ public class ApplicationRepository : IApplicationRepository
         sqlParams.AddParam("for_id", for_id, System.Data.SqlDbType.Int);
         var param = sqlParams.Params();
 
-        return await _context.SqlQueryAsync<formularz_pytanie>("exec dbo.p_pobierz_pytania @for_id", param, default);
+        return await _context.SqlQueryAsync<formularz_pytanie>("exec dbo.p_pobierz_pytania @for_id", param);
     }
 
     public async Task<List<formularz_pytanie_opcja>> GetFormOptions(int for_id)
@@ -67,7 +67,7 @@ public class ApplicationRepository : IApplicationRepository
         sqlParams.AddParam("for_id", for_id, System.Data.SqlDbType.Int);
         var param = sqlParams.Params();
 
-        return await _context.SqlQueryAsync<formularz_pytanie_opcja>("exec dbo.p_pobierz_opcje @for_id", param, default);
+        return await _context.SqlQueryAsync<formularz_pytanie_opcja>("exec dbo.p_pobierz_opcje @for_id", param);
     }
 
     public async Task SaveSolvedForm(FormularzPodejscieDto solvedForm)
@@ -78,7 +78,7 @@ public class ApplicationRepository : IApplicationRepository
         sqlParams.AddParam("xml", xml, System.Data.SqlDbType.Xml);
         var param = sqlParams.Params();
 
-        await _context.SqlQueryAsync("exec dbo.p_formularz_podejscie_zapisz @xml", param, default);
+        await _context.SqlQueryAsync("exec dbo.p_formularz_podejscie_zapisz @xml", param);
     }
 
     public async Task<List<account_type>> GetAccountTypes()
@@ -98,7 +98,7 @@ public class ApplicationRepository : IApplicationRepository
         sqlParams.AddParam("deactivate", account.us_deactivate, System.Data.SqlDbType.DateTime);
         var param = sqlParams.Params();
 
-        await _context.SqlQueryAsync("exec dbo.p_account_add @name, @surname, @email, @pass, @ust_id, @activate, @deactivate", param, default);
+        await _context.SqlQueryAsync("exec dbo.p_account_add @name, @surname, @email, @pass, @ust_id, @activate, @deactivate", param);
     }
 
     public async Task<string> GetAccountHashedPassword(account account)
@@ -108,7 +108,7 @@ public class ApplicationRepository : IApplicationRepository
         sqlParam.AddParam("email", account.us_email, System.Data.SqlDbType.NVarChar);
         var param = sqlParam.Params();
 
-        var accounts = await _context.SqlQueryAsync<account>($"exec p_account_get @us_id, @email", param, default);
+        var accounts = await _context.SqlQueryAsync<account>($"exec p_account_get @us_id, @email", param);
 
         return accounts.FirstOrDefault().us_pass;
     }
@@ -120,7 +120,7 @@ public class ApplicationRepository : IApplicationRepository
         sqlParam.AddParam("email", email, System.Data.SqlDbType.NVarChar);
         var param = sqlParam.Params();
 
-        var accounts = await _context.SqlQueryAsync<account>($"exec p_account_get @us_id, @email", param, default);
+        var accounts = await _context.SqlQueryAsync<account>($"exec p_account_get @us_id, @email", param);
         var accountDto =
             from account in accounts
             join accountType in _context.account_type on account.us_ust_id equals accountType.ust_id
@@ -151,7 +151,7 @@ public class ApplicationRepository : IApplicationRepository
         sqlParams.AddParam("us_id", us_id, System.Data.SqlDbType.Int);
         var param = sqlParams.Params();
 
-        return await _context.SqlQueryAsync<student_group>($"exec p_student_groups_get @us_id", param, default);
+        return await _context.SqlQueryAsync<student_group>($"exec p_student_groups_get @us_id", param);
     }
 
     public async Task<List<StudentGroupMapDto>> GetStudentGroupMapDto(int us_id)
@@ -159,7 +159,7 @@ public class ApplicationRepository : IApplicationRepository
         SqlParam sqlParams = new();
         sqlParams.AddParam("us_id", us_id, System.Data.SqlDbType.Int);
         var param = sqlParams.Params();
-        var studentGroupMapDto = await _context.SqlQueryAsync<StudentGroupMapDto>($"exec p_student_group_map_get @us_id", param, default) ?? new List<StudentGroupMapDto>();
+        var studentGroupMapDto = await _context.SqlQueryAsync<StudentGroupMapDto>($"exec p_student_group_map_get @us_id", param) ?? new List<StudentGroupMapDto>();
 
         return studentGroupMapDto;
     }
@@ -169,7 +169,7 @@ public class ApplicationRepository : IApplicationRepository
         SqlParam sqlParams = new();
         sqlParams.AddParam("us_id", us_id, System.Data.SqlDbType.Int);
         var param = sqlParams.Params();
-        var forms = await _context.SqlQueryAsync<formularz>($"exec p_account_forms_get @us_id", param, default) ?? new List<formularz>();
+        var forms = await _context.SqlQueryAsync<formularz>($"exec p_account_forms_get @us_id", param) ?? new List<formularz>();
 
         return forms;
     }
@@ -179,7 +179,7 @@ public class ApplicationRepository : IApplicationRepository
         SqlParam sqlParams = new();
         sqlParams.AddParam("for_id", for_id, System.Data.SqlDbType.Int);
         var param = sqlParams.Params();
-        var approaches = await _context.SqlQueryAsync<formularz_podejscie>($"exec p_form_approach_get @for_id", param, default) ?? new List<formularz_podejscie>();
+        var approaches = await _context.SqlQueryAsync<formularz_podejscie>($"exec p_form_approach_get @for_id", param) ?? new List<formularz_podejscie>();
 
         return approaches;
     }
@@ -209,7 +209,7 @@ public class ApplicationRepository : IApplicationRepository
             sqlParams.AddParam("us_id", usId, System.Data.SqlDbType.Int);
             sqlParams.AddParam("for_id", forId, System.Data.SqlDbType.Int);
             var param = sqlParams.Params();
-            await _context.SqlQueryAsync($"exec p_delete_all_group_assigned_forms @us_id, @for_id", param, default);
+            await _context.SqlQueryAsync($"exec p_delete_all_group_assigned_forms @us_id, @for_id", param);
 
             foreach (var gafc in groupAssignedFormCheckDtos.Where(x => x.Check))
             {
@@ -219,7 +219,7 @@ public class ApplicationRepository : IApplicationRepository
                 sqlParams.AddParam("sgr_id", gafc.GrpId, System.Data.SqlDbType.Int);
                 sqlParams.AddParam("for_id", forId, System.Data.SqlDbType.Int);
                 param = sqlParams.Params();
-                await _context.SqlQueryAsync($"exec p_save_group_assigned_forms @us_id, @sgr_id, @for_id", param, default);
+                await _context.SqlQueryAsync($"exec p_save_group_assigned_forms @us_id, @sgr_id, @for_id", param);
             }
 
             await _context.SaveChangesAsync();
@@ -242,7 +242,7 @@ public class ApplicationRepository : IApplicationRepository
             sqlParams.AddParam("for_id", dto.FormId, System.Data.SqlDbType.Int);
             sqlParams.AddParam("start", dto.StartDate, System.Data.SqlDbType.DateTime);
             sqlParams.AddParam("end", dto.EndDate, System.Data.SqlDbType.DateTime);
-            await _context.SqlQueryAsync($"exec p_form_dates_set @for_id, @start, @end", sqlParams.Params(), default);
+            await _context.SqlQueryAsync($"exec p_form_dates_set @for_id, @start, @end", sqlParams.Params());
 
             await _context.SaveChangesAsync();
             await _context.Database.CommitTransactionAsync();
@@ -259,7 +259,7 @@ public class ApplicationRepository : IApplicationRepository
         SqlParam sqlParams = new();
         sqlParams.AddParam("for_id", form_id, System.Data.SqlDbType.Int);
         var param = sqlParams.Params();
-        var result = await _context.SqlQueryAsync<FormResultDto>($"exec p_form_result_get @for_id", param, default) ?? new List<FormResultDto>();
+        var result = await _context.SqlQueryAsync<FormResultDto>($"exec p_form_result_get @for_id", param) ?? new List<FormResultDto>();
 
         return result;
     }

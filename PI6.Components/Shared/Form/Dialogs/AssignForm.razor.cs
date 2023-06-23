@@ -43,17 +43,14 @@ public partial class AssignForm
     {
         try
         {
-            var responseMessage = await ApplicationService.SaveGroupAssignedForms(_groupAssignedFormCheckDtos);
-
-            if (responseMessage is null)
-                throw new NullReferenceException();
+            var responseMessage = await ApplicationService.SaveGroupAssignedForms(_groupAssignedFormCheckDtos) ?? throw new NullReferenceException();
 
             if (!responseMessage.IsSuccessStatusCode)
                 throw new Exception(responseMessage.ReasonPhrase);
                 
             ErrorHelper.ShowSnackbar("Poprawnie przypisano test", Severity.Success);
         }
-        catch (NullReferenceException e)
+        catch (NullReferenceException)
         {
             ErrorHelper.ShowSnackbar("Błąd przypisania testu", Severity.Warning);
             ErrorHelper.ShowSnackbar("Obiekt nie został poprawnie zainicjonowany", Severity.Error);

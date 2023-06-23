@@ -6,7 +6,7 @@ public static class ServerHelper
 {
     public static string GetSolutionDirectory()
     {
-        DirectoryInfo currentDirectory = new (Directory.GetCurrentDirectory());
+        DirectoryInfo currentDirectory = new(Directory.GetCurrentDirectory());
 
         while (currentDirectory is not null && !currentDirectory.GetFiles("*.sln").Any())
         {
@@ -20,14 +20,14 @@ public static class ServerHelper
     {
         bool isDebugMode = Debugger.IsAttached;
 
-        if (/*isDebugMode*/true)
-        {
-            var solutionDirectory = GetSolutionDirectory();
+        //if (/*isDebugMode*/true)
+        //{
+        var solutionDirectory = GetSolutionDirectory();
 
-            string[] files = Directory.GetDirectories(solutionDirectory, "*", SearchOption.AllDirectories);
-            return files.FirstOrDefault(x => x.Contains(@"PI6\Files"));
-        }
-        else
-            return string.Empty;
+        string[] files = Directory.GetDirectories(solutionDirectory, "*", SearchOption.AllDirectories);
+        return files.FirstOrDefault(x => x.Contains(@"PI6\Files"));
+        //}
+        //else
+        //    return string.Empty;
     }
 }

@@ -8,7 +8,7 @@ public class PytanieDto
     public int PytanieId { get; set; }
 
     [XmlAttribute(AttributeName = "Nazwa")]
-    public string? PytanieNazwa { get; set; }
+    public string PytanieNazwa { get; set; }
     [XmlAttribute(AttributeName = "Punkty")]
     public int PytaniePunkty { get; set; }
     [XmlAttribute(AttributeName = "CzyWieleOdp")]
@@ -20,5 +20,5 @@ public class PytanieDto
     [XmlAttribute(AttributeName = "Numer")]
     public int PytanieNumerPyt { get; set; }
 
-    public List<OpcjaDto>? Opcje { get; set; }
+    public List<OpcjaDto> Opcje { get; set; }
 }
