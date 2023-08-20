@@ -15,18 +15,19 @@ public partial class FormSolve
     [Inject] public IJSRuntime JSRuntime { get; set; }
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public ISnackbarHelper ErrorHelper { get; set; }
+    [Inject] public NavigationManager NavigationManager { get; set; }
 
     [Parameter] public int FormId { get; set; }
     [Parameter] public AppState AppState { get; set; } = new();
 
-    private FormularzPodejscieDto _solvedForm = new();
+    private readonly FormularzPodejscieDto _solvedForm = new();
     private FormularzDto _formDto = new();
     private List<PytanieDto> _formQuestionsDto = new();
     private formularz _form = new();
     private List<formularz_pytanie> _questions = new();
     private List<formularz_pytanie_opcja> _options = new();
-    private List<formularz_odpowiedz> _answers = new();
-    private IMask _pointsPatternMask = new PatternMask("00");
+    private readonly List<formularz_odpowiedz> _answers = new();
+    private readonly IMask _pointsPatternMask = new PatternMask("00");
     private string _title = string.Empty;
     private int _requiredTime;
     private readonly DateTime _startDateTime = DateTime.Now;
@@ -147,6 +148,8 @@ public partial class FormSolve
             }
 
             ErrorHelper.ShowSnackbar("Zapisano podejście", Severity.Success);
+            NavigationManager.NavigateTo($"/", false);
+            
         }
         catch (Exception ex)
         {
