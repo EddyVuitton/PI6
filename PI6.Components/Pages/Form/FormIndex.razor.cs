@@ -14,15 +14,20 @@ public partial class FormIndex
     [Inject] public ISnackbarHelper ErrorHelper { get; set; }
 
     private List<FormularzKafelekDto> _formTiles;
+    private List<FormularzKafelekDto> _activeFormTiles;
+    private List<FormularzKafelekDto> _deactiveFormTiles;
     private AccountDto _accountDto = new();
     private readonly string _otherRoles = "Admin,Lecturer";
     private readonly string _studentRole = "Student";
+    private readonly DateTime? _now = DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             _formTiles = await ApplicationService.GetFormTileDto();
+            _activeFormTiles = _formTiles.Where(x => x.DataZamkniecia >= _now).ToList();
+            _deactiveFormTiles = _formTiles.Where(x => x.DataZamkniecia < _now).ToList();
             await LoadAccount();
 
             StateHasChanged();

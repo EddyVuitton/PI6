@@ -1,59 +1,75 @@
 ﻿@page "/home"
 
 <CascadingAuthenticationState>
-    <MudPaper Elevation="0" Class="d-flex flex-column align-center justify-center">
-        <MudPaper Elevation="0" Style="margin: 1%;" Width="90%">
+    <div class="d-flex flex-column align-center justify-center">
+        <div style="margin: 1%; width: 90%">
             <AdvCarousel />
-        </MudPaper>
-    </MudPaper>
-    <MudPaper Elevation="0" Style="margin-left: 1%;">
-        <AuthorizeView Roles=@_otherRoles>
-            <Authorized>
-                <MudPaper Elevation="0" Style="" Width="400px" Class="d-flex flex-row align-start">
-                    <MudPaper Elevation="0">
-                        <MudButton Size="Size.Medium"
-                                   Variant="Variant.Filled"
-                                   Color="Color.Primary"
-                                   Href="/newquiz"
-                                   Style="text-transform:none; font-size: 20px">
-                            Nowy test
-                        </MudButton>
-                    </MudPaper>
-                </MudPaper>
-                <br />
-                <MudText Align="Align.Left" Typo="Typo.h3">Stworzone testy</MudText>
-                <br />
-                <MudPaper Elevation="0" Class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
-                    @if (_formTiles is null)
-                    {
-                        <MudText>
-                            Ładowanie formularzy...
-                        </MudText>
-                    }
-                    else
-                    {
-                        <FormTilesIndex FormTiles="@_formTiles" Account="@_accountDto" />
-                    }
-                </MudPaper>
-            </Authorized>
-        </AuthorizeView>
-        <AuthorizeView Roles=@_studentRole>
-            <Authorized>
-                <MudText Align="Align.Left" Typo="Typo.h3">Aktywne testy do rozwiązania</MudText>
-                <br />
-                <MudPaper Elevation="0" Class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" Width="70%">
-                    @if (_formTiles is null)
-                    {
-                        <MudText>
-                            Ładowanie formularzy...
-                        </MudText>
-                    }
-                    else
-                    {
-                        <FormTilesIndex FormTiles="@_formTiles" Account="@_accountDto" />
-                    }
-                </MudPaper>
-            </Authorized>
-        </AuthorizeView>
-    </MudPaper>
+        </div>
+    </div>
+    <div class="d-flex flex-column align-center justify-center">
+        <div style="margin: 1%; width: 90%">
+            <AuthorizeView Roles=@_otherRoles>
+                <Authorized>
+                    <div style="width: 400px;" class="d-flex flex-row align-start">
+                        <MudPaper Elevation="0">
+                            <MudButton Size="Size.Medium"
+                                       Variant="Variant.Filled"
+                                       Color="Color.Primary"
+                                       Href="/newquiz"
+                                       Style="text-transform:none; font-size: 20px">
+                                Nowy test
+                            </MudButton>
+                        </MudPaper>
+                    </div>
+                    <br />
+                    <MudText Align="Align.Left" Typo="Typo.h3">Stworzone testy</MudText>
+                    <br />
+                    <div class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" style="width: 70%;">
+                        @if (_formTiles is null)
+                        {
+                            <MudText>
+                                Ładowanie formularzy...
+                            </MudText>
+                        }
+                        else
+                        {
+                            <FormTilesIndex FormTiles="@_formTiles" Account="@_accountDto" />
+                        }
+                    </div>
+                </Authorized>
+            </AuthorizeView>
+            <AuthorizeView Roles=@_studentRole>
+                <Authorized>
+                    <div class="d-flex justify-start flex-grow-1 flex-wrap gap-y-4 gap-x-4" style="width: 70%;">
+                        @if (_formTiles is null)
+                        {
+                            <MudText>
+                                Ładowanie formularzy...
+                            </MudText>
+                        }
+                        else
+                        {
+                            <div class="d-flex flex-column gap-y-8">
+                                @if (_activeFormTiles.Count > 0)
+                                {
+                                    <div>
+                                        <MudText Align="Align.Left" Typo="Typo.h3">Aktywne testy do rozwiązania</MudText>
+                                        <FormTilesIndex FormTiles="@_activeFormTiles" Account="@_accountDto" />
+                                    </div>
+                                }
+
+                                @if (_deactiveFormTiles.Count > 0)
+                                {
+                                    <div>
+                                        <MudText Align="Align.Left" Typo="Typo.h3">Zamknięte testy</MudText>
+                                        <FormTilesIndex FormTiles="@_deactiveFormTiles" Account="@_accountDto" />
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </Authorized>
+            </AuthorizeView>
+        </div>
+    </div>
 </CascadingAuthenticationState>

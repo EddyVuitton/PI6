@@ -22,6 +22,7 @@ public partial class FormCreate
     private string _title = string.Empty;
     private DateTime _dateOpen = DateTime.Now;
     private DateTime? _dateClose;
+    private TimeSpan? _timeLimit = new(0, 30, 0);
     //private int? _allowedNumberAppr;
     private int? _requiredSeconds;
     private int? _requiredMinutes;
@@ -40,8 +41,8 @@ public partial class FormCreate
         if (isFirstRender)
         {
             _account = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
+            StateHasChanged();
         }
-        StateHasChanged();
     }
 
     private List<formularz_pytanie_opcja> GetQuestionOptions(int questionId) => _options.Where(x => x.fpop_forp_id == questionId).ToList();
@@ -188,18 +189,18 @@ public partial class FormCreate
         newForm.DataOtwarcia = _dateOpen;
         newForm.DataZamkniecia = _dateClose ?? new DateTime(2100, 1, 1);
         newForm.DozwolonePodejscia = 999;//_allowedNumberAppr ?? 999;
-        newForm.LimitCzasu = ((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + (_requiredSeconds ?? 0);
+        newForm.LimitCzasu = (int)_timeLimit.Value.TotalSeconds;//((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + (_requiredSeconds ?? 0);
         newForm.ProgZal = 0;//_passingThreshold ?? 0;
         newForm.FortId = 3;
         newForm.UserId = _account.UserId;
 
         try
         {
-            var responseMessage = ApplicationService.CreateForm(newForm);
-            if (!responseMessage.IsCompletedSuccessfully)
-            {
-                throw responseMessage.Exception;
-            }
+            //var responseMessage = ApplicationService.CreateForm(newForm);
+            //if (!responseMessage.IsCompletedSuccessfully)
+            //{
+            //    throw responseMessage.Exception;
+            //}
 
             ErrorHelper.ShowSnackbar("Poprawnie dodano test", Severity.Success);
         }
