@@ -65,6 +65,31 @@
                                         <FormTilesIndex FormTiles="@_deactiveFormTiles" Account="@_accountDto" />
                                     </div>
                                 }
+
+                                @if (_solvedForms.Count > 0)
+                                {
+                                    <div>
+                                        <MudText Align="Align.Left" Typo="Typo.h3">Rozwiązane testy</MudText>
+                                        @foreach (var f in _solvedForms)
+                                        {
+                                            var tempHref = $"/formdetails/{f.fpod_for_id}";
+                                            var tempEndDate = f.fpod_data_zakonczenia.HasValue == true ? f.fpod_data_zakonczenia.Value.Date.ToShortDateString() : "Nie określono";
+                                            var tile = _formTiles.First(x => x.ForId == f.fpod_for_id);
+
+                                            <MudPaper Elevation="10" Style="width: 300px;">
+                                                <MudLink Href="@tempHref">
+                                                    <div class="d-flex flex-column justify-start">
+                                                        <div class="d-flex justify-start flex-column flex-grow-1" style="margin: 1% 1% 2% 1%; background-color: inherit;">
+                                                            <MudText Style="color: black; font-weight: bold;">@tile.Nazwa</MudText>
+                                                            <MudText Style="color: black;">Data rozpoczęcia: @f.fpod_data_rozpoczenia.ToShortDateString()</MudText>
+                                                            <MudText Style="color: black;">Data zakończenia: @f.fpod_data_zakonczenia.Value.ToShortDateString()</MudText>
+                                                        </div>
+                                                    </div>
+                                                </MudLink>
+                                            </MudPaper>
+                                        }
+                                    </div>
+                                }
                             </div>
                         }
                     </div>

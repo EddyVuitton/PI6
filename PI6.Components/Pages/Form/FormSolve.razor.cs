@@ -26,7 +26,7 @@ public partial class FormSolve
     private formularz _form = new();
     private List<formularz_pytanie> _questions = new();
     private List<formularz_pytanie_opcja> _options = new();
-    private readonly List<formularz_odpowiedz> _answers = new();
+    private readonly List<formularz_podejscie_odpowiedz> _answers = new();
     private readonly IMask _pointsPatternMask = new PatternMask("00");
     private string _title = string.Empty;
     private int _requiredTime;
@@ -109,7 +109,7 @@ public partial class FormSolve
 
         foreach (var a in answersToAdd)
         {
-            _answers.Add(new formularz_odpowiedz
+            _answers.Add(new formularz_podejscie_odpowiedz
             {
                 fodp_id = -1,
                 fodp_for_id = FormId,
@@ -119,7 +119,7 @@ public partial class FormSolve
         }
     }
 
-    private List<formularz_odpowiedz> GetAllAnswers()
+    private List<formularz_podejscie_odpowiedz> GetAllAnswers()
     {
         var allAnswers = _options.Where(x => x.fpop_czy_poprawna == true).ToList();
 

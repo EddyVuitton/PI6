@@ -26,7 +26,8 @@ public class AccountHelper
     {
         var claims = new List<Claim>() {
             new Claim("Email", accountDto.UserEmail),
-            new Claim(ClaimTypes.Role, accountDto.UstName)
+            new Claim(ClaimTypes.Role, accountDto.UstName),
+            new Claim(ClaimTypes.Email, accountDto.UserEmail)
         };
 
         var creds = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);

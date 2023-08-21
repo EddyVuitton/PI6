@@ -7,7 +7,7 @@ public partial class MainLayout
     [Inject] public NavigationManager NavigationManager { get; set; }
     private bool _drawerOpen = true;
 
-    private string _roles = "Admin,Lecturer";
+    private readonly string _roles = "Admin,Lecturer";
 
     private void NavToIndex()
     {

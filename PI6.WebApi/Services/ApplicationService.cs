@@ -280,4 +280,30 @@ public class ApplicationService : IApplicationService
 
         return deserialisedResponse;
     }
+
+    public async Task<List<formularz_podejscie>> GetSolvedForms(int us_id)
+    {
+        var response = await _httpClient.GetAsync($"api/pi6/GetSolvedForms?us_id={us_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<formularz_podejscie>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<formularz_podejscie>>(responseContent);
+
+        return deserialisedResponse;
+    }
+
+    public async Task<List<formularz_podejscie_odpowiedz>> GetSolvedFormsAnswers(int fpod_id)
+    {
+        var response = await _httpClient.GetAsync($"api/pi6/GetSolvedFormsAnswers?fpod_id={fpod_id}");
+
+        if (!response.IsSuccessStatusCode)
+            return new List<formularz_podejscie_odpowiedz>();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var deserialisedResponse = JsonConvert.DeserializeObject<List<formularz_podejscie_odpowiedz>>(responseContent);
+
+        return deserialisedResponse;
+    }
 }

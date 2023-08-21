@@ -31,7 +31,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -46,7 +45,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -61,7 +59,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -76,7 +73,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -91,7 +87,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -106,7 +101,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -121,7 +115,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -136,7 +129,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -151,7 +143,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -166,7 +157,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -181,7 +171,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -196,7 +185,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -222,7 +210,6 @@ public class PI6Controller : Controller
             }
             catch (Exception e)
             {
-                //ExceptionHelper.PrintException(e);
                 return BadRequest(e.Message);
             }
         }
@@ -240,7 +227,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -255,7 +241,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -270,7 +255,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -285,7 +269,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -314,7 +297,6 @@ public class PI6Controller : Controller
         }
         catch (Exception e)
         {
-            //ExceptionHelper.PrintException(e);
             return BadRequest(e.Message);
         }
     }
@@ -339,6 +321,34 @@ public class PI6Controller : Controller
         try
         {
             var result = await _applicationRepository.GetFormResultDto(for_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("GetSolvedForms")]
+    public async Task<ActionResult<List<formularz_podejscie>>> GetSolvedForms(int us_id)
+    {
+        try
+        {
+            var result = await _applicationRepository.GetSolvedForms(us_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("GetSolvedFormsAnswers")]
+    public async Task<ActionResult<List<formularz_podejscie_odpowiedz>>> GetSolvedFormsAnswers(int fpod_id)
+    {
+        try
+        {
+            var result = await _applicationRepository.GetSolvedFormsAnswers(fpod_id);
             return Ok(result);
         }
         catch (Exception e)

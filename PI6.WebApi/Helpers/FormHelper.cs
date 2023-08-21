@@ -80,13 +80,13 @@ public static class FormHelper
         return tempF;
     }
 
-    public static List<formularz_odpowiedz> GetFormAnswer(List<formularz_pytanie_opcja> options, int formId)
+    public static List<formularz_podejscie_odpowiedz> GetFormAnswer(List<formularz_pytanie_opcja> options, int formId)
     {
-        var answers = new List<formularz_odpowiedz>();
+        var answers = new List<formularz_podejscie_odpowiedz>();
 
         foreach (var o in options)
         {
-            answers.Add(new formularz_odpowiedz()
+            answers.Add(new formularz_podejscie_odpowiedz()
             {
                 fodp_id = -1,
                 fodp_for_id = formId,
