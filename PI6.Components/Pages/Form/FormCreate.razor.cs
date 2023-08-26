@@ -6,6 +6,7 @@ using PI6.Shared.Data.Dtos;
 using PI6.WebApi.Helpers;
 using Microsoft.JSInterop;
 using PI6.Components.Helpers.Interfaces;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace PI6.Components.Pages.Form;
 
@@ -14,6 +15,9 @@ public partial class FormCreate
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public IJSRuntime JS { get; set; }
     [Inject] public ISnackbarHelper ErrorHelper { get; set; }
+    [Inject] public IAccountHelper AccountHelper { get; set; }
+
+    [CascadingParameter] private Task<AuthenticationState> authenticationState { get; set; }
 
     private readonly FormularzDto newForm = new();
     private readonly List<formularz_pytanie> _questions = new();
@@ -23,26 +27,23 @@ public partial class FormCreate
     private DateTime _dateOpen = DateTime.Now;
     private DateTime? _dateClose;
     private TimeSpan? _timeLimit = new(0, 30, 0);
-    private int _pointsLimit = 0;
-    //private int? _allowedNumberAppr;
-    private int? _requiredSeconds;
-    private int? _requiredMinutes;
-    private int? _requiredHours;
-    //private readonly int? _passingThreshold;
     private AccountDto _account = new();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        AddQuestion();
-    }
-
-    protected override async Task OnAfterRenderAsync(bool isFirstRender)
-    {
-        var loggedEmail = await JS.GetFromLocalStorage("email");
-        if (isFirstRender)
+        if (authenticationState is not null)
         {
-            _account = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
-            StateHasChanged();
+            try
+            {
+                _account = await AccountHelper.LoadAccount(authenticationState, ApplicationService);
+                AddQuestion();
+
+                StateHasChanged();
+            }
+            catch (Exception e)
+            {
+                ErrorHelper.ShowSnackbar(e.Message, MudBlazor.Severity.Error, false, true);
+            }
         }
     }
 
@@ -189,19 +190,19 @@ public partial class FormCreate
         newForm.DataStworzenia = DateTime.Now;
         newForm.DataOtwarcia = _dateOpen;
         newForm.DataZamkniecia = _dateClose ?? new DateTime(2100, 1, 1);
-        newForm.DozwolonePodejscia = 999;//_allowedNumberAppr ?? 999;
-        newForm.LimitCzasu = (int)_timeLimit.Value.TotalSeconds;//((_requiredHours ?? 0) * 60 * 60) + ((_requiredMinutes ?? 0) * 60) + (_requiredSeconds ?? 0);
-        newForm.ProgZal = 0;//_passingThreshold ?? 0;
+        newForm.DozwolonePodejscia = 999;
+        newForm.LimitCzasu = (int)_timeLimit.Value.TotalSeconds;
+        newForm.ProgZal = 0;
         newForm.FortId = 3;
         newForm.UserId = _account.UserId;
 
         try
         {
-            //var responseMessage = ApplicationService.CreateForm(newForm);
-            //if (!responseMessage.IsCompletedSuccessfully)
-            //{
-            //    throw responseMessage.Exception;
-            //}
+            var responseMessage = ApplicationService.CreateForm(newForm);
+            if (!responseMessage.IsCompletedSuccessfully)
+            {
+                throw responseMessage.Exception;
+            }
 
             ErrorHelper.ShowSnackbar("Poprawnie dodano test", Severity.Success);
         }

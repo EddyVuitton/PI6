@@ -1,55 +1,59 @@
 ﻿@page "/newquiz"
 
-<div class="d-flex flex-column" style="width: 800px; margin-top: 1%; margin-left: 1%; padding: 0px; margin-right: auto; margin-left: auto;">
-    <div class="d-flex flex-column align-content-center" style="background-color: inherit;">
+<div class="d-flex flex-column" style="width: 1000px; margin: 1%; padding: 0px; margin-right: auto; margin-left: auto;">
+    <div class="d-flex flex-column align-content-center">
         <div class="d-flex flex-column align-content-start gap-2">
             <div class="d-flex flex-row justify-space-between">
-                <div>
-                    <MudTextField @bind-Value="@_dateOpen"
-                                  Style="width: 200px; font-size: 20px"
-                                  Format="s"
-                                  T="DateTime"
-                                  Label="Data otwarcia"
-                                  InputType="InputType.DateTimeLocal" />
-                </div>
-                <div>
-                    <MudTextField @bind-Value="@_dateClose"
-                                  Style="width: 200px; font-size: 20px"
-                                  Format="s"
-                                  T="DateTime?"
-                                  Label="Data zamknięcia"
-                                  InputType="InputType.DateTimeLocal" />
-                </div>
-                <div>
-                    <MudTextField @bind-Value="@_pointsLimit"
-                                  Style="width: 100px; font-size: 20px"
-                                  T="int"
-                                  Label="Limit punktów"
-                                  InputType="InputType.Number" />
-                </div>
-                <div>
-                    <MudTextField @bind-Value="@_timeLimit"
-                                  Style="width: 100px; font-size: 20px"
-                                  T="TimeSpan?"
-                                  Label="Czas testu"
-                                  InputType="InputType.Time" />
-                </div>
-                <div class="d-flex flex-column align-content-start">
-                    <MudText Class="align-self-start" Style="height: 90%;">
-                        Suma punktów
-                    </MudText>
-                    <MudText Typo="Typo.h5" Class="align-self-end" Style="padding-right: 5%; border: 1px solid; border-radius: 10px; width: 100%; text-align: end;">
-                        @(GetTotalPoints())
-                    </MudText>
+                <div class="d-flex flex-row gap-x-4" style="width: 100%;">
+                    <div class="d-flex flex-column" style="width: 25%;">
+                        <MudText Typo="Typo.h5" Class="align-self-center" Style="font-weight: bold;">
+                            Data otwarcia
+                        </MudText>
+                        <MudTextField @bind-Value="@_dateOpen"
+                                      Class="align-self-center"
+                                      Style="width: 200px; font-size: 20px; margin: 0px; padding: 0px;"
+                                      Format="s"
+                                      T="DateTime"
+                                      InputType="InputType.DateTimeLocal" />
+                    </div>
+                    <div class="d-flex flex-column" style="width: 25%;">
+                        <MudText Typo="Typo.h5" Class="align-self-center" Style="font-weight: bold;">
+                            Data zamknięcia
+                        </MudText>
+                        <MudTextField @bind-Value="@_dateClose"
+                                      Class="align-self-center"
+                                      Style="width: 200px; font-size: 20px; margin: 0px; padding: 0px;"
+                                      Format="s"
+                                      T="DateTime?"
+                                      InputType="InputType.DateTimeLocal" />
+                    </div>
+                    <div class="d-flex flex-column" style="width: 25%;">
+                        <MudText Typo="Typo.h5" Class="align-self-center" Style="font-weight: bold;">
+                            Limit czasowy
+                        </MudText>
+                        <MudTextField @bind-Value="@_timeLimit"
+                                      Class="align-self-center"
+                                      Style="width: 100px; font-size: 20px; margin: 0px; padding: 0px;"
+                                      T="TimeSpan?"
+                                      InputType="InputType.Time" />
+                    </div>
+                    <div class="d-flex flex-column justify-space-between" style="width: 25%;">
+                        <MudText Typo="Typo.h5" Class="align-self-center" Style="font-weight: bold;">
+                            Suma punktów
+                        </MudText>
+                        <MudText Typo="Typo.h5" Class="align-self-center" Style="padding: 1% 5%; width: min-content; text-align: center;">
+                            @(GetTotalPoints())
+                        </MudText>
+                    </div>
                 </div>
             </div>
             <MudTextField @bind-Value="@_title"
                           Placeholder="Tytuł"
                           Margin="Margin.Dense"
                           T="string"
-                          Style="height: 50px; font-size: 35px" />
+                          Style="height: 50px; font-size: 60px" />
         </div>
-        <MudPaper Style="margin-top: 1%;">
+        <div style="margin-top: 1%;">
             @foreach (var q in _questions)
             {
                 var localQuestion = q;
@@ -60,24 +64,18 @@
                 <div class="d-flex flex-column" style="background-color: #f8f4f4; margin-top: 1%; padding: 1%;">
                     <div class="d-flex justify-space-between" style="background-color: inherit;">
                         <MudText Style="font-size: 25px; margin-right: 1%;" Class="align-self-center">Punkty:</MudText>
-                        <MudTextField T="int"
-                        @bind-Value="localQuestion.forp_punkty"
+                        <MudTextField @bind-Value="localQuestion.forp_punkty"
+                                      T="int"
                                       Mask="_pointsPatternMask"
                                       Class="align-self-center"
                                       Style="font-size: 25px; width: 60px; height: 30px;"
                                       Placeholder="0"
                                       Variant="Variant.Outlined" />
-                        <MudCheckBox @bind-Checked="localQuestion.forp_czy_wiele_odp"
-                        @oninput="((e) => UpdateCorrectsOnChange(localQuestionId, e))"
+                        <MudCheckBox @bind-Checked="localQuestion.forp_czy_wiele_odp" @oninput="((e) => UpdateCorrectsOnChange(localQuestionId, e))"
                                      Style="align-self:center;"
                                      Label="Wiele odpowiedzi"
                                      Dense="true"
                                      Color="Color.Primary"></MudCheckBox>
-                        @*<MudCheckBox @bind-Checked="localQuestion.forp_czy_wymagane"
-                    Style="align-self:center;"
-                    Label="Wymagane"
-                    Dense="true"
-                    Color="Color.Primary"></MudCheckBox>*@
                         <MudIconButton Size="Size.Large"
                                        Icon="@Icons.Material.Filled.Delete"
                                        Color="Color.Error"
@@ -87,8 +85,8 @@
                     <div class="d-flex flex-column" style="background-color: inherit;">
                         <div class="d-flex flex-row" style="background-color: inherit;">
                             <MudText Style="font-size: 25px; margin-right: 1%;" Class="align-self-end">@localQuestionLp.</MudText>
-                            <MudTextField T="string"
-                            @bind-Value=q.forp_nazwa
+                            <MudTextField @bind-Value=q.forp_nazwa
+                                          T="string"
                                           Style="font-size: 30px; height: 45px;"
                                           Placeholder="Pytanie"
                                           Variant="Variant.Outlined" />
@@ -102,8 +100,7 @@
 
                                 <div class="d-flex flex-row" style="background-color: inherit; margin: 1%;">
                                     <div class="align-self-end" style="background-color: inherit;">
-                                        <MudCheckBox @bind-Checked="localOption.fpop_czy_poprawna"
-                                        @oninput="(() => UpdateOtherOptionsOnChange(localOption, localIsMultipleOptions))"
+                                        <MudCheckBox @bind-Checked="localOption.fpop_czy_poprawna" @oninput="(() => UpdateOtherOptionsOnChange(localOption, localIsMultipleOptions))"
                                                      Style="padding: 0px; margin: 0px;"
                                                      Size="Size.Medium"
                                                      Color="Color.Primary"
@@ -112,8 +109,8 @@
                                                      UncheckedIcon="@Icons.Material.Filled.CheckBoxOutlineBlank" />
                                     </div>
                                     <div style="width: 100%; background-color: inherit;">
-                                        <MudTextField T="string"
-                                        @bind-Value="qo.fpop_nazwa"
+                                        <MudTextField @bind-Value="qo.fpop_nazwa"
+                                                      T="string"
                                                       Style="font-size: medium; height: 25px; padding: 0px; margin: 0px;"
                                                       Placeholder="@($"Opcja {localOptionLp}")" />
                                     </div>
@@ -139,19 +136,19 @@
                     </div>
                 </div>
             }
-        </MudPaper>
+        </div>
         <div class="d-flex flex-row justify-space-between" style="background-color: inherit; margin-top: 1%; margin-bottom: 1%;">
             <MudButton Size="Size.Large"
                        Variant="Variant.Filled"
                        OnClick="AddQuestion"
                        Color="Color.Success"
-                       Style="border-radius: 20px; padding: 1%; font-size: 18px;">
+                       Style="border-radius: 15px; padding: 1% 2%; font-size: 15px;">
                 Dodaj pytanie
             </MudButton>
             <MudButton OnClick="CreateForm"
                        Variant="Variant.Filled"
                        Color="Color.Primary"
-                       Style="border-radius: 20px; padding: 1%; font-size: 18px;">
+                       Style="border-radius: 15px; padding: 1% 2%; font-size: 15px;">
                 Stwórz test
             </MudButton>
         </div>
