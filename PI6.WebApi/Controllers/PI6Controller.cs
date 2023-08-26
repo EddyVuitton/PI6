@@ -195,7 +195,7 @@ public class PI6Controller : Controller
     {
         var result = false;
         var dbAccountPassword = await _applicationRepository.GetAccountHashedPassword(account);
-        var hashedPassword = AccountHelper.HashPassword(account.us_pass);
+        var hashedPassword = AuthHelper.HashPassword(account.us_pass);
 
         if (dbAccountPassword == hashedPassword)
             result = true;
@@ -206,7 +206,7 @@ public class PI6Controller : Controller
             {
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));
                 var accountDtoInfo = await _applicationRepository.GetAccountDtoByEmail(account.us_email);
-                var token = AccountHelper.BuildToken(accountDtoInfo, key);
+                var token = AuthHelper.BuildToken(accountDtoInfo, key);
                 return Ok(token);
             }
             catch (Exception e)
