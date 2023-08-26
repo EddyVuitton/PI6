@@ -74,7 +74,7 @@
                                         {
                                             try
                                             {
-                                                var tempHref = $"/formdetails/{f.fpod_for_id}";
+                                                var tempHref = $"/formsolveddetails/{f.fpod_id}";
                                                 var tempEndDate = f.fpod_data_zakonczenia.HasValue == true ? f.fpod_data_zakonczenia.Value.Date.ToShortDateString() : "Nie określono";
                                                 var tempTile = _formTiles.First(x => x.ForId == f.fpod_for_id);
                                                 var tempForm = _forms.Where(x => x.for_id == tempTile.ForId).First();

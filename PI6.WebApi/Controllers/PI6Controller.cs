@@ -4,6 +4,7 @@ using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
 using PI6.WebApi.Helpers;
 using PI6.WebApi.Repositories;
+using System.Reflection;
 using System.Text;
 
 namespace PI6.WebApi.Controllers;
@@ -321,6 +322,20 @@ public class PI6Controller : Controller
         try
         {
             var result = await _applicationRepository.GetFormResultDto(for_id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("GetSolvedForm")]
+    public async Task<ActionResult<formularz_podejscie>> GetSolvedForm(int fpod_id)
+    {
+        try
+        {
+            var result = await _applicationRepository.GetSolvedForm(fpod_id);
             return Ok(result);
         }
         catch (Exception e)

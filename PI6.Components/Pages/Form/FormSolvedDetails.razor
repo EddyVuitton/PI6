@@ -1,0 +1,119 @@
+﻿@page "/formsolveddetails/{FpodId:int}"
+
+<div class="d-flex flex-column" style="width: 1000px; margin: 1%; padding: 0px; margin-right: auto; margin-left: auto;">
+    <div class="d-flex flex-column align-content-center">
+        <div class="d-flex flex-column align-content-start gap-2">
+            <div class="d-flex flex-row justify-space-between">
+                <div class="d-flex flex-row gap-x-4" style="width: 100%;">
+                    <div class="d-flex flex-column" style="width: 25%">
+                        <MudText Typo="Typo.h5" Class="align-self-center" Style="font-weight: bold;">
+                            Data rozpoczęcia
+                        </MudText>
+                        <MudText Typo="Typo.h6" Class="align-self-center" Style="padding: 1% 5%; width: 100%; text-align: center;">
+                            @_dateStart
+                        </MudText>
+                    </div>
+                    <div class="d-flex flex-column" style="width: 25%">
+                        <MudText Typo="Typo.h5" Class="align-self-center" Style="font-weight: bold;">
+                            Data zakończenia
+                        </MudText>
+                        <MudText Typo="Typo.h6" Class="align-self-center" Style="padding: 1% 5%; width: 100%; text-align: center;">
+                            @_dateEnd
+                        </MudText>
+                    </div>
+                    <div class="d-flex flex-column" style="width: 25%">
+                        <MudText Typo="Typo.h5" Class="align-self-center" Style="font-weight: bold;">
+                            Wykorzystany czas
+                        </MudText>
+                        <MudText Typo="Typo.h6" Class="align-self-center" Style="padding: 1% 5%; width: min-content; text-align: center;">
+                            @_usedHours:@_usedMinutes:@_usedSeconds
+                        </MudText>
+                    </div>
+                    <div class="d-flex flex-column" style="width: 25%">
+                        <MudText Typo="Typo.h5" Class="align-self-center" Style="font-weight: bold;">
+                            Otrzymane punkty
+                        </MudText>
+                        <MudText Typo="Typo.h6" Class="align-self-center" Style="padding: 1% 5%; width: min-content; text-align: center;">
+                            @_userFormSumPoints/@(GetTotalPoints())
+                        </MudText>
+                    </div>
+                </div>
+            </div>
+            <MudTextField @bind-Value="@_title"
+                          Placeholder="Tytuł"
+                          Margin="Margin.Dense"
+                          T="string"
+                          Style="height: 50px; font-size: 60px"
+                          ReadOnly="true" />
+        </div>
+        <div style="margin-top: 1%;">
+            @if (_questions is not null)
+            {
+                @foreach (var q in _questions)
+                {
+                    var localQuestion = q;
+                    var localQuestionId = localQuestion.forp_id;
+                    int? localQuestionLp = localQuestion.forp_numer_pytania;
+                    var localIsMultipleOptions = localQuestion.forp_czy_wiele_odp;
+
+                    <div class="d-flex flex-column" style="background-color: #f8f4f4; margin-top: 1%; padding: 1%; border: 1px solid; border-radius: 10px;">
+                        <div class="d-flex justify-start">
+                            <span class="align-self-center" style="font-size: 25px; margin-right: 1%;">Punkty:</span>
+                            <span class="align-self-center" style="font-size: 25px;">@localQuestion.forp_punkty</span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                <MudText Style="font-size: 25px; margin-right: 1%;" class="align-self-end">@localQuestionLp.</MudText>
+                                <MudTextField @bind-Value=q.forp_nazwa
+                                              T="string"
+                                              Style="font-size: 30px; height: 45px;"
+                                              Variant="Variant.Outlined"
+                                              ReadOnly="true" />
+                            </div>
+                            <div class="d-flex flex-column">
+                                @foreach (var qo in GetQuestionOptions(localQuestionId))
+                                {
+                                    var localOption = qo;
+                                    var localOptionId = localOption.fpop_id;
+                                    int? localOptionLp = localOption.forp_numer_opcji;
+
+                                    var localAnswer = _solvedFormsAnswers.Where(x => x.fodp_wybrana_odp == localOptionId);
+                                    var localIsAnswer = localAnswer.Any();
+                                    var localIsCorrect = localOption.fpop_czy_poprawna;
+                                    var localIsAnswerCorrect = localIsCorrect && localIsAnswer;
+
+                                    var localIsChecked = localIsAnswer || localIsCorrect;
+                                    var localColor = localIsCorrect ? Color.Success : localIsAnswer ? Color.Error : Color.Primary;
+                                    var localCheckedBox = localIsCorrect ? Icons.Material.Filled.CheckBox : Icons.Material.Filled.Error;
+
+                                    <div class="d-flex flex-row" style="background-color: inherit; margin: 1%;">
+                                        <div class="align-self-end">
+                                            <MudCheckBox @bind-Checked="localIsChecked"
+                                                         Style="padding: 0px; margin: 0px;"
+                                                         Size="Size.Medium"
+                                                         Color="@localColor"
+                                                         Dense="true"
+                                                         CheckedIcon="@localCheckedBox"
+                                                         UncheckedIcon="@Icons.Material.Filled.CheckBoxOutlineBlank"
+                                                         ReadOnly="true" />
+                                        </div>
+                                        <div style="width: 100%; background-color: inherit;">
+                                            <MudTextField @bind-Value="qo.fpop_nazwa"
+                                                          T="string"
+                                                          Style="font-size: medium; height: 25px; padding: 0px; margin: 0px;"
+                                                          Placeholder="@($"Opcja {localOptionLp}")"
+                                                          ReadOnly="true" />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <MudScrollToTop>
+            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowCircleUp" />
+        </MudScrollToTop>
+    </div>
+</div>

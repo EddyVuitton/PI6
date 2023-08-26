@@ -26,6 +26,7 @@ public interface IApplicationService
     public Task<HttpResponseMessage> SaveGroupAssignedForms(List<GroupAssignedFormCheckDto> groupAssignedFormCheckDtos);
     public Task<HttpResponseMessage> SaveFormDates(FormDatesDto dto);
     public Task<List<FormResultDto>> GetFormResultDto(int form_id);
+    public Task<formularz_podejscie> GetSolvedForm(int fpod_id);
     public Task<List<formularz_podejscie>> GetSolvedForms(int us_id);
     public Task<List<formularz_podejscie_odpowiedz>> GetSolvedFormsAnswers(int fpod_id);
 }

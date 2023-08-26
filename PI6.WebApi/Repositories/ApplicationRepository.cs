@@ -263,6 +263,15 @@ public class ApplicationRepository : IApplicationRepository
 
         return result;
     }
+    public async Task<formularz_podejscie> GetSolvedForm(int fpod_id)
+    {
+        SqlParam sqlParams = new();
+        sqlParams.AddParam("fpod_id", fpod_id, System.Data.SqlDbType.Int);
+        var param = sqlParams.Params();
+        var result = await _context.SqlQueryAsync<formularz_podejscie>($"select \r\n\tfpod_id, fpod_us_id, fpod_for_id, fpod_data_rozpoczenia, fpod_stan, fpod_data_zakonczenia, fpod_wykorzystany_czas\r\nfrom formularz_podejscie\r\njoin formularz on for_id = fpod_for_id\r\nwhere fpod_id = @fpod_id", param);
+
+        return result.FirstOrDefault();
+    }
 
     public async Task<List<formularz_podejscie>> GetSolvedForms(int us_id)
     {
