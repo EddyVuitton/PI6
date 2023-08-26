@@ -47,70 +47,71 @@
                           ReadOnly="true" />
         </div>
         <div style="margin-top: 1%;">
-            @foreach (var q in _questions)
+            @if (_questions is not null)
             {
-                var localQuestion = q;
-                var localQuestionId = localQuestion.forp_id;
-                int? localQuestionLp = localQuestion.forp_numer_pytania;
-                var localIsMultipleOptions = localQuestion.forp_czy_wiele_odp;
+                @foreach (var q in _questions)
+                {
+                    var localQuestion = q;
+                    var localQuestionId = localQuestion.forp_id;
+                    int? localQuestionLp = localQuestion.forp_numer_pytania;
+                    var localIsMultipleOptions = localQuestion.forp_czy_wiele_odp;
 
-                <div class="d-flex flex-column" style="background-color: #f8f4f4; margin-top: 1%; padding: 1%;">
-                    <div class="d-flex justify-space-between">
-                        <MudText Style="font-size: 25px; margin-right: 1%;" Class="align-self-center">Punkty:</MudText>
-                        <MudTextField T="int"
-                        @bind-Value="localQuestion.forp_punkty"
-                                      Mask="_pointsPatternMask"
-                                      Class="align-self-center"
-                                      Style="font-size: 25px; width: 60px; height: 30px;"
-                                      Placeholder="0"
-                                      Variant="Variant.Outlined"
-                                      ReadOnly="true" />
-                        <MudCheckBox @bind-Checked="localQuestion.forp_czy_wiele_odp"
-                                     Style="align-self:center;"
-                                     Label="Wiele odpowiedzi"
-                                     Dense="true"
-                                     Color="Color.Primary"
-                                     ReadOnly="true" />
-                    </div>
-                    <div class="d-flex flex-column">
-                        <div class="d-flex flex-row">
-                            <MudText Style="font-size: 25px; margin-right: 1%;" Class="align-self-end">@localQuestionLp.</MudText>
-                            <MudTextField @bind-Value=q.forp_nazwa
-                                          T="string"
-                                          Style="font-size: 30px; height: 45px;"
-                                          Variant="Variant.Outlined"
-                                          ReadOnly="true" />
+                    <div class="d-flex flex-column" style="background-color: #f8f4f4; margin-top: 1%; padding: 1%; border: 1px solid; border-radius: 10px;">
+                        <div class="d-flex justify-space-between">
+                            <div class="d-flex justify-start">
+                                <span class="align-self-center" style="font-size: 25px; margin-right: 1%;">Punkty:</span>
+                                <span class="align-self-center" style="font-size: 25px;">@localQuestion.forp_punkty</span>
+                            </div>
+
+                            <div>
+                                <MudCheckBox @bind-Checked="localQuestion.forp_czy_wiele_odp"
+                                             Style="align-self:center;"
+                                             Label="Wiele odpowiedzi"
+                                             Dense="true"
+                                             Color="Color.Primary"
+                                             ReadOnly="true" />
+                            </div>
                         </div>
                         <div class="d-flex flex-column">
-                            @foreach (var qo in GetQuestionOptions(localQuestionId))
-                            {
-                                var localOption = qo;
-                                var localOptionId = localOption.fpop_id;
-                                int? localOptionLp = localOption.forp_numer_opcji;
+                            <div class="d-flex flex-row">
+                                <MudText Style="font-size: 25px; margin-right: 1%;" class="align-self-end">@localQuestionLp.</MudText>
+                                <MudTextField @bind-Value=q.forp_nazwa
+                                              T="string"
+                                              Style="font-size: 30px; height: 45px;"
+                                              Variant="Variant.Outlined"
+                                              ReadOnly="true" />
+                            </div>
+                            <div class="d-flex flex-column">
+                                @foreach (var qo in GetQuestionOptions(localQuestionId))
+                                {
+                                    var localOption = qo;
+                                    var localOptionId = localOption.fpop_id;
+                                    int? localOptionLp = localOption.forp_numer_opcji;
 
-                                <div class="d-flex flex-row" style="background-color: inherit; margin: 1%;">
-                                    <div class="align-self-end">
-                                        <MudCheckBox @bind-Checked="localOption.fpop_czy_poprawna"
-                                                     Style="padding: 0px; margin: 0px;"
-                                                     Size="Size.Medium"
-                                                     Color="Color.Primary"
-                                                     Dense="true"
-                                                     CheckedIcon="@Icons.Material.Filled.CheckBox"
-                                                     UncheckedIcon="@Icons.Material.Filled.CheckBoxOutlineBlank"
-                                                     ReadOnly="true" />
+                                    <div class="d-flex flex-row" style="background-color: inherit; margin: 1%;">
+                                        <div class="align-self-end">
+                                            <MudCheckBox @bind-Checked="localOption.fpop_czy_poprawna"
+                                                         Style="padding: 0px; margin: 0px;"
+                                                         Size="Size.Medium"
+                                                         Color="Color.Primary"
+                                                         Dense="true"
+                                                         CheckedIcon="@Icons.Material.Filled.CheckBox"
+                                                         UncheckedIcon="@Icons.Material.Filled.CheckBoxOutlineBlank"
+                                                         ReadOnly="true" />
+                                        </div>
+                                        <div style="width: 100%; background-color: inherit;">
+                                            <MudTextField @bind-Value="qo.fpop_nazwa"
+                                                          T="string"
+                                                          Style="font-size: medium; height: 25px; padding: 0px; margin: 0px;"
+                                                          Placeholder="@($"Opcja {localOptionLp}")"
+                                                          ReadOnly="true" />
+                                        </div>
                                     </div>
-                                    <div style="background-color: inherit; width: 100%;">
-                                        <MudTextField @bind-Value="qo.fpop_nazwa"
-                                                      T="string"
-                                                      Style="font-size: medium; height: 25px; padding: 0px; margin: 0px;"
-                                                      Placeholder="@($"Opcja {localOptionLp}")"
-                                                      ReadOnly="true" />
-                                    </div>
-                                </div>
-                            }
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             }
         </div>
         <MudScrollToTop>
