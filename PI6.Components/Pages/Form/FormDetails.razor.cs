@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MudBlazor;
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
 using PI6.WebApi.Helpers;
@@ -17,7 +16,6 @@ public partial class FormDetails
     private formularz _form = new();
     private List<formularz_pytanie> _questions = new();
     private List<formularz_pytanie_opcja> _options = new();
-    private readonly IMask _pointsPatternMask = new PatternMask("00");
     private string _title = string.Empty;
     private DateTime _dateOpen = DateTime.Now;
     private DateTime? _dateClose;
