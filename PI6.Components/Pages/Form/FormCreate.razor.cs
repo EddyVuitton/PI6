@@ -23,6 +23,7 @@ public partial class FormCreate
     private DateTime _dateOpen = DateTime.Now;
     private DateTime? _dateClose;
     private TimeSpan? _timeLimit = new(0, 30, 0);
+    private int _pointsLimit = 0;
     //private int? _allowedNumberAppr;
     private int? _requiredSeconds;
     private int? _requiredMinutes;

@@ -1,16 +1,18 @@
 ﻿@foreach (var f in FormTiles)
 {
+    var tile = f;
     var tempHref = $"/{_href}/{f.ForId}";
-    var tempEndDate = f.DataZamkniecia.HasValue == true ? f.DataZamkniecia.Value.Date.ToShortDateString() : "Nie określono";
+    var tempStartDate = tile.DataOtwarcia.ToString("dd/MM/yyyy HH:mm");
+    var tempEndDate = f.DataZamkniecia.HasValue ? f.DataZamkniecia.Value.Date.ToString("dd/MM/yyyy HH:mm") : "Nie określono";
+    var tempCreateDate = tile.DataStworzenia.ToShortDateString();
 
     <MudPaper Elevation="10" Width="300px" Style="">
         <MudLink Href="@tempHref">
             <MudPaper Elevation="0" Class="d-flex flex-column justify-start" Style="">
                 <MudPaper Elevation="0" Class="d-flex justify-start flex-column flex-grow-1" Style="margin: 1% 1% 2% 1%; background-color: inherit;">
-                    <MudText Style="color: black;">Nazwa: @f.Nazwa</MudText>
-                    @*<MudText Style="color: black;">Typ: @f.FortNazwa</MudText>*@
-                    <MudText Style="color: black;">Data stworzenia: @f.DataStworzenia.Date.ToShortDateString()</MudText>
-                    <MudText Style="color: black;">Data otwarcia: @f.DataOtwarcia.Date.ToShortDateString()</MudText>
+                    <MudText Style="color: black; font-weight: bold;">@f.Nazwa</MudText>
+                    <MudText Style="color: black;">Data stworzenia: @tempCreateDate</MudText>
+                    <MudText Style="color: black;">Data otwarcia: @tempStartDate</MudText>
                     <MudText Style="color: black;">Data zamkniecia: @tempEndDate</MudText>
                 </MudPaper>
             </MudPaper>
