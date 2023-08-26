@@ -52,45 +52,50 @@
                             <div class="d-flex flex-column gap-y-8">
                                 @if (_activeFormTiles.Count > 0)
                                 {
+                                    <br />
                                     <div>
                                         <MudText Align="Align.Left" Typo="Typo.h3">Aktywne testy do rozwiązania</MudText>
+                                        <br />
                                         <FormTilesIndex FormTiles="@_activeFormTiles" Account="@_accountDto" />
                                     </div>
                                 }
 
                                 @if (_deactiveFormTiles.Count > 0)
                                 {
+                                    <br />
                                     <div>
                                         <MudText Align="Align.Left" Typo="Typo.h3">Zamknięte testy</MudText>
+                                        <br />
                                         <FormTilesIndex FormTiles="@_deactiveFormTiles" Account="@_accountDto" />
                                     </div>
                                 }
 
                                 @if (_solvedForms.Count > 0)
                                 {
+                                    <br />
                                     <div>
                                         <MudText Align="Align.Left" Typo="Typo.h3">Rozwiązane testy</MudText>
+                                        <br />
                                         @foreach (var f in _solvedForms)
                                         {
                                             try
                                             {
-                                                var tempHref = $"/formsolveddetails/{f.fpod_id}";
-                                                var tempEndDate = f.fpod_data_zakonczenia.HasValue == true ? f.fpod_data_zakonczenia.Value.Date.ToShortDateString() : "Nie określono";
-                                                var tempTile = _formTiles.First(x => x.ForId == f.fpod_for_id);
-                                                var tempForm = _forms.Where(x => x.for_id == tempTile.ForId).First();
-                                                var tempDateFrom = f.fpod_data_rozpoczenia.ToString("dd/MM/yyyy HH:mm");
-                                                var tempDateTo = f.fpod_data_zakonczenia?.ToString("dd/MM/yyyy HH:mm");
-                                                var tempPointsSum = _formsPointsSum.Where(x => x.Key == tempForm).First().Value;
-                                                var tempUserPointsSum = _formsUserPointsSum.Where(x => x.Key == tempForm).First().Value;
+                                                var localHref = $"/formsolveddetails/{f.fpod_id}";
+                                                var localTile = _formTiles.First(x => x.ForId == f.fpod_for_id);
+                                                var localForm = _forms.Where(x => x.for_id == localTile.ForId).First();
+                                                var localDateFrom = f.fpod_data_rozpoczenia.ToString("dd/MM/yyyy HH:mm");
+                                                var localDateTo = f.fpod_data_zakonczenia?.ToString("dd/MM/yyyy HH:mm");
+                                                var localPointsSum = _formsPointsSum.Where(x => x.Key == localForm).First().Value;
+                                                var localUserPointsSum = _formsUserPointsSum.Where(x => x.Key == localForm).First().Value;
 
                                                 <MudPaper Elevation="10" Style="width: 300px;">
-                                                    <MudLink Href="@tempHref">
+                                                    <MudLink Href="@localHref">
                                                         <div class="d-flex flex-column justify-start">
                                                             <div class="d-flex justify-start flex-column flex-grow-1" style="margin: 1% 1% 2% 1%; background-color: inherit;">
-                                                                <MudText Style="color: black; font-weight: bold;">@tempTile.Nazwa</MudText>
-                                                                <MudText Style="color: black;">Rozpoczęto: @tempDateFrom</MudText>
-                                                                <MudText Style="color: black;">Zakończono: @tempDateTo</MudText>
-                                                                <MudText Style="color: black;">Punkty: @tempUserPointsSum/@tempPointsSum</MudText>
+                                                                <MudText Style="color: black; font-weight: bold;">@localTile.Nazwa</MudText>
+                                                                <MudText Style="color: black;">Rozpoczęto: @localDateFrom</MudText>
+                                                                <MudText Style="color: black;">Zakończono: @localDateTo</MudText>
+                                                                <MudText Style="color: black;">Punkty: @localUserPointsSum/@localPointsSum</MudText>
                                                             </div>
                                                         </div>
                                                     </MudLink>
