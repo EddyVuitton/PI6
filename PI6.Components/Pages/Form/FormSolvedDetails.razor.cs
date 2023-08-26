@@ -20,7 +20,6 @@ public partial class FormSolvedDetails
     private List<formularz_podejscie_odpowiedz> _solvedFormsAnswers;
 
     private int _formId;
-    private readonly IMask _pointsPatternMask = new PatternMask("00");
     private string _title;
     private DateTime _dateStart;
     private DateTime? _dateEnd;
@@ -87,27 +86,5 @@ public partial class FormSolvedDetails
             return string.Concat("0", time);
         else
             return time.ToString();
-    }
-
-    void x()
-    {
-        var qo = _options.FirstOrDefault();
-
-        var localOption = qo;
-        var localOptionId = localOption.fpop_id;
-        int? localOptionLp = localOption.forp_numer_opcji;
-
-        var localAnswer = _solvedFormsAnswers.Where(x => x.fodp_wybrana_odp == localOptionId);
-        var localIsAnswer = localAnswer.Any();
-
-        var localIsCorrect = localOption.fpop_czy_poprawna;
-
-        var localIsAnswerCorrect = localIsCorrect && localIsAnswer;
-
-        var localColor = localIsCorrect ? Color.Success : localIsAnswer ? Color.Error : Color.Primary;
-
-        var localCheckedBox = localIsCorrect ? Icons.Material.Filled.CheckBox : Icons.Material.Filled.Error;
-
-        var localIsChecked = localIsAnswer || localIsCorrect;
     }
 }
