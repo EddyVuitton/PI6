@@ -17,18 +17,13 @@ public partial class FormDetails
     private formularz _form = new();
     private List<formularz_pytanie> _questions = new();
     private List<formularz_pytanie_opcja> _options = new();
-    private IMask _pointsPatternMask = new PatternMask("00");
-    private IMask _regHours = new RegexMask(@"^([1-9][0-9]|[0-9])$");
-    private IMask _regMinutes = new RegexMask(@"^([0-5]?[0-9])$");
-    private IMask _regSeconds = new RegexMask(@"^([0-5]?[0-9])$");
+    private readonly IMask _pointsPatternMask = new PatternMask("00");
     private string _title = string.Empty;
     private DateTime _dateOpen = DateTime.Now;
     private DateTime? _dateClose;
-    private int? _allowedNumberAppr;
     private string _requiredSeconds;
     private string _requiredMinutes;
     private string _requiredHours;
-    private int? _passingThreshold;
 
     protected override async Task OnInitializedAsync()
     { 
@@ -44,11 +39,9 @@ public partial class FormDetails
         _title = _formDto.Nazwa;
         _dateOpen = _formDto.DataOtwarcia;
         _dateClose = _formDto.DataZamkniecia;
-        _allowedNumberAppr = _formDto.DozwolonePodejscia;
         _requiredSeconds = FormatRequiredTime(time.Seconds);
         _requiredMinutes = FormatRequiredTime(time.Minutes);
         _requiredHours = FormatRequiredTime(time.Hours);
-        _passingThreshold = _formDto.ProgZal;
 
         StateHasChanged();
     }
