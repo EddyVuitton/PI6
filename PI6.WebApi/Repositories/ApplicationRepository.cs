@@ -124,6 +124,7 @@ public class ApplicationRepository : IApplicationRepository
         var accountDto =
             from account in accounts
             join accountType in _context.account_type on account.us_ust_id equals accountType.ust_id
+            where account.us_email == email
             select new AccountDto
             {
                 UserId = account.us_id,

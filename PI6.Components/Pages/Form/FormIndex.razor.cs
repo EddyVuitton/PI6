@@ -38,8 +38,12 @@ public partial class FormIndex
         {
             try
             {
-                await LoadData();
-                StateHasChanged();
+                _accountDto = await AccountHelper.LoadAccount(authenticationState, ApplicationService);
+                if (_accountDto is not null)
+                {
+                    await LoadData();
+                    StateHasChanged();
+                }
             }
             catch (Exception e)
             {
@@ -50,7 +54,6 @@ public partial class FormIndex
 
     private async Task LoadData()
     {
-        _accountDto = await AccountHelper.LoadAccount(authenticationState, ApplicationService);
         _formTiles = await ApplicationService.GetFormTileDto();
         _activeFormTiles = _formTiles.Where(x => x.DataZamkniecia >= _now).ToList();
         _deactiveFormTiles = _formTiles.Where(x => x.DataZamkniecia < _now).ToList();
