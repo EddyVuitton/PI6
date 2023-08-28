@@ -180,7 +180,7 @@ public partial class FormCreate
         StateHasChanged();
     }
 
-    private void CreateForm()
+    private async Task CreateForm()
     {
         var questions = FormHelper.GetFormQuestionsDto(_questions, _options);
 
@@ -198,10 +198,10 @@ public partial class FormCreate
 
         try
         {
-            var responseMessage = ApplicationService.CreateForm(newForm);
-            if (!responseMessage.IsCompletedSuccessfully)
+            var responseMessage = await ApplicationService.CreateForm(newForm);
+            if (!responseMessage.IsSuccessStatusCode)
             {
-                throw responseMessage.Exception;
+                throw new Exception(responseMessage.ReasonPhrase);
             }
 
             ErrorHelper.ShowSnackbar("Poprawnie dodano test", Severity.Success);
