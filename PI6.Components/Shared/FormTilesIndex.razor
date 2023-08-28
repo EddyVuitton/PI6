@@ -6,24 +6,28 @@
     var tempEndDate = f.DataZamkniecia.HasValue ? f.DataZamkniecia.Value.Date.ToString("dd/MM/yyyy HH:mm") : "Nie określono";
     var tempCreateDate = tile.DataStworzenia.ToShortDateString();
 
-    <MudPaper Elevation="10" Width="300px" Style="">
-        <MudLink Href="@tempHref">
-            <MudPaper Elevation="0" Class="d-flex flex-column justify-start" Style="">
-                <MudPaper Elevation="0" Class="d-flex justify-start flex-column flex-grow-1" Style="margin: 1% 1% 2% 1%; background-color: inherit;">
-                    <MudText Style="color: black; font-weight: bold;">@f.Nazwa</MudText>
-                    <MudText Style="color: black;">Data stworzenia: @tempCreateDate</MudText>
-                    <MudText Style="color: black;">Data otwarcia: @tempStartDate</MudText>
-                    <MudText Style="color: black;">Data zamkniecia: @tempEndDate</MudText>
-                </MudPaper>
-            </MudPaper>
-        </MudLink>
+    <MudPaper Elevation="10" Width="300px" Class="d-flex flex-column justify-space-between">
+        <div style="height: 150px;">
+            <MudLink Href="@tempHref">
+                <div class="d-flex flex-column justify-space-between overflow-scroll" style="height:100%;">
+                    <div>
+                        <span style="color: black; font-weight: bold; font-size: 20px;">@f.Nazwa</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span style="color: black;">Data stworzenia: @tempCreateDate</span>
+                        <span style="color: black;">Data otwarcia: @tempStartDate</span>
+                        <span style="color: black;">Data zamkniecia: @tempEndDate</span>
+                    </div>
+                </div>
+            </MudLink>
+        </div>
 
         @if (!_isStudent)
         {
-            <MudPaper Elevation="0" Class="d-flex flex-row justify-space-between" Style="background-color: inherit;">
+            <div class="d-flex flex-row justify-space-between">
                 <MudButton OnClick="(() => OpenAssignFormDialog(f.ForId))" Variant="Variant.Outlined" Color="Color.Primary" Style="font-weight:bold; width: 140px; margin: 1%">Przypisz</MudButton>
                 <MudButton OnClick="(() => OpenFormDatesDialog(f.ForId))" Variant="Variant.Outlined" Color="Color.Info" Style="font-weight:bold; width: 140px; margin: 1%">Otwórz/Zamknij</MudButton>
-            </MudPaper>
+            </div>
         }
     </MudPaper>
 }
