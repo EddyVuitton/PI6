@@ -94,20 +94,30 @@ public partial class FormIndex
 
             _formsUserPointsSum.Add(f, userFormSumPoints);
         }
-               
-        DeleteActiveForms();
+
+        DeleteFormsWhenSolved();
     }
 
-    private void DeleteActiveForms()
+    private void DeleteFormsWhenSolved()
     {
-        var formToDelete =
+        var activeFormsToDelete =
             (from aft in _activeFormTiles
              join sf in _solvedForms on aft.ForId equals sf.fpod_for_id
              select aft).ToList();
 
-        for (int i = 0; i < formToDelete.Count; i++)
+        var deactiveFormsToDelete =
+            (from aft in _deactiveFormTiles
+             join sf in _solvedForms on aft.ForId equals sf.fpod_for_id
+             select aft).ToList();
+
+        for (int i = 0; i < activeFormsToDelete.Count; i++)
         {
-            _activeFormTiles.Remove(formToDelete[i]);
+            _activeFormTiles.Remove(activeFormsToDelete[i]);
+        }
+
+        for (int i = 0; i < deactiveFormsToDelete.Count; i++)
+        {
+            _deactiveFormTiles.Remove(deactiveFormsToDelete[i]);
         }
     }
 }
