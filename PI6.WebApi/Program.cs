@@ -1,4 +1,4 @@
-using PI6.Shared.DataSource;
+using PI6.Shared.Data;
 using PI6.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);

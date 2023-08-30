@@ -2,11 +2,11 @@
 using PI6.Shared.Data.Dtos;
 using PI6.Shared.Data.Entities;
 
-namespace PI6.Shared.DataSource;
+namespace PI6.Shared.Data;
 
 public partial class DBContext : DbContext
 {
-    public DBContext(DbContextOptions<DBContext> options) : base(options) {}
+    public DBContext(DbContextOptions<DBContext> options) : base(options) { }
 
     public virtual DbSet<formularz_typ> formularz_typ { get; set; }
     public virtual DbSet<formularz> formularz { get; set; }
@@ -29,7 +29,7 @@ public partial class DBContext : DbContext
     public virtual DbSet<FormDatesDto> form_dates_dto { get; set; }
 
     public virtual DbSet<FormResultDto> form_result_dto { get; set; }
-    
+
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
