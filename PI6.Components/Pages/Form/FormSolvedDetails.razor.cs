@@ -18,6 +18,7 @@ public partial class FormSolvedDetails
     private List<formularz_pytanie> _questions;
     private List<formularz_pytanie_opcja> _options;
     private List<formularz_podejscie_odpowiedz> _solvedFormsAnswers;
+    private List<formularz_pytanie_opcja> userCorrectAnswers;
 
     private int _formId;
     private string _title;
@@ -63,7 +64,7 @@ public partial class FormSolvedDetails
             _usedMinutes = FormatRequiredTime(timeSpan.Minutes);
             _usedHours = FormatRequiredTime(timeSpan.Hours);
 
-            var userCorrectAnswers =
+            userCorrectAnswers =
                 (from sfa in _solvedFormsAnswers
                  join co in _options on sfa.fodp_wybrana_odp equals co.fpop_id
                  where co.fpop_czy_poprawna
