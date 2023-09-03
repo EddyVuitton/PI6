@@ -15,7 +15,7 @@ public partial class FormIndex
     [Inject] public ISnackbarHelper ErrorHelper { get; set; }
     [Inject] public IAccountHelper AccountHelper { get; set; }
 
-    [CascadingParameter] private Task<AuthenticationState> authenticationState { get; set; }
+    [CascadingParameter] private Task<AuthenticationState> _authenticationState { get; set; }
 
     private List<FormularzKafelekDto> _formTiles;
     private List<FormularzKafelekDto> _activeFormTiles;
@@ -34,11 +34,11 @@ public partial class FormIndex
 
     protected override async Task OnInitializedAsync()
     {
-        if (authenticationState is not null)
+        if (_authenticationState is not null)
         {
             try
             {
-                _accountDto = await AccountHelper.LoadAccount(authenticationState, ApplicationService);
+                _accountDto = await AccountHelper.LoadAccount(_authenticationState, ApplicationService);
                 if (_accountDto is not null)
                 {
                     await LoadData();

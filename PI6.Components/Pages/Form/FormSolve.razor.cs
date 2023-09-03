@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using MudBlazor;
+using PI6.Components.Helpers;
 using PI6.Components.Helpers.Interfaces;
 using PI6.Components.Objects;
 using PI6.Shared.Data.Dtos;
@@ -16,6 +18,9 @@ public partial class FormSolve
     [Inject] public IApplicationService ApplicationService { get; set; }
     [Inject] public ISnackbarHelper ErrorHelper { get; set; }
     [Inject] public NavigationManager NavigationManager { get; set; }
+    [Inject] public IAccountHelper AccountHelper { get; set; }
+
+    [CascadingParameter] private Task<AuthenticationState> _authenticationState { get; set; }
 
     [Parameter] public int FormId { get; set; }
     [Parameter] public AppState AppState { get; set; } = new();
@@ -36,6 +41,27 @@ public partial class FormSolve
 
     protected override async Task OnInitializedAsync()
     {
+        if (_authenticationState is not null)
+        {
+            try
+            {
+                _accountDto = await AccountHelper.LoadAccount(_authenticationState, ApplicationService);
+
+                if (_accountDto is not null)
+                {
+                    await LoadData();
+                    StateHasChanged();
+                }
+            }
+            catch (Exception e)
+            {
+                ErrorHelper.ShowSnackbar(e.Message, Severity.Error, false, true);
+            }
+        }
+    }
+
+    private async Task LoadData()
+    {
         AppState.LoadStateChanged += OnStateChanged;
 
         _questions = await ApplicationService.GetFormQuestions(FormId);
@@ -44,22 +70,12 @@ public partial class FormSolve
 
         _formQuestionsDto = FormHelper.GetFormQuestionsDto(_questions, _options);
         _formDto = FormHelper.GetFormularzDto(_form, _formQuestionsDto);
-        
+
         _title = _formDto.Nazwa;
         _requiredTime = _formDto.LimitCzasu ?? 0;
         AppState.RequiredTime = _requiredTime;
 
         UpdateOptionsOnInitial();
-
-        await LoadAccount();
-
-        StateHasChanged();
-    }
-
-    private async Task LoadAccount()
-    {
-        var loggedEmail = await JSRuntime.GetFromLocalStorage("email");
-        _accountDto = await ApplicationService.GetAccountDtoByEmail(loggedEmail);
     }
 
     private void OnStateChanged() => this.InvokeAsync(StateHasChanged);
